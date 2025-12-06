@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initParallaxEffect();
     initCursorGlow();
     initFloatingDock();
+    initTodoDemo();
 });
 
 /* ===================================================
@@ -258,6 +259,42 @@ function initFloatingDock() {
             ticking = true;
         }
     });
+}
+
+/* ===================================================
+   ANIMATED TODO DEMO
+   =================================================== */
+
+function initTodoDemo() {
+    const demoTasks = document.querySelectorAll('.demo-task');
+    
+    if (!demoTasks.length) return;
+    
+    // Animate each task being checked
+    demoTasks.forEach((task, index) => {
+        const delay = parseInt(task.dataset.delay) || 0;
+        
+        setTimeout(() => {
+            task.classList.add('completed');
+        }, (delay + 1) * 1000);
+    });
+    
+    // Loop the animation
+    setInterval(() => {
+        // Reset all tasks
+        demoTasks.forEach(task => {
+            task.classList.remove('completed');
+        });
+        
+        // Re-animate
+        demoTasks.forEach((task, index) => {
+            const delay = parseInt(task.dataset.delay) || 0;
+            
+            setTimeout(() => {
+                task.classList.add('completed');
+            }, (delay + 1) * 1000);
+        });
+    }, 11000); // Repeat every 11 seconds (10s animation + 1s pause)
 }
 
 /* ===================================================
