@@ -3,13 +3,8 @@
    Handles OAuth authentication and file operations
    =================================================== */
 
-// OAuth Configuration
-const CONFIG = {
-    clientId: '144623829478-7c9tubnu99u7nnta8ufmh6cfhel4v51t.apps.googleusercontent.com',
-    redirectUri: 'https://syrthax.github.io/ido/web/index.html',
-    scope: 'https://www.googleapis.com/auth/drive.file',
-    fileName: 'ido-data.json'
-};
+// OAuth Configuration is loaded from config.js (not committed to git)
+// See config.example.js for template
 
 // State management
 let accessToken = null;
@@ -124,6 +119,7 @@ async function handleCallback() {
             },
             body: new URLSearchParams({
                 client_id: CONFIG.clientId,
+                client_secret: CONFIG.clientSecret,
                 code: code,
                 code_verifier: codeVerifier,
                 grant_type: 'authorization_code',
@@ -195,6 +191,7 @@ async function refreshAccessToken() {
             },
             body: new URLSearchParams({
                 client_id: CONFIG.clientId,
+                client_secret: CONFIG.clientSecret,
                 grant_type: 'refresh_token',
                 refresh_token: refreshToken
             })

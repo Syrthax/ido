@@ -1,0 +1,12 @@
+# OAuth Secrets
+web/config.js
+
+# macOS
+.DS_Store
+
+# Editor
+.vscode/
+.idea/
+
+# Logs
+*.log
