@@ -434,6 +434,90 @@ body {
 }
 
 /* ===================================================
+   FLOATING DOCK
+   =================================================== */
+
+.floating-dock {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(0);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 12px;
+    background: var(--glass-bg);
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 50px;
+    box-shadow: 0 8px 32px rgba(37, 99, 235, 0.15),
+                0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+    z-index: 1000;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.3s ease;
+    opacity: 1;
+}
+
+.floating-dock.hidden {
+    transform: translateX(-50%) translateY(150%);
+    opacity: 0;
+    pointer-events: none;
+}
+
+@media (prefers-color-scheme: dark) {
+    .floating-dock {
+        box-shadow: 0 8px 32px rgba(59, 130, 246, 0.2),
+                    0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+    }
+}
+
+.dock-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 10px 14px;
+    color: var(--text-primary);
+    text-decoration: none;
+    border-radius: 40px;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    position: relative;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+}
+
+.dock-item svg {
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dock-item span {
+    white-space: nowrap;
+    color: var(--text-secondary);
+}
+
+.dock-item:hover {
+    background: var(--bg-secondary);
+    transform: translateY(-3px);
+}
+
+.dock-item:hover svg {
+    transform: scale(1.15);
+    color: var(--accent);
+}
+
+.dock-item:hover span {
+    color: var(--accent);
+}
+
+.dock-item:active {
+    transform: translateY(-1px) scale(0.95);
+}
+
+/* ===================================================
    RESPONSIVE DESIGN
    =================================================== */
 

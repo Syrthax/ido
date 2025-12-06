@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initSmoothScroll();
     initParallaxEffect();
     initCursorGlow();
+    initFloatingDock();
 });
 
 /* ===================================================
@@ -207,6 +208,57 @@ function fadeInOnScroll() {
 
 window.addEventListener('scroll', fadeInOnScroll);
 fadeInOnScroll(); // Initial check
+
+/* ===================================================
+   FLOATING DOCK - SCROLL BEHAVIOR
+   =================================================== */
+
+function initFloatingDock() {
+    const dock = document.getElementById('floating-dock');
+    if (!dock) return;
+    
+    let lastScrollTop = 0;
+    let scrollThreshold = 5; // Minimum scroll distance to trigger
+    let hideTimeout;
+    
+    function handleScroll() {
+        const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+        
+        // Clear any existing timeout
+        clearTimeout(hideTimeout);
+        
+        // Check if we're at the top of the page
+        if (currentScroll <= 100) {
+            dock.classList.remove('hidden');
+            lastScrollTop = currentScroll;
+            return;
+        }
+        
+        // Determine scroll direction
+        if (Math.abs(currentScroll - lastScrollTop) > scrollThreshold) {
+            if (currentScroll > lastScrollTop) {
+                // Scrolling down - hide dock
+                dock.classList.add('hidden');
+            } else {
+                // Scrolling up - show dock
+                dock.classList.remove('hidden');
+            }
+            lastScrollTop = currentScroll;
+        }
+    }
+    
+    // Use requestAnimationFrame for smoother performance
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            window.requestAnimationFrame(() => {
+                handleScroll();
+                ticking = false;
+            });
+            ticking = true;
+        }
+    });
+}
 
 /* ===================================================
    PERFORMANCE OPTIMIZATION
