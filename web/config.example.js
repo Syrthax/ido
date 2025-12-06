@@ -1,5 +1,6 @@
 // OAuth Configuration Template
 // Copy this file to config.js and add your actual credentials
+// Note: With GitHub Actions, secrets are automatically injected during deployment
 const CONFIG = {
     clientId: 'YOUR_CLIENT_ID_HERE',
     clientSecret: 'YOUR_CLIENT_SECRET_HERE',
