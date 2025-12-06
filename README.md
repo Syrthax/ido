@@ -54,16 +54,12 @@ Hosting	GitHub Pages
 	1.	User signs in with Google.
 	2.	OAuth returns a token authorized for Drive access.
 	3.	iDo checks for a folder named "iDo" in Google Drive.
-	•	If not found, it creates one.
+	•    If not found, it creates one.
 	4.	Tasks are stored in a JSON file: iDo/tasks.json, this is how the json file looks
-	<img width="1710" height="982" alt="image" src="https://github.com/user-attachments/assets/5c21034e-16aa-4564-a948-4744eaa59503" />
-
-
-
 	5.	Adding/deleting tasks immediately updates the Drive file.
 
 This architecture means iDo requires no backend server, making it extremely fast, safe, and free to operate.
-
+<img width="1710" height="982" alt="image" src="https://github.com/user-attachments/assets/5c21034e-16aa-4564-a948-4744eaa59503" />
 
 # 🧑‍💻 Run Locally (Development Setup)
 	1.	Clone the repo:
