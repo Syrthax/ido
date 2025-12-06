@@ -7,7 +7,7 @@ No servers, no databases, no tracking — all your tasks are stored securely in 
 
 ✨ Perfect for students, builders, and anyone who wants a frictionless, cross-device to-do list.
 
-⸻
+
 
 # 🌟 Features
 
@@ -30,14 +30,14 @@ No servers, no databases, no tracking — all your tasks are stored securely in 
 	•	No analytics, no cookies, no logging
 	•	Perfect for privacy-conscious users
 
-⸻
+
 
 # 🖼️ Live Demo
 
 👉 Use the web app here:
 https://syrthax.github.io/ido/web/
 
-⸻
+
 
 # 🧰 Tech Stack
 
@@ -48,23 +48,22 @@ Storage	Google Drive API
 Hosting	GitHub Pages
 
 
-⸻
+
 
 # 🛠️ How It Works (Simple Overview)
 	1.	User signs in with Google.
 	2.	OAuth returns a token authorized for Drive access.
 	3.	iDo checks for a folder named "iDo" in Google Drive.
 	•	If not found, it creates one.
-	4.	Tasks are stored in a JSON file:
+	4.	Tasks are stored in a JSON file: iDo/tasks.json, this is how the json file looks
+	<img width="1710" height="982" alt="image" src="https://github.com/user-attachments/assets/5c21034e-16aa-4564-a948-4744eaa59503" />
 
-iDo/tasks.json
 
 
 	5.	Adding/deleting tasks immediately updates the Drive file.
 
 This architecture means iDo requires no backend server, making it extremely fast, safe, and free to operate.
 
-⸻
 
 # 🧑‍💻 Run Locally (Development Setup)
 	1.	Clone the repo:
@@ -78,7 +77,6 @@ web/config.js
 
 	3.	Use Live Server or open /web/index.html directly.
 
-⸻
 
 # 📁 Project Structure
 
@@ -94,26 +92,21 @@ web/config.js
 ├── config.js (local only, contains secrets)
 
 
-⸻
 
 # 📜 License
 
 This project is open-source under the MIT License.
 You are free to modify, distribute, and use it in your own projects.
 
-⸻
 
 # 🤝 Contributing
 
 Pull requests are welcome!
 If you have ideas for improvements—like reminders, labels, widgets—drop an issue or submit PRs.
 
-⸻
 
 # ✨ Author
 
 Sarthak
 Portfolio: [Portfolio](https://syrthax.github.io/)
 GitHub: https://github.com/Syrthax
-
-⸻
