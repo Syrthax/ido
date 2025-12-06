@@ -351,9 +351,16 @@ body {
 
 .add-task-section {
     display: flex;
+    flex-direction: column;
     gap: 12px;
     margin-bottom: 36px;
     position: relative;
+}
+
+.task-input-wrapper {
+    display: flex;
+    gap: 8px;
+    align-items: center;
 }
 
 #task-input {
@@ -386,6 +393,274 @@ body {
     #task-input:focus {
         box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.05);
     }
+}
+
+.datetime-toggle-btn {
+    width: 48px;
+    height: 48px;
+    background: var(--glass-bg);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border: 1.5px solid var(--border-color);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    color: var(--text-secondary);
+}
+
+.datetime-toggle-btn:hover {
+    background: var(--bg-secondary);
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-2px);
+}
+
+.datetime-toggle-btn.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--bg-primary);
+}
+
+.datetime-panel {
+    background: var(--glass-bg);
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    border: 1.5px solid var(--border-color);
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: var(--shadow);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: slideDown 0.3s ease-out;
+}
+
+.datetime-panel.hidden {
+    display: none;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.datetime-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+    background: var(--bg-secondary);
+    padding: 4px;
+    border-radius: 12px;
+}
+
+.datetime-tab {
+    flex: 1;
+    padding: 10px 16px;
+    background: transparent;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.datetime-tab.active {
+    background: var(--accent);
+    color: var(--bg-primary);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.datetime-tab-content {
+    display: none;
+}
+
+.datetime-tab-content.active {
+    display: block;
+}
+
+#natural-date-input {
+    width: 100%;
+    padding: 14px 16px;
+    background: var(--bg-secondary);
+    border: 1.5px solid var(--border-color);
+    border-radius: 12px;
+    font-size: 15px;
+    color: var(--text-primary);
+    outline: none;
+    transition: all 0.3s ease;
+    margin-bottom: 12px;
+}
+
+#natural-date-input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
+}
+
+@media (prefers-color-scheme: dark) {
+    #natural-date-input:focus {
+        box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.05);
+    }
+}
+
+.natural-suggestions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.suggestion-chip {
+    padding: 8px 16px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.suggestion-chip:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--bg-primary);
+    transform: translateY(-2px);
+}
+
+.datetime-inputs {
+    display: flex;
+    gap: 12px;
+}
+
+.glass-input {
+    flex: 1;
+    padding: 14px 16px;
+    background: var(--bg-secondary);
+    border: 1.5px solid var(--border-color);
+    border-radius: 12px;
+    font-size: 15px;
+    color: var(--text-primary);
+    outline: none;
+    transition: all 0.3s ease;
+    font-family: inherit;
+}
+
+.glass-input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
+}
+
+@media (prefers-color-scheme: dark) {
+    .glass-input:focus {
+        box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.05);
+    }
+}
+
+.glass-input::-webkit-calendar-picker-indicator {
+    filter: invert(0.5);
+    cursor: pointer;
+}
+
+@media (prefers-color-scheme: dark) {
+    .glass-input::-webkit-calendar-picker-indicator {
+        filter: invert(1);
+    }
+}
+
+.reminder-section {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border-color);
+}
+
+.reminder-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+.reminder-label input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.glass-select {
+    flex: 1;
+    padding: 10px 14px;
+    background: var(--bg-secondary);
+    border: 1.5px solid var(--border-color);
+    border-radius: 10px;
+    font-size: 14px;
+    color: var(--text-primary);
+    outline: none;
+    transition: all 0.3s ease;
+    font-family: inherit;
+}
+
+.glass-select:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.glass-select:focus:not(:disabled) {
+    border-color: var(--accent);
+}
+
+.datetime-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 16px;
+}
+
+.btn-secondary-small,
+.btn-primary-small {
+    flex: 1;
+    padding: 12px 20px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.btn-secondary-small {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    border: 1.5px solid var(--border-color);
+}
+
+.btn-secondary-small:hover {
+    background: var(--glass-bg);
+    transform: translateY(-2px);
+}
+
+.btn-primary-small {
+    background: var(--accent);
+    color: var(--bg-primary);
+}
+
+.btn-primary-small:hover {
+    background: var(--accent-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .add-button {
@@ -560,12 +835,87 @@ body {
     color: var(--text-primary);
     word-break: break-word;
     transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.task-main-text {
+    display: block;
+}
+
+.task-due-date {
+    font-size: 13px;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.task-due-date svg {
+    width: 14px;
+    height: 14px;
 }
 
 .task-item.completed .task-text {
     text-decoration: line-through;
     color: var(--text-secondary);
     opacity: 0.5;
+}
+
+/* Overdue Task Styling */
+.task-item.overdue {
+    background: rgba(220, 38, 38, 0.08);
+    border-color: rgba(220, 38, 38, 0.3);
+}
+
+@media (prefers-color-scheme: dark) {
+    .task-item.overdue {
+        background: rgba(239, 68, 68, 0.12);
+        border-color: rgba(239, 68, 68, 0.35);
+    }
+}
+
+.task-item.overdue .task-text {
+    color: var(--delete-text);
+}
+
+.task-item.overdue .task-due-date {
+    color: var(--delete-text);
+    font-weight: 600;
+}
+
+.task-item.overdue:hover {
+    background: rgba(220, 38, 38, 0.12);
+    border-color: rgba(220, 38, 38, 0.4);
+    box-shadow: 0 4px 16px rgba(220, 38, 38, 0.15);
+}
+
+@media (prefers-color-scheme: dark) {
+    .task-item.overdue:hover {
+        background: rgba(239, 68, 68, 0.16);
+        border-color: rgba(239, 68, 68, 0.45);
+        box-shadow: 0 4px 16px rgba(239, 68, 68, 0.2);
+    }
+}
+
+.overdue-badge {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    background: var(--delete-bg);
+    border: 1px solid var(--delete-border);
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--delete-text);
+    white-space: nowrap;
+}
+
+.overdue-badge svg {
+    width: 14px;
+    height: 14px;
 }
 
 .delete-button {
@@ -705,15 +1055,45 @@ body {
     }
 
     .add-task-section {
-        flex-direction: column;
+        gap: 12px;
+    }
+    
+    .task-input-wrapper {
+        flex-direction: row;
     }
 
     .add-button {
         width: 100%;
     }
+    
+    .datetime-inputs {
+        flex-direction: column;
+    }
+    
+    .reminder-section {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .glass-select {
+        width: 100%;
+    }
 
     .task-item {
-        padding: 12px;
+        padding: 14px;
+        flex-wrap: wrap;
+    }
+    
+    .task-text {
+        flex: 1;
+        min-width: 0;
+    }
+    
+    .overdue-badge {
+        order: 3;
+        width: 100%;
+        margin-top: 8px;
+        justify-content: center;
     }
 
     .delete-button {

@@ -38,12 +38,76 @@
 
             <!-- Add Task Input -->
             <div class="add-task-section">
-                <input 
-                    type="text" 
-                    id="task-input" 
-                    placeholder="What needs to be done?" 
-                    autocomplete="off"
-                />
+                <div class="task-input-wrapper">
+                    <input 
+                        type="text" 
+                        id="task-input" 
+                        placeholder="What needs to be done?" 
+                        autocomplete="off"
+                    />
+                    <button id="add-datetime-btn" class="datetime-toggle-btn" title="Add due date/time">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                            <line x1="16" y1="2" x2="16" y2="6"></line>
+                            <line x1="8" y1="2" x2="8" y2="6"></line>
+                            <line x1="3" y1="10" x2="21" y2="10"></line>
+                        </svg>
+                    </button>
+                </div>
+                
+                <!-- Date/Time Picker Panel -->
+                <div id="datetime-panel" class="datetime-panel hidden">
+                    <div class="datetime-tabs">
+                        <button class="datetime-tab active" data-tab="natural">Natural</button>
+                        <button class="datetime-tab" data-tab="picker">Date & Time</button>
+                    </div>
+                    
+                    <div class="datetime-content">
+                        <!-- Natural Language Input -->
+                        <div class="datetime-tab-content active" data-content="natural">
+                            <input 
+                                type="text" 
+                                id="natural-date-input" 
+                                placeholder="e.g., tomorrow at 3pm, next monday 9am"
+                                autocomplete="off"
+                            />
+                            <div class="natural-suggestions">
+                                <button class="suggestion-chip" data-natural="tomorrow 9am">Tomorrow 9am</button>
+                                <button class="suggestion-chip" data-natural="today 6pm">Today 6pm</button>
+                                <button class="suggestion-chip" data-natural="next monday 10am">Next Monday 10am</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Traditional Picker -->
+                        <div class="datetime-tab-content" data-content="picker">
+                            <div class="datetime-inputs">
+                                <input type="date" id="date-picker" class="glass-input" aria-label="Select date" />
+                                <input type="time" id="time-picker" class="glass-input" aria-label="Select time" />
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Reminder Settings -->
+                    <div class="reminder-section">
+                        <label class="reminder-label">
+                            <input type="checkbox" id="reminder-enabled" />
+                            <span>Remind me</span>
+                        </label>
+                        <select id="reminder-time" class="glass-select" disabled aria-label="Reminder time">
+                            <option value="0">At the time</option>
+                            <option value="5">5 minutes before</option>
+                            <option value="15">15 minutes before</option>
+                            <option value="30">30 minutes before</option>
+                            <option value="60">1 hour before</option>
+                        </select>
+                    </div>
+                    
+                    <div class="datetime-actions">
+                        <button id="clear-datetime-btn" class="btn-secondary-small">Clear</button>
+                        <button id="set-datetime-btn" class="btn-primary-small">Set</button>
+                    </div>
+                </div>
+                
                 <button id="add-task-btn" class="add-button">Add</button>
             </div>
 
