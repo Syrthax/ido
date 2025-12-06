@@ -1,0 +1,335 @@
+/* ===================================================
+   GLOBAL STYLES
+   =================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.container {
+    width: 100%;
+    max-width: 600px;
+}
+
+.section {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    transition: all 0.3s ease;
+}
+
+.hidden {
+    display: none;
+}
+
+/* ===================================================
+   LOGIN SECTION
+   =================================================== */
+
+.login-box {
+    text-align: center;
+}
+
+.login-box h1 {
+    font-size: 48px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.subtitle {
+    color: #666;
+    margin-bottom: 40px;
+    font-size: 16px;
+}
+
+.login-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: white;
+    border: 2px solid #ddd;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #444;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.login-button:hover {
+    background: #f8f9fa;
+    border-color: #ccc;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.login-button:active {
+    transform: translateY(0);
+}
+
+/* ===================================================
+   APP HEADER
+   =================================================== */
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+.header h1 {
+    font-size: 32px;
+    color: #333;
+}
+
+.logout-button {
+    background: #f44336;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.logout-button:hover {
+    background: #d32f2f;
+    transform: translateY(-1px);
+}
+
+/* ===================================================
+   ADD TASK SECTION
+   =================================================== */
+
+.add-task-section {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+#task-input {
+    flex: 1;
+    padding: 14px 18px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: all 0.2s ease;
+    outline: none;
+}
+
+#task-input:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.add-button {
+    background: #667eea;
+    color: white;
+    border: none;
+    padding: 14px 28px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.add-button:hover {
+    background: #5568d3;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.add-button:active {
+    transform: translateY(0);
+}
+
+/* ===================================================
+   TASKS CONTAINER
+   =================================================== */
+
+.tasks-container {
+    min-height: 200px;
+    max-height: 400px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+}
+
+.tasks-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.tasks-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.tasks-container::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+}
+
+.tasks-container::-webkit-scrollbar-thumb:hover {
+    background: #999;
+}
+
+.task-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    transition: all 0.2s ease;
+}
+
+.task-item:hover {
+    background: #f0f0f0;
+    transform: translateX(4px);
+}
+
+.task-item.completed {
+    opacity: 0.6;
+}
+
+.task-checkbox {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    accent-color: #667eea;
+}
+
+.task-text {
+    flex: 1;
+    font-size: 16px;
+    color: #333;
+    word-break: break-word;
+}
+
+.task-item.completed .task-text {
+    text-decoration: line-through;
+    color: #999;
+}
+
+.delete-button {
+    background: #ff5252;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    opacity: 0;
+}
+
+.task-item:hover .delete-button {
+    opacity: 1;
+}
+
+.delete-button:hover {
+    background: #ff1744;
+    transform: scale(1.05);
+}
+
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: #999;
+}
+
+.empty-state p {
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+.empty-state small {
+    font-size: 14px;
+    color: #bbb;
+}
+
+/* ===================================================
+   SYNC STATUS
+   =================================================== */
+
+.sync-status {
+    text-align: center;
+    padding-top: 20px;
+    border-top: 2px solid #f0f0f0;
+    font-size: 14px;
+    color: #666;
+}
+
+#sync-status-text {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.sync-status.saving #sync-status-text::before {
+    content: "⏳";
+}
+
+.sync-status.synced #sync-status-text::before {
+    content: "✔️";
+    color: #4caf50;
+}
+
+.sync-status.error #sync-status-text::before {
+    content: "⚠️";
+    color: #f44336;
+}
+
+/* ===================================================
+   RESPONSIVE DESIGN
+   =================================================== */
+
+@media (max-width: 600px) {
+    .section {
+        padding: 24px;
+    }
+
+    .header h1 {
+        font-size: 24px;
+    }
+
+    .login-box h1 {
+        font-size: 36px;
+    }
+
+    .add-task-section {
+        flex-direction: column;
+    }
+
+    .add-button {
+        width: 100%;
+    }
+
+    .task-item {
+        padding: 12px;
+    }
+
+    .delete-button {
+        opacity: 1;
+    }
+}
