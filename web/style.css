@@ -461,7 +461,6 @@ body {
 .task-item:hover {
     background: var(--bg-secondary);
     border-color: var(--accent);
-    transform: translateX(8px) translateY(-2px);
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
     z-index: 2;
 }
