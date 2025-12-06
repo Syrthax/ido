@@ -10,15 +10,15 @@
 
 :root {
     --bg-primary: #ffffff;
-    --bg-secondary: #f5f5f5;
+    --bg-secondary: #f8faff;
     --text-primary: #000000;
     --text-secondary: #666666;
-    --border-color: rgba(0, 0, 0, 0.08);
+    --border-color: rgba(37, 99, 235, 0.15);
     --glass-bg: rgba(255, 255, 255, 0.6);
-    --glass-border: rgba(0, 0, 0, 0.08);
-    --shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
-    --accent: #000000;
-    --accent-hover: #333333;
+    --glass-border: rgba(37, 99, 235, 0.2);
+    --shadow: 0 8px 32px rgba(37, 99, 235, 0.12);
+    --accent: #2563eb;
+    --accent-hover: #1d4ed8;
     --delete-bg: rgba(220, 38, 38, 0.1);
     --delete-border: rgba(220, 38, 38, 0.2);
     --delete-text: #dc2626;
@@ -27,15 +27,15 @@
 @media (prefers-color-scheme: dark) {
     :root {
         --bg-primary: #000000;
-        --bg-secondary: #1a1a1a;
+        --bg-secondary: #0a0e1a;
         --text-primary: #ffffff;
         --text-secondary: #999999;
-        --border-color: rgba(255, 255, 255, 0.08);
+        --border-color: rgba(59, 130, 246, 0.2);
         --glass-bg: rgba(0, 0, 0, 0.6);
-        --glass-border: rgba(255, 255, 255, 0.08);
-        --shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
-        --accent: #ffffff;
-        --accent-hover: #cccccc;
+        --glass-border: rgba(59, 130, 246, 0.25);
+        --shadow: 0 8px 32px rgba(59, 130, 246, 0.15);
+        --accent: #3b82f6;
+        --accent-hover: #60a5fa;
         --delete-bg: rgba(239, 68, 68, 0.15);
         --delete-border: rgba(239, 68, 68, 0.25);
         --delete-text: #ef4444;
@@ -68,7 +68,7 @@ body {
 .blob-1 {
     width: 500px;
     height: 500px;
-    background: radial-gradient(circle, rgba(0, 0, 0, 0.03) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(37, 99, 235, 0.08) 0%, transparent 70%);
     top: -10%;
     left: -10%;
     animation-delay: 0s;
@@ -76,7 +76,7 @@ body {
 
 @media (prefers-color-scheme: dark) {
     .blob-1 {
-        background: radial-gradient(circle, rgba(255, 255, 255, 0.03) 0%, transparent 70%);
+        background: radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%);
     }
 }
 
