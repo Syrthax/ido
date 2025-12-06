@@ -8,27 +8,117 @@
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: #1a1a2e;
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 20px;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Animated Background */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    z-index: -2;
+}
+
+.background-blob {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.5;
+    z-index: -1;
+    animation: float 20s infinite ease-in-out;
+}
+
+.blob-1 {
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, #667eea 0%, #764ba2 100%);
+    top: -10%;
+    left: -10%;
+    animation-delay: 0s;
+}
+
+.blob-2 {
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, #f093fb 0%, #f5576c 100%);
+    top: 50%;
+    right: -5%;
+    animation-delay: 7s;
+}
+
+.blob-3 {
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, #4facfe 0%, #00f2fe 100%);
+    bottom: -15%;
+    left: 30%;
+    animation-delay: 14s;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translate(0, 0) scale(1);
+    }
+    33% {
+        transform: translate(50px, -50px) scale(1.1);
+    }
+    66% {
+        transform: translate(-30px, 30px) scale(0.9);
+    }
 }
 
 .container {
     width: 100%;
     max-width: 600px;
+    position: relative;
+    z-index: 1;
 }
 
 .section {
-    background: white;
-    border-radius: 16px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
     padding: 40px;
-    transition: all 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.section:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-5px);
+    box-shadow: 0 12px 48px 0 rgba(31, 38, 135, 0.5);
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .hidden {
@@ -46,11 +136,15 @@ body {
 .login-box h1 {
     font-size: 48px;
     margin-bottom: 10px;
-    color: #333;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: float-icon 3s infinite ease-in-out;
 }
 
 .subtitle {
-    color: #666;
+    color: rgba(255, 255, 255, 0.8);
     margin-bottom: 40px;
     font-size: 16px;
 }
@@ -59,26 +153,51 @@ body {
     display: inline-flex;
     align-items: center;
     gap: 12px;
-    background: white;
-    border: 2px solid #ddd;
-    padding: 12px 24px;
-    border-radius: 8px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    padding: 14px 32px;
+    border-radius: 16px;
     font-size: 16px;
-    font-weight: 500;
-    color: #444;
+    font-weight: 600;
+    color: white;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4);
+    position: relative;
+    overflow: hidden;
+}
+
+.login-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.login-button:hover::before {
+    left: 100%;
 }
 
 .login-button:hover {
-    background: #f8f9fa;
-    border-color: #ccc;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 12px 32px rgba(102, 126, 234, 0.6);
 }
 
 .login-button:active {
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
+}
+
+@keyframes float-icon {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
 }
 
 /* ===================================================
@@ -91,29 +210,36 @@ body {
     align-items: center;
     margin-bottom: 30px;
     padding-bottom: 20px;
-    border-bottom: 2px solid #f0f0f0;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
 }
 
 .header h1 {
     font-size: 32px;
-    color: #333;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: float-icon 3s infinite ease-in-out;
 }
 
 .logout-button {
-    background: #f44336;
-    color: white;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 6px;
+    background: rgba(244, 67, 54, 0.2);
+    color: #ff5252;
+    border: 1px solid rgba(244, 67, 54, 0.3);
+    backdrop-filter: blur(10px);
+    padding: 10px 20px;
+    border-radius: 12px;
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 600;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .logout-button:hover {
-    background: #d32f2f;
-    transform: translateY(-1px);
+    background: rgba(244, 67, 54, 0.3);
+    border-color: rgba(244, 67, 54, 0.5);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(244, 67, 54, 0.3);
 }
 
 /* ===================================================
@@ -128,35 +254,61 @@ body {
 
 #task-input {
     flex: 1;
-    padding: 14px 18px;
-    border: 2px solid #e0e0e0;
-    border-radius: 8px;
+    padding: 16px 20px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
     font-size: 16px;
-    transition: all 0.2s ease;
+    color: white;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     outline: none;
 }
 
+#task-input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
 #task-input:focus {
-    border-color: #667eea;
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(102, 126, 234, 0.6);
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+    transform: translateY(-2px);
 }
 
 .add-button {
-    background: #667eea;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
     border: none;
-    padding: 14px 28px;
-    border-radius: 8px;
+    padding: 16px 32px;
+    border-radius: 12px;
     font-size: 16px;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+    position: relative;
+    overflow: hidden;
+}
+
+.add-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.add-button:hover::before {
+    left: 100%;
 }
 
 .add-button:hover {
-    background: #5568d3;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.5);
 }
 
 .add-button:active {
@@ -179,67 +331,92 @@ body {
 }
 
 .tasks-container::-webkit-scrollbar-track {
-    background: #f1f1f1;
+    background: rgba(255, 255, 255, 0.05);
     border-radius: 4px;
 }
 
 .tasks-container::-webkit-scrollbar-thumb {
-    background: #ccc;
+    background: rgba(255, 255, 255, 0.2);
     border-radius: 4px;
+    transition: background 0.3s ease;
 }
 
 .tasks-container::-webkit-scrollbar-thumb:hover {
-    background: #999;
+    background: rgba(255, 255, 255, 0.3);
 }
 
 .task-item {
     display: flex;
     align-items: center;
     gap: 12px;
-    padding: 16px;
-    background: #f9f9f9;
-    border-radius: 8px;
-    margin-bottom: 10px;
-    transition: all 0.2s ease;
+    padding: 18px;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    margin-bottom: 12px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
 }
 
 .task-item:hover {
-    background: #f0f0f0;
-    transform: translateX(4px);
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateX(8px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .task-item.completed {
-    opacity: 0.6;
+    opacity: 0.5;
 }
 
 .task-checkbox {
-    width: 20px;
-    height: 20px;
+    width: 22px;
+    height: 22px;
     cursor: pointer;
     accent-color: #667eea;
+    transition: transform 0.2s ease;
+}
+
+.task-checkbox:hover {
+    transform: scale(1.1);
 }
 
 .task-text {
     flex: 1;
     font-size: 16px;
-    color: #333;
+    color: rgba(255, 255, 255, 0.9);
     word-break: break-word;
+    transition: all 0.3s ease;
 }
 
 .task-item.completed .task-text {
     text-decoration: line-through;
-    color: #999;
+    color: rgba(255, 255, 255, 0.4);
 }
 
 .delete-button {
-    background: #ff5252;
-    color: white;
-    border: none;
-    padding: 6px 12px;
-    border-radius: 6px;
+    background: rgba(255, 82, 82, 0.2);
+    color: #ff5252;
+    border: 1px solid rgba(255, 82, 82, 0.3);
+    backdrop-filter: blur(10px);
+    padding: 8px 16px;
+    border-radius: 8px;
     font-size: 14px;
+    font-weight: 600;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     opacity: 0;
 }
 
@@ -248,24 +425,37 @@ body {
 }
 
 .delete-button:hover {
-    background: #ff1744;
+    background: rgba(255, 82, 82, 0.3);
+    border-color: rgba(255, 82, 82, 0.5);
     transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(255, 82, 82, 0.3);
 }
 
 .empty-state {
     text-align: center;
     padding: 60px 20px;
-    color: #999;
+    color: rgba(255, 255, 255, 0.5);
+    animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 .empty-state p {
     font-size: 18px;
     margin-bottom: 8px;
+    color: rgba(255, 255, 255, 0.6);
 }
 
 .empty-state small {
     font-size: 14px;
-    color: #bbb;
+    color: rgba(255, 255, 255, 0.4);
 }
 
 /* ===================================================
@@ -275,29 +465,56 @@ body {
 .sync-status {
     text-align: center;
     padding-top: 20px;
-    border-top: 2px solid #f0f0f0;
+    border-top: 2px solid rgba(255, 255, 255, 0.1);
     font-size: 14px;
-    color: #666;
+    color: rgba(255, 255, 255, 0.6);
 }
 
 #sync-status-text {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+}
+
+.sync-status.saving #sync-status-text {
+    background: rgba(255, 193, 7, 0.1);
+    color: #ffc107;
+    animation: pulse 1.5s infinite;
 }
 
 .sync-status.saving #sync-status-text::before {
     content: "⏳";
 }
 
+.sync-status.synced #sync-status-text {
+    background: rgba(76, 175, 80, 0.1);
+    color: #4caf50;
+}
+
 .sync-status.synced #sync-status-text::before {
     content: "✔️";
-    color: #4caf50;
+}
+
+.sync-status.error #sync-status-text {
+    background: rgba(244, 67, 54, 0.1);
+    color: #f44336;
 }
 
 .sync-status.error #sync-status-text::before {
     content: "⚠️";
-    color: #f44336;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.6;
+    }
 }
 
 /* ===================================================
