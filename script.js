@@ -170,6 +170,12 @@ const buttons = document.querySelectorAll('.btn');
 
 buttons.forEach(button => {
     button.addEventListener('click', function(e) {
+        // Remove if there's already a ripple
+        const existingRipple = this.querySelector('.ripple');
+        if (existingRipple) {
+            existingRipple.remove();
+        }
+        
         const ripple = document.createElement('span');
         const rect = this.getBoundingClientRect();
         
@@ -177,11 +183,20 @@ buttons.forEach(button => {
         const x = e.clientX - rect.left - size / 2;
         const y = e.clientY - rect.top - size / 2;
         
-        ripple.style.width = ripple.style.height = size + 'px';
-        ripple.style.left = x + 'px';
-        ripple.style.top = y + 'px';
-        ripple.classList.add('ripple');
+        ripple.style.cssText = `
+            position: absolute;
+            width: ${size}px;
+            height: ${size}px;
+            left: ${x}px;
+            top: ${y}px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(0);
+            animation: rippleEffect 0.6s ease-out;
+            pointer-events: none;
+        `;
         
+        ripple.classList.add('ripple');
         this.appendChild(ripple);
         
         setTimeout(() => {
@@ -189,6 +204,18 @@ buttons.forEach(button => {
         }, 600);
     });
 });
+
+// Add ripple animation to styles dynamically
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes rippleEffect {
+        to {
+            transform: scale(2);
+            opacity: 0;
+        }
+    }
+`;
+document.head.appendChild(style);
 
 /* ===================================================
    FADE IN ON SCROLL
