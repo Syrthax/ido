@@ -104,5 +104,5 @@ If you have ideas for improvements—like reminders, labels, widgets—drop an i
 # ✨ Author
 
 Sarthak
-Portfolio: [Portfolio](https://syrthax.github.io/)
+Portfolio: [Portfolio](https://sarthakg.tech/)
 GitHub: https://github.com/Syrthax
