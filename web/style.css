@@ -455,6 +455,8 @@ body {
     margin-bottom: 14px;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     animation: slideIn 0.4s ease-out;
+    position: relative;
+    z-index: 1;
 }
 
 .task-item:hover {
@@ -462,6 +464,7 @@ body {
     border-color: var(--accent);
     transform: translateX(8px) translateY(-2px);
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    z-index: 2;
 }
 
 @media (prefers-color-scheme: dark) {
