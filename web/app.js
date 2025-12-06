@@ -18,6 +18,7 @@ const taskInput = document.getElementById('task-input');
 const addTaskBtn = document.getElementById('add-task-btn');
 const tasksContainer = document.getElementById('tasks-container');
 const syncStatusText = document.getElementById('sync-status-text');
+const manualSyncBtn = document.getElementById('manual-sync-btn');
 
 // DateTime Elements
 const datetimeToggleBtn = document.getElementById('add-datetime-btn');
@@ -164,6 +165,17 @@ addTaskBtn.addEventListener('click', () => {
 taskInput.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') {
         addTask();
+    }
+});
+
+// Manual sync button
+manualSyncBtn.addEventListener('click', async () => {
+    if (!isSaving) {
+        manualSyncBtn.classList.add('syncing');
+        await saveTasksToCloud();
+        setTimeout(() => {
+            manualSyncBtn.classList.remove('syncing');
+        }, 500);
     }
 });
 
