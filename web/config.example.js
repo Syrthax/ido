@@ -4,7 +4,7 @@
 const CONFIG = {
     clientId: 'YOUR_CLIENT_ID_HERE',
     clientSecret: 'YOUR_CLIENT_SECRET_HERE',
-    redirectUri: 'https://syrthax.github.io/ido/web/index.html',
+    redirectUri: 'https://sarthakg.tech/ido/web/index.html',
     scope: 'https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile',
     fileName: 'ido-data.json'
 };
