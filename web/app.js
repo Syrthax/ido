@@ -22,6 +22,15 @@ const syncStatusText = document.getElementById('sync-status-text');
 
 // Initialize app when DOM is loaded
 document.addEventListener('DOMContentLoaded', async () => {
+    // Check if CONFIG is loaded
+    if (typeof CONFIG === 'undefined') {
+        console.error('CONFIG not loaded! Make sure config.js is loaded before app.js');
+        alert('Configuration error. Please check the console.');
+        return;
+    }
+    
+    console.log('CONFIG loaded:', { clientId: CONFIG.clientId, redirectUri: CONFIG.redirectUri });
+    
     // Check if this is an OAuth callback
     const isCallback = await window.DriveAPI.handleCallback();
     
@@ -220,7 +229,11 @@ async function saveTasksToCloud() {
         updateSyncStatus('synced', 'Synced');
     } catch (error) {
         console.error('Failed to save tasks:', error);
-        updateSyncStatus('error', 'Sync failed');
+        console.error('Error details:', {
+            message: error.message,
+            stack: error.stack
+        });
+        updateSyncStatus('error', 'Sync failed: ' + error.message);
     } finally {
         isSaving = false;
     }
