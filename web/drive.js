@@ -6,7 +6,7 @@
 // OAuth Configuration
 const CONFIG = {
     clientId: '144623829478-7c9tubnu99u7nnta8ufmh6cfhel4v51t.apps.googleusercontent.com',
-    redirectUri: 'https://syrthax.github.io/ido/web/',
+    redirectUri: 'https://syrthax.github.io/ido/web/index.html',
     scope: 'https://www.googleapis.com/auth/drive.file',
     fileName: 'ido-data.json'
 };
