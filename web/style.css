@@ -92,22 +92,40 @@ body::before {
 }
 
 .section {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border-radius: 24px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-    padding: 40px;
+    background: rgba(255, 255, 255, 0.08);
+    -webkit-backdrop-filter: blur(30px);
+    backdrop-filter: blur(30px);
+    border-radius: 28px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    padding: 48px;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     animation: fadeInUp 0.6s ease-out;
+    position: relative;
+    overflow: hidden;
+}
+
+.section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, 
+        transparent,
+        rgba(255, 255, 255, 0.3),
+        transparent
+    );
 }
 
 .section:hover {
-    background: rgba(255, 255, 255, 0.15);
-    border-color: rgba(255, 255, 255, 0.3);
-    transform: translateY(-5px);
-    box-shadow: 0 12px 48px 0 rgba(31, 38, 135, 0.5);
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.25);
+    transform: translateY(-8px);
+    box-shadow: 0 16px 56px 0 rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.15);
 }
 
 @keyframes fadeInUp {
@@ -208,38 +226,62 @@ body::before {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 30px;
-    padding-bottom: 20px;
-    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 36px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    position: relative;
+}
+
+.header::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100px;
+    height: 2px;
+    background: linear-gradient(90deg, #667eea, #764ba2);
+    border-radius: 2px;
+    animation: slideWidth 3s ease-in-out infinite;
+}
+
+@keyframes slideWidth {
+    0%, 100% { width: 100px; }
+    50% { width: 200px; }
 }
 
 .header h1 {
-    font-size: 32px;
+    font-size: 36px;
+    font-weight: 800;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    letter-spacing: -1px;
     animation: float-icon 3s infinite ease-in-out;
+    text-shadow: 0 0 30px rgba(102, 126, 234, 0.3);
 }
 
 .logout-button {
-    background: rgba(244, 67, 54, 0.2);
-    color: #ff5252;
-    border: 1px solid rgba(244, 67, 54, 0.3);
+    background: rgba(244, 67, 54, 0.15);
+    color: #ff6b6b;
+    border: 1px solid rgba(244, 67, 54, 0.25);
+    -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
-    padding: 10px 20px;
-    border-radius: 12px;
+    padding: 12px 24px;
+    border-radius: 14px;
     font-size: 14px;
-    font-weight: 600;
+    font-weight: 700;
+    letter-spacing: 0.3px;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .logout-button:hover {
-    background: rgba(244, 67, 54, 0.3);
-    border-color: rgba(244, 67, 54, 0.5);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(244, 67, 54, 0.3);
+    background: rgba(244, 67, 54, 0.25);
+    border-color: rgba(244, 67, 54, 0.4);
+    color: #ff5252;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(244, 67, 54, 0.35);
 }
 
 /* ===================================================
@@ -248,31 +290,36 @@ body::before {
 
 .add-task-section {
     display: flex;
-    gap: 10px;
-    margin-bottom: 30px;
+    gap: 12px;
+    margin-bottom: 36px;
+    position: relative;
 }
 
 #task-input {
     flex: 1;
-    padding: 16px 20px;
-    background: rgba(255, 255, 255, 0.1);
+    padding: 18px 24px;
+    background: rgba(255, 255, 255, 0.06);
+    -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    border-radius: 12px;
+    border: 1.5px solid rgba(255, 255, 255, 0.15);
+    border-radius: 16px;
     font-size: 16px;
     color: white;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     outline: none;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 #task-input::placeholder {
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.4);
+    font-weight: 400;
 }
 
 #task-input:focus {
-    background: rgba(255, 255, 255, 0.15);
-    border-color: rgba(102, 126, 234, 0.6);
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(102, 126, 234, 0.8);
+    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.15),
+                inset 0 1px 2px rgba(0, 0, 0, 0.05);
     transform: translateY(-2px);
 }
 
@@ -280,13 +327,15 @@ body::before {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
     border: none;
-    padding: 16px 32px;
-    border-radius: 12px;
+    padding: 18px 36px;
+    border-radius: 16px;
     font-size: 16px;
-    font-weight: 600;
+    font-weight: 700;
+    letter-spacing: 0.3px;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+    box-shadow: 0 4px 16px rgba(102, 126, 234, 0.35),
+                0 2px 8px rgba(102, 126, 234, 0.2);
     position: relative;
     overflow: hidden;
 }
@@ -298,21 +347,40 @@ body::before {
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    transition: left 0.5s;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+    transition: left 0.6s ease;
 }
 
 .add-button:hover::before {
     left: 100%;
 }
 
+.add-button::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.add-button:active::after {
+    width: 300px;
+    height: 300px;
+}
+
 .add-button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.5);
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 8px 24px rgba(102, 126, 234, 0.5),
+                0 4px 12px rgba(102, 126, 234, 0.3);
 }
 
 .add-button:active {
-    transform: translateY(0);
+    transform: translateY(-1px) scale(0.98);
 }
 
 /* ===================================================
@@ -348,15 +416,18 @@ body::before {
 .task-item {
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 18px;
-    background: rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(10px);
+    gap: 16px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.06);
+    -webkit-backdrop-filter: blur(15px);
+    backdrop-filter: blur(15px);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 12px;
-    margin-bottom: 12px;
+    border-radius: 16px;
+    margin-bottom: 14px;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    animation: slideIn 0.3s ease-out;
+    animation: slideIn 0.4s ease-out;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
 }
 
 @keyframes slideIn {
@@ -371,10 +442,11 @@ body::before {
 }
 
 .task-item:hover {
-    background: rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.1);
     border-color: rgba(255, 255, 255, 0.2);
-    transform: translateX(8px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transform: translateX(8px) translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25),
+                0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 .task-item.completed {
@@ -407,28 +479,33 @@ body::before {
 }
 
 .delete-button {
-    background: rgba(255, 82, 82, 0.2);
-    color: #ff5252;
-    border: 1px solid rgba(255, 82, 82, 0.3);
+    background: rgba(255, 82, 82, 0.15);
+    color: #ff6b6b;
+    border: 1px solid rgba(255, 82, 82, 0.25);
+    -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
-    padding: 8px 16px;
-    border-radius: 8px;
-    font-size: 14px;
-    font-weight: 600;
+    padding: 10px 18px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     opacity: 0;
+    transform: scale(0.9);
 }
 
 .task-item:hover .delete-button {
     opacity: 1;
+    transform: scale(1);
 }
 
 .delete-button:hover {
-    background: rgba(255, 82, 82, 0.3);
-    border-color: rgba(255, 82, 82, 0.5);
+    background: rgba(255, 82, 82, 0.25);
+    border-color: rgba(255, 82, 82, 0.4);
     transform: scale(1.05);
-    box-shadow: 0 4px 12px rgba(255, 82, 82, 0.3);
+    box-shadow: 0 4px 16px rgba(255, 82, 82, 0.35);
+    color: #ff5252;
 }
 
 .empty-state {
