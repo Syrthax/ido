@@ -8,13 +8,44 @@
     box-sizing: border-box;
 }
 
-html {
-    scroll-behavior: smooth;
+:root {
+    --bg-primary: #ffffff;
+    --bg-secondary: #f5f5f5;
+    --text-primary: #000000;
+    --text-secondary: #666666;
+    --border-color: rgba(0, 0, 0, 0.08);
+    --glass-bg: rgba(255, 255, 255, 0.6);
+    --glass-border: rgba(0, 0, 0, 0.08);
+    --shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+    --accent: #000000;
+    --accent-hover: #333333;
+    --delete-bg: rgba(220, 38, 38, 0.1);
+    --delete-border: rgba(220, 38, 38, 0.2);
+    --delete-text: #dc2626;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-primary: #000000;
+        --bg-secondary: #1a1a1a;
+        --text-primary: #ffffff;
+        --text-secondary: #999999;
+        --border-color: rgba(255, 255, 255, 0.08);
+        --glass-bg: rgba(0, 0, 0, 0.6);
+        --glass-border: rgba(255, 255, 255, 0.08);
+        --shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+        --accent: #ffffff;
+        --accent-hover: #cccccc;
+        --delete-bg: rgba(239, 68, 68, 0.15);
+        --delete-border: rgba(239, 68, 68, 0.25);
+        --delete-text: #ef4444;
+    }
 }
 
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
-    background: #1a1a2e;
+    background: var(--bg-primary);
+    color: var(--text-primary);
     min-height: 100vh;
     display: flex;
     justify-content: center;
@@ -22,25 +53,14 @@ body {
     padding: 20px;
     position: relative;
     overflow-x: hidden;
-}
-
-/* Animated Background */
-body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-    z-index: -2;
+    transition: background 0.3s ease, color 0.3s ease;
 }
 
 .background-blob {
     position: fixed;
     border-radius: 50%;
-    filter: blur(80px);
-    opacity: 0.5;
+    filter: blur(100px);
+    opacity: 0.4;
     z-index: -1;
     animation: float 20s infinite ease-in-out;
 }
@@ -48,28 +68,46 @@ body::before {
 .blob-1 {
     width: 500px;
     height: 500px;
-    background: radial-gradient(circle, #667eea 0%, #764ba2 100%);
+    background: radial-gradient(circle, rgba(0, 0, 0, 0.03) 0%, transparent 70%);
     top: -10%;
     left: -10%;
     animation-delay: 0s;
 }
 
+@media (prefers-color-scheme: dark) {
+    .blob-1 {
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.03) 0%, transparent 70%);
+    }
+}
+
 .blob-2 {
     width: 400px;
     height: 400px;
-    background: radial-gradient(circle, #f093fb 0%, #f5576c 100%);
+    background: radial-gradient(circle, rgba(0, 0, 0, 0.02) 0%, transparent 70%);
     top: 50%;
     right: -5%;
     animation-delay: 7s;
 }
 
+@media (prefers-color-scheme: dark) {
+    .blob-2 {
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.02) 0%, transparent 70%);
+    }
+}
+
 .blob-3 {
     width: 600px;
     height: 600px;
-    background: radial-gradient(circle, #4facfe 0%, #00f2fe 100%);
+    background: radial-gradient(circle, rgba(0, 0, 0, 0.025) 0%, transparent 70%);
     bottom: -15%;
     left: 30%;
     animation-delay: 14s;
+}
+
+@media (prefers-color-scheme: dark) {
+    .blob-3 {
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.025) 0%, transparent 70%);
+    }
 }
 
 @keyframes float {
@@ -92,13 +130,12 @@ body::before {
 }
 
 .section {
-    background: rgba(255, 255, 255, 0.08);
+    background: var(--glass-bg);
     -webkit-backdrop-filter: blur(30px);
     backdrop-filter: blur(30px);
     border-radius: 28px;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--shadow);
     padding: 48px;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     animation: fadeInUp 0.6s ease-out;
@@ -154,15 +191,13 @@ body::before {
 .login-box h1 {
     font-size: 48px;
     margin-bottom: 10px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--text-primary);
+    font-weight: 800;
     animation: float-icon 3s infinite ease-in-out;
 }
 
 .subtitle {
-    color: rgba(255, 255, 255, 0.8);
+    color: var(--text-secondary);
     margin-bottom: 40px;
     font-size: 16px;
 }
@@ -171,38 +206,24 @@ body::before {
     display: inline-flex;
     align-items: center;
     gap: 12px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: var(--accent);
+    color: var(--bg-primary);
     border: none;
     padding: 14px 32px;
     border-radius: 16px;
     font-size: 16px;
-    font-weight: 600;
-    color: white;
+    font-weight: 700;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
     position: relative;
     overflow: hidden;
 }
 
-.login-button::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    transition: left 0.5s;
-}
-
-.login-button:hover::before {
-    left: 100%;
-}
-
 .login-button:hover {
     transform: translateY(-3px) scale(1.05);
-    box-shadow: 0 12px 32px rgba(102, 126, 234, 0.6);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    background: var(--accent-hover);
 }
 
 .login-button:active {
@@ -228,48 +249,38 @@ body::before {
     align-items: center;
     margin-bottom: 36px;
     padding-bottom: 24px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    border-bottom: 1px solid var(--border-color);
     position: relative;
 }
 
-.header::after {
-    content: '';
-    position: absolute;
-    bottom: -1px;
-    left: 0;
-    width: 100px;
-    height: 2px;
-    background: linear-gradient(90deg, #667eea, #764ba2);
-    border-radius: 2px;
-    animation: slideWidth 3s ease-in-out infinite;
+.header-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
-@keyframes slideWidth {
-    0%, 100% { width: 100px; }
-    50% { width: 200px; }
+.header-logo-img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
 }
 
 .header h1 {
-    font-size: 36px;
+    font-size: 28px;
     font-weight: 800;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    letter-spacing: -1px;
-    animation: float-icon 3s infinite ease-in-out;
-    text-shadow: 0 0 30px rgba(102, 126, 234, 0.3);
+    color: var(--text-primary);
+    letter-spacing: -0.5px;
 }
 
 .logout-button {
-    background: rgba(244, 67, 54, 0.15);
-    color: #ff6b6b;
-    border: 1px solid rgba(244, 67, 54, 0.25);
+    background: var(--delete-bg);
+    color: var(--delete-text);
+    border: 1px solid var(--delete-border);
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
-    padding: 12px 24px;
-    border-radius: 14px;
-    font-size: 14px;
+    padding: 10px 20px;
+    border-radius: 12px;
+    font-size: 13px;
     font-weight: 700;
     letter-spacing: 0.3px;
     cursor: pointer;
@@ -277,11 +288,16 @@ body::before {
 }
 
 .logout-button:hover {
-    background: rgba(244, 67, 54, 0.25);
-    border-color: rgba(244, 67, 54, 0.4);
-    color: #ff5252;
-    transform: translateY(-3px);
-    box-shadow: 0 6px 16px rgba(244, 67, 54, 0.35);
+    background: rgba(220, 38, 38, 0.15);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(220, 38, 38, 0.2);
+}
+
+@media (prefers-color-scheme: dark) {
+    .logout-button:hover {
+        background: rgba(239, 68, 68, 0.2);
+        box-shadow: 0 4px 12px rgba(239, 68, 68, 0.25);
+    }
 }
 
 /* ===================================================
@@ -298,34 +314,38 @@ body::before {
 #task-input {
     flex: 1;
     padding: 18px 24px;
-    background: rgba(255, 255, 255, 0.06);
+    background: var(--glass-bg);
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
-    border: 1.5px solid rgba(255, 255, 255, 0.15);
+    border: 1.5px solid var(--border-color);
     border-radius: 16px;
     font-size: 16px;
-    color: white;
+    color: var(--text-primary);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     outline: none;
-    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 #task-input::placeholder {
-    color: rgba(255, 255, 255, 0.4);
+    color: var(--text-secondary);
     font-weight: 400;
 }
 
 #task-input:focus {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(102, 126, 234, 0.8);
-    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.15),
-                inset 0 1px 2px rgba(0, 0, 0, 0.05);
+    background: var(--bg-secondary);
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
     transform: translateY(-2px);
 }
 
+@media (prefers-color-scheme: dark) {
+    #task-input:focus {
+        box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.05);
+    }
+}
+
 .add-button {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
+    background: var(--accent);
+    color: var(--bg-primary);
     border: none;
     padding: 18px 36px;
     border-radius: 16px;
@@ -334,53 +354,17 @@ body::before {
     letter-spacing: 0.3px;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 4px 16px rgba(102, 126, 234, 0.35),
-                0 2px 8px rgba(102, 126, 234, 0.2);
-    position: relative;
-    overflow: hidden;
-}
-
-.add-button::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
-    transition: left 0.6s ease;
-}
-
-.add-button:hover::before {
-    left: 100%;
-}
-
-.add-button::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.3);
-    transform: translate(-50%, -50%);
-    transition: width 0.6s, height 0.6s;
-}
-
-.add-button:active::after {
-    width: 300px;
-    height: 300px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
 }
 
 .add-button:hover {
-    transform: translateY(-4px) scale(1.02);
-    box-shadow: 0 8px 24px rgba(102, 126, 234, 0.5),
-                0 4px 12px rgba(102, 126, 234, 0.3);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    background: var(--accent-hover);
 }
 
 .add-button:active {
-    transform: translateY(-1px) scale(0.98);
+    transform: translateY(-1px);
 }
 
 /* ===================================================
@@ -418,70 +402,47 @@ body::before {
     align-items: center;
     gap: 16px;
     padding: 20px;
-    background: rgba(255, 255, 255, 0.06);
+    background: var(--glass-bg);
     -webkit-backdrop-filter: blur(15px);
     backdrop-filter: blur(15px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--border-color);
     border-radius: 16px;
     margin-bottom: 14px;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     animation: slideIn 0.4s ease-out;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    position: relative;
-}
-
-@keyframes slideIn {
-    from {
-        opacity: 0;
-        transform: translateX(-20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
 }
 
 .task-item:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.2);
+    background: var(--bg-secondary);
+    border-color: var(--accent);
     transform: translateX(8px) translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25),
-                0 2px 8px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
 }
 
-.task-item.completed {
-    opacity: 0.5;
-}
-
-.task-checkbox {
-    width: 22px;
-    height: 22px;
-    cursor: pointer;
-    accent-color: #667eea;
-    transition: transform 0.2s ease;
-}
-
-.task-checkbox:hover {
-    transform: scale(1.1);
+@media (prefers-color-scheme: dark) {
+    .task-item:hover {
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    }
 }
 
 .task-text {
     flex: 1;
     font-size: 16px;
-    color: rgba(255, 255, 255, 0.9);
+    color: var(--text-primary);
     word-break: break-word;
     transition: all 0.3s ease;
 }
 
 .task-item.completed .task-text {
     text-decoration: line-through;
-    color: rgba(255, 255, 255, 0.4);
+    color: var(--text-secondary);
+    opacity: 0.5;
 }
 
 .delete-button {
-    background: rgba(255, 82, 82, 0.15);
-    color: #ff6b6b;
-    border: 1px solid rgba(255, 82, 82, 0.25);
+    background: var(--delete-bg);
+    color: var(--delete-text);
+    border: 1px solid var(--delete-border);
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
     padding: 10px 18px;
@@ -501,50 +462,42 @@ body::before {
 }
 
 .delete-button:hover {
-    background: rgba(255, 82, 82, 0.25);
-    border-color: rgba(255, 82, 82, 0.4);
+    background: rgba(220, 38, 38, 0.15);
     transform: scale(1.05);
-    box-shadow: 0 4px 16px rgba(255, 82, 82, 0.35);
-    color: #ff5252;
+    box-shadow: 0 4px 12px rgba(220, 38, 38, 0.2);
+}
+
+@media (prefers-color-scheme: dark) {
+    .delete-button:hover {
+        background: rgba(239, 68, 68, 0.2);
+        box-shadow: 0 4px 12px rgba(239, 68, 68, 0.25);
+    }
 }
 
 .empty-state {
     text-align: center;
     padding: 60px 20px;
-    color: rgba(255, 255, 255, 0.5);
+    color: var(--text-secondary);
     animation: fadeIn 0.5s ease-out;
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
 }
 
 .empty-state p {
     font-size: 18px;
     margin-bottom: 8px;
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--text-secondary);
 }
 
 .empty-state small {
     font-size: 14px;
-    color: rgba(255, 255, 255, 0.4);
+    opacity: 0.7;
 }
-
-/* ===================================================
-   SYNC STATUS
-   =================================================== */
 
 .sync-status {
     text-align: center;
     padding-top: 20px;
-    border-top: 2px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid var(--border-color);
     font-size: 14px;
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--text-secondary);
 }
 
 #sync-status-text {
@@ -552,7 +505,7 @@ body::before {
     align-items: center;
     gap: 8px;
     padding: 8px 16px;
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--glass-bg);
     border-radius: 20px;
     transition: all 0.3s ease;
 }
