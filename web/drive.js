@@ -9,6 +9,7 @@
 // State management
 let accessToken = null;
 let fileId = null;
+let userInfo = null;
 
 /* ===================================================
    PKCE HELPER FUNCTIONS
@@ -220,11 +221,47 @@ async function refreshAccessToken() {
 function logout() {
     accessToken = null;
     fileId = null;
+    userInfo = null;
     localStorage.removeItem('access_token');
     localStorage.removeItem('token_expiry');
     localStorage.removeItem('refresh_token');
     localStorage.removeItem('file_id');
+    localStorage.removeItem('user_info');
     window.location.href = CONFIG.redirectUri;
+}
+
+// Get user info from Google
+async function getUserInfo() {
+    if (!accessToken) {
+        throw new Error('No access token available');
+    }
+
+    try {
+        const response = await fetch('https://www.googleapis.com/oauth2/v2/userinfo', {
+            headers: {
+                'Authorization': `Bearer ${accessToken}`
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch user info');
+        }
+
+        const data = await response.json();
+        userInfo = {
+            name: data.name,
+            email: data.email,
+            picture: data.picture
+        };
+        
+        // Store in localStorage
+        localStorage.setItem('user_info', JSON.stringify(userInfo));
+        
+        return userInfo;
+    } catch (error) {
+        console.error('Error fetching user info:', error);
+        throw error;
+    }
 }
 
 /* ===================================================
@@ -369,5 +406,6 @@ window.DriveAPI = {
     checkExistingAuth,
     logout,
     loadTasks,
-    saveTasks
+    saveTasks,
+    getUserInfo
 };

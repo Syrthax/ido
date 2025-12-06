@@ -67,6 +67,19 @@ async function initializeApp() {
     updateSyncStatus('loading', 'Loading tasks...');
     
     try {
+        // Fetch user info
+        const storedUserInfo = localStorage.getItem('user_info');
+        let user;
+        
+        if (storedUserInfo) {
+            user = JSON.parse(storedUserInfo);
+        } else {
+            user = await window.DriveAPI.getUserInfo();
+        }
+        
+        // Display user info
+        displayUserInfo(user);
+        
         // Load tasks from Google Drive
         tasks = await window.DriveAPI.loadTasks();
         renderTasks();
@@ -77,6 +90,28 @@ async function initializeApp() {
         tasks = [];
         renderTasks();
     }
+}
+
+// Display user info in the header
+function displayUserInfo(user) {
+    const headerLogo = document.querySelector('.header-logo');
+    if (!headerLogo) return;
+    
+    // Create user info element
+    const userInfoEl = document.createElement('div');
+    userInfoEl.className = 'user-info';
+    userInfoEl.innerHTML = `
+        ${user.picture ? `<img src="${user.picture}" alt="${user.name}" class="user-avatar">` : ''}
+        <div class="user-details">
+            <div class="user-name">${user.name}</div>
+            <div class="user-email">${user.email}</div>
+        </div>
+    `;
+    
+    // Insert after logout button
+    const header = document.querySelector('.header');
+    const logoutBtn = document.getElementById('logout-btn');
+    header.insertBefore(userInfoEl, logoutBtn);
 }
 
 /* ===================================================
