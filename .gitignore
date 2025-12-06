@@ -10,3 +10,7 @@ web/config.js
 
 # Logs
 *.log
+
+# Build artifacts
+_site/
+.jekyll-cache/
