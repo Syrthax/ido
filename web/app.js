@@ -195,6 +195,7 @@ async function addTask() {
     const newTask = {
         text: text,
         done: false,
+        priority: false,
         dueDate: currentDueDate,
         reminderTime: currentReminderTime,
         notified: false
@@ -224,6 +225,21 @@ async function toggleTask(index) {
     await saveTasksToCloud();
 }
 
+// Toggle task priority (pin to top)
+async function togglePriority(index) {
+    tasks[index].priority = !tasks[index].priority;
+    
+    // Re-sort tasks: pinned first, then by original order
+    tasks.sort((a, b) => {
+        if (a.priority && !b.priority) return -1;
+        if (!a.priority && b.priority) return 1;
+        return 0;
+    });
+    
+    renderTasks();
+    await saveTasksToCloud();
+}
+
 // Delete a task
 async function deleteTask(index) {
     tasks.splice(index, 1);
@@ -249,8 +265,16 @@ function renderTasks() {
         return;
     }
     
-    tasks.forEach((task, index) => {
-        const taskItem = createTaskElement(task, index);
+    // Sort: pinned tasks first, then rest maintain their order
+    const sortedTasks = [...tasks].sort((a, b) => {
+        if (a.priority && !b.priority) return -1;
+        if (!a.priority && b.priority) return 1;
+        return 0;
+    });
+    
+    sortedTasks.forEach((task) => {
+        const originalIndex = tasks.indexOf(task);
+        const taskItem = createTaskElement(task, originalIndex);
         tasksContainer.appendChild(taskItem);
     });
 }
@@ -259,7 +283,31 @@ function renderTasks() {
 function createTaskElement(task, index) {
     const div = document.createElement('div');
     const isOverdue = task.dueDate && new Date(task.dueDate) < new Date() && !task.done;
-    div.className = `task-item ${task.done ? 'completed' : ''} ${isOverdue ? 'overdue' : ''}`;
+    div.className = `task-item ${task.done ? 'completed' : ''} ${isOverdue ? 'overdue' : ''} ${task.priority ? 'pinned' : ''}`;
+    div.draggable = true;
+    div.dataset.index = index;
+    
+    // Drag events
+    div.addEventListener('dragstart', handleDragStart);
+    div.addEventListener('dragover', handleDragOver);
+    div.addEventListener('drop', handleDrop);
+    div.addEventListener('dragend', handleDragEnd);
+    div.addEventListener('dragenter', handleDragEnter);
+    div.addEventListener('dragleave', handleDragLeave);
+    
+    // Drag handle
+    const dragHandle = document.createElement('div');
+    dragHandle.className = 'drag-handle';
+    dragHandle.innerHTML = `
+        <svg viewBox="0 0 24 24" fill="currentColor">
+            <circle cx="9" cy="5" r="1.5"></circle>
+            <circle cx="9" cy="12" r="1.5"></circle>
+            <circle cx="9" cy="19" r="1.5"></circle>
+            <circle cx="15" cy="5" r="1.5"></circle>
+            <circle cx="15" cy="12" r="1.5"></circle>
+            <circle cx="15" cy="19" r="1.5"></circle>
+        </svg>
+    `;
     
     // Checkbox
     const checkbox = document.createElement('input');
@@ -298,6 +346,20 @@ function createTaskElement(task, index) {
         textContainer.appendChild(dueDateEl);
     }
     
+    // Priority button
+    const priorityBtn = document.createElement('button');
+    priorityBtn.className = `priority-button ${task.priority ? 'active' : ''}`;
+    priorityBtn.title = task.priority ? 'Unpin task' : 'Pin to top';
+    priorityBtn.innerHTML = `
+        <svg viewBox="0 0 24 24" fill="${task.priority ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2">
+            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+        </svg>
+    `;
+    priorityBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        togglePriority(index);
+    });
+    
     // Overdue badge
     if (isOverdue) {
         const overdueEl = document.createElement('div');
@@ -308,12 +370,16 @@ function createTaskElement(task, index) {
             </svg>
             Task Overdue
         `;
+        div.appendChild(dragHandle);
         div.appendChild(checkbox);
         div.appendChild(textContainer);
         div.appendChild(overdueEl);
+        div.appendChild(priorityBtn);
     } else {
+        div.appendChild(dragHandle);
         div.appendChild(checkbox);
         div.appendChild(textContainer);
+        div.appendChild(priorityBtn);
     }
     
     // Delete button
@@ -635,4 +701,67 @@ function sendNotification(task, index, reminderMinutes, isOverdue = false) {
         window.focus();
         notification.close();
     };
+}
+
+/* ===================================================
+   DRAG AND DROP FUNCTIONALITY
+   =================================================== */
+
+let draggedElement = null;
+let draggedIndex = null;
+
+function handleDragStart(e) {
+    draggedElement = this;
+    draggedIndex = parseInt(this.dataset.index);
+    this.classList.add('dragging');
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('text/html', this.innerHTML);
+}
+
+function handleDragOver(e) {
+    if (e.preventDefault) {
+        e.preventDefault();
+    }
+    e.dataTransfer.dropEffect = 'move';
+    return false;
+}
+
+function handleDragEnter(e) {
+    if (this !== draggedElement) {
+        this.classList.add('drag-over');
+    }
+}
+
+function handleDragLeave(e) {
+    this.classList.remove('drag-over');
+}
+
+function handleDrop(e) {
+    if (e.stopPropagation) {
+        e.stopPropagation();
+    }
+    
+    if (draggedElement !== this) {
+        const dropIndex = parseInt(this.dataset.index);
+        
+        // Reorder tasks array
+        const draggedTask = tasks[draggedIndex];
+        tasks.splice(draggedIndex, 1);
+        tasks.splice(dropIndex, 0, draggedTask);
+        
+        // Re-render and save
+        renderTasks();
+        saveTasksToCloud();
+    }
+    
+    return false;
+}
+
+function handleDragEnd(e) {
+    this.classList.remove('dragging');
+    
+    // Remove drag-over class from all items
+    document.querySelectorAll('.task-item').forEach(item => {
+        item.classList.remove('drag-over');
+    });
 }
