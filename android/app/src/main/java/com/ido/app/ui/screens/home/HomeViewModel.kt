@@ -196,10 +196,6 @@ class HomeViewModel(
         syncManager.cancelSync()
         _isSignedIn.value = false
         _signedInAccount.value = null
-        // Update UI state to reflect sign-out
-        _uiState.update { it.copy(
-            syncStatus = "Not signed in"
-        ) }
     }
     
     /**
