@@ -271,9 +271,9 @@ async function getUserInfo() {
 // Find or create the ido-data.json file
 async function findOrCreateFile() {
     try {
-        // First, try to find existing file
+        // First, try to find existing file, ordered by modified time (most recent first)
         const searchResponse = await fetch(
-            `https://www.googleapis.com/drive/v3/files?q=name='${CONFIG.fileName}' and trashed=false`,
+            `https://www.googleapis.com/drive/v3/files?q=name='${CONFIG.fileName}' and trashed=false&orderBy=modifiedTime desc&fields=files(id,name,modifiedTime,size)`,
             {
                 headers: {
                     'Authorization': `Bearer ${accessToken}`
@@ -284,7 +284,13 @@ async function findOrCreateFile() {
         const searchData = await searchResponse.json();
 
         if (searchData.files && searchData.files.length > 0) {
-            // File exists
+            // If multiple files exist, delete duplicates and keep the one with most recent data
+            if (searchData.files.length > 1) {
+                console.warn(`Found ${searchData.files.length} files with name '${CONFIG.fileName}'. Cleaning up duplicates...`);
+                await cleanupDuplicateFiles(searchData.files);
+            }
+            
+            // Use the most recently modified file
             fileId = searchData.files[0].id;
             localStorage.setItem('file_id', fileId);
             return fileId;
@@ -298,8 +304,59 @@ async function findOrCreateFile() {
     }
 }
 
+// Clean up duplicate files, keeping only the most recently modified one with data
+async function cleanupDuplicateFiles(files) {
+    try {
+        // Keep the first file (most recently modified), delete the rest
+        const filesToKeep = files[0];
+        const filesToDelete = files.slice(1);
+        
+        console.log(`Keeping file: ${filesToKeep.id} (modified: ${filesToKeep.modifiedTime})`);
+        
+        for (const file of filesToDelete) {
+            console.log(`Deleting duplicate file: ${file.id} (modified: ${file.modifiedTime})`);
+            await fetch(
+                `https://www.googleapis.com/drive/v3/files/${file.id}`,
+                {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': `Bearer ${accessToken}`
+                    }
+                }
+            );
+        }
+        
+        console.log('Duplicate files cleaned up successfully');
+    } catch (error) {
+        console.error('Error cleaning up duplicate files:', error);
+        // Don't throw - continue with the most recent file even if cleanup fails
+    }
+}
+
 // Create new file with default data
 async function createFile() {
+    // Double-check if file exists before creating (race condition protection)
+    try {
+        const searchResponse = await fetch(
+            `https://www.googleapis.com/drive/v3/files?q=name='${CONFIG.fileName}' and trashed=false&orderBy=modifiedTime desc`,
+            {
+                headers: {
+                    'Authorization': `Bearer ${accessToken}`
+                }
+            }
+        );
+        
+        const searchData = await searchResponse.json();
+        if (searchData.files && searchData.files.length > 0) {
+            console.log('File found during create check, using existing file instead');
+            fileId = searchData.files[0].id;
+            localStorage.setItem('file_id', fileId);
+            return fileId;
+        }
+    } catch (error) {
+        console.warn('Pre-create check failed, proceeding with creation:', error);
+    }
+
     const defaultData = {
         tasks: []
     };
@@ -328,6 +385,7 @@ async function createFile() {
         const data = await response.json();
         fileId = data.id;
         localStorage.setItem('file_id', fileId);
+        console.log('Created new file:', fileId);
         return fileId;
     } catch (error) {
         console.error('Error creating file:', error);
