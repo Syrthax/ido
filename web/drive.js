@@ -414,6 +414,27 @@ async function loadTasks() {
         }
 
         const data = await response.json();
+        
+        // Check if migration is needed
+        if (window.TaskSchema && typeof window.TaskSchema.migrateTasks === 'function') {
+            console.log('Checking if tasks need migration...');
+            const migratedData = window.TaskSchema.migrateTasks(data);
+            
+            // If migration occurred, save migrated data back
+            const originalTaskCount = data.tasks?.length || 0;
+            const needsMigration = data.tasks?.some(task => 
+                window.TaskSchema.isOldFormat(task)
+            ) || false;
+            
+            if (needsMigration && originalTaskCount > 0) {
+                console.log('Tasks migrated, saving updated schema to Drive...');
+                // Save migrated tasks back to Drive
+                await saveTasks(migratedData.tasks);
+            }
+            
+            return migratedData.tasks || [];
+        }
+        
         return data.tasks || [];
     } catch (error) {
         console.error('Error loading tasks:', error);

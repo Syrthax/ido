@@ -191,15 +191,12 @@ async function addTask() {
         return;
     }
     
-    // Create new task
-    const newTask = {
-        text: text,
-        done: false,
+    // Create new task using schema
+    const newTask = window.TaskSchema.createTask(text, {
         priority: false,
         dueDate: currentDueDate,
-        reminderTime: currentReminderTime,
-        notified: false
-    };
+        reminderTime: currentReminderTime
+    });
     
     // Add to tasks array
     tasks.push(newTask);
@@ -219,15 +216,24 @@ async function addTask() {
 }
 
 // Toggle task done/undone
-async function toggleTask(index) {
-    tasks[index].done = !tasks[index].done;
+async function toggleTask(id) {
+    const task = window.TaskSchema.findTaskById(tasks, id);
+    if (!task) return;
+    
+    const index = window.TaskSchema.findTaskIndexById(tasks, id);
+    tasks[index] = window.TaskSchema.updateTask(task, { done: !task.done });
+    
     renderTasks();
     await saveTasksToCloud();
 }
 
 // Toggle task priority (pin to top)
-async function togglePriority(index) {
-    tasks[index].priority = !tasks[index].priority;
+async function togglePriority(id) {
+    const task = window.TaskSchema.findTaskById(tasks, id);
+    if (!task) return;
+    
+    const index = window.TaskSchema.findTaskIndexById(tasks, id);
+    tasks[index] = window.TaskSchema.updateTask(task, { priority: !task.priority });
     
     // Re-sort tasks: pinned first, then by original order
     tasks.sort((a, b) => {
@@ -241,8 +247,17 @@ async function togglePriority(index) {
 }
 
 // Delete a task
-async function deleteTask(index) {
-    tasks.splice(index, 1);
+async function deleteTask(id) {
+    const task = window.TaskSchema.findTaskById(tasks, id);
+    if (!task) return;
+    
+    const index = window.TaskSchema.findTaskIndexById(tasks, id);
+    // Use soft delete
+    tasks[index] = window.TaskSchema.deleteTask(task);
+    
+    // Filter out deleted tasks for display
+    tasks = window.TaskSchema.getActiveTasks(tasks);
+    
     renderTasks();
     await saveTasksToCloud();
 }
@@ -273,19 +288,18 @@ function renderTasks() {
     });
     
     sortedTasks.forEach((task) => {
-        const originalIndex = tasks.indexOf(task);
-        const taskItem = createTaskElement(task, originalIndex);
+        const taskItem = createTaskElement(task);
         tasksContainer.appendChild(taskItem);
     });
 }
 
 // Create a task element
-function createTaskElement(task, index) {
+function createTaskElement(task) {
     const div = document.createElement('div');
     const isOverdue = task.dueDate && new Date(task.dueDate) < new Date() && !task.done;
     div.className = `task-item ${task.done ? 'completed' : ''} ${isOverdue ? 'overdue' : ''} ${task.priority ? 'pinned' : ''}`;
     div.draggable = true;
-    div.dataset.index = index;
+    div.dataset.taskId = task.id; // Use task ID instead of index
     
     // Drag events
     div.addEventListener('dragstart', handleDragStart);
@@ -314,7 +328,7 @@ function createTaskElement(task, index) {
     checkbox.type = 'checkbox';
     checkbox.className = 'task-checkbox';
     checkbox.checked = task.done;
-    checkbox.addEventListener('change', () => toggleTask(index));
+    checkbox.addEventListener('change', () => toggleTask(task.id));
     
     // Task text container
     const textContainer = document.createElement('div');
@@ -357,7 +371,7 @@ function createTaskElement(task, index) {
     `;
     priorityBtn.addEventListener('click', (e) => {
         e.stopPropagation();
-        togglePriority(index);
+        togglePriority(task.id);
     });
     
     // Overdue badge
@@ -388,7 +402,7 @@ function createTaskElement(task, index) {
     deleteBtn.textContent = 'Delete';
     deleteBtn.addEventListener('click', () => {
         if (confirm('Delete this task?')) {
-            deleteTask(index);
+            deleteTask(task.id);
         }
     });
     div.appendChild(deleteBtn);
@@ -499,13 +513,16 @@ function initializeDateTimePicker() {
             const time = timePicker.value;
             
             if (date) {
-                currentDueDate = new Date(date + (time ? 'T' + time : 'T23:59'));
+                currentDueDate = new Date(date + (time ? 'T' + time : 'T23:59')).toISOString();
             }
         }
         
-        // Set reminder time
+        // Set reminder time as ISO timestamp
         if (reminderEnabled.checked && currentDueDate) {
-            currentReminderTime = parseInt(reminderTime.value);
+            const reminderMinutes = parseInt(reminderTime.value) || 0;
+            const dueDate = new Date(currentDueDate);
+            const reminderDate = new Date(dueDate.getTime() - (reminderMinutes * 60 * 1000));
+            currentReminderTime = reminderDate.toISOString();
         } else {
             currentReminderTime = null;
         }
@@ -653,29 +670,41 @@ function checkDueTasks() {
     
     const now = new Date();
     
-    tasks.forEach((task, index) => {
+    tasks.forEach((task) => {
         if (task.done || task.notified || !task.dueDate) return;
         
         const dueDate = new Date(task.dueDate);
-        const reminderMinutes = task.reminderTime || 0;
-        const notifyTime = new Date(dueDate.getTime() - (reminderMinutes * 60 * 1000));
         
-        // Check if it's time to notify
-        if (now >= notifyTime && now < dueDate) {
-            sendNotification(task, index, reminderMinutes);
-            tasks[index].notified = true;
-        } else if (now >= dueDate) {
-            // Task is overdue
+        // Check if reminderTime is set (ISO string)
+        if (task.reminderTime) {
+            const reminderDate = new Date(task.reminderTime);
+            
+            // Check if it's time to send reminder
+            if (now >= reminderDate && now < dueDate) {
+                const minutesUntilDue = Math.floor((dueDate - now) / (60 * 1000));
+                sendNotification(task, minutesUntilDue);
+                
+                // Update task as notified
+                const index = window.TaskSchema.findTaskIndexById(tasks, task.id);
+                tasks[index] = window.TaskSchema.updateTask(task, { notified: true });
+            }
+        }
+        
+        // Check if task is overdue
+        if (now >= dueDate) {
             if (!task.notified) {
-                sendNotification(task, index, 0, true);
-                tasks[index].notified = true;
+                sendNotification(task, 0, true);
+                
+                // Update task as notified
+                const index = window.TaskSchema.findTaskIndexById(tasks, task.id);
+                tasks[index] = window.TaskSchema.updateTask(task, { notified: true });
             }
         }
     });
 }
 
 // Send browser notification
-function sendNotification(task, index, reminderMinutes, isOverdue = false) {
+function sendNotification(task, reminderMinutes, isOverdue = false) {
     let title, body;
     
     if (isOverdue) {
@@ -693,7 +722,7 @@ function sendNotification(task, index, reminderMinutes, isOverdue = false) {
         body: body,
         icon: '../assets/logo.png',
         badge: '../assets/logo.png',
-        tag: `task-${index}`,
+        tag: `task-${task.id}`,
         requireInteraction: true
     });
     
@@ -708,11 +737,11 @@ function sendNotification(task, index, reminderMinutes, isOverdue = false) {
    =================================================== */
 
 let draggedElement = null;
-let draggedIndex = null;
+let draggedTaskId = null;
 
 function handleDragStart(e) {
     draggedElement = this;
-    draggedIndex = parseInt(this.dataset.index);
+    draggedTaskId = this.dataset.taskId;
     this.classList.add('dragging');
     e.dataTransfer.effectAllowed = 'move';
     e.dataTransfer.setData('text/html', this.innerHTML);
@@ -742,7 +771,11 @@ function handleDrop(e) {
     }
     
     if (draggedElement !== this) {
-        const dropIndex = parseInt(this.dataset.index);
+        const dropTaskId = this.dataset.taskId;
+        
+        // Find indices
+        const draggedIndex = window.TaskSchema.findTaskIndexById(tasks, draggedTaskId);
+        const dropIndex = window.TaskSchema.findTaskIndexById(tasks, dropTaskId);
         
         // Reorder tasks array
         const draggedTask = tasks[draggedIndex];
