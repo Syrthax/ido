@@ -41,7 +41,7 @@ class DriveDataSource(private val context: Context) {
     fun getSignInOptions(): GoogleSignInOptions {
         return GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestEmail()
-            .requestScopes(Scope(DriveScopes.DRIVE_APPDATA))
+            .requestScopes(Scope(DriveScopes.DRIVE_FILE))
             .build()
     }
     
@@ -51,7 +51,7 @@ class DriveDataSource(private val context: Context) {
     fun initializeDriveService(account: GoogleSignInAccount) {
         val credential = GoogleAccountCredential.usingOAuth2(
             context,
-            listOf(DriveScopes.DRIVE_APPDATA)
+            listOf(DriveScopes.DRIVE_FILE)
         )
         credential.selectedAccount = account.account
         
@@ -151,15 +151,15 @@ class DriveDataSource(private val context: Context) {
     }
     
     /**
-     * Find existing file or create new one in App Data folder
+     * Find existing file or create new one in Drive
      */
     private fun findOrCreateFile(service: Drive): String {
         try {
             // Search for existing file
             val query = "name='$FILE_NAME' and trashed=false"
             val result = service.files().list()
-                .setSpaces("appDataFolder")
                 .setQ(query)
+                .setOrderBy("modifiedTime desc")
                 .setFields("files(id, name)")
                 .execute()
             
@@ -176,12 +176,12 @@ class DriveDataSource(private val context: Context) {
     }
     
     /**
-     * Create new file in App Data folder
+     * Create new file in Drive
      */
     private fun createFile(service: Drive): String {
         val fileMetadata = File().apply {
             name = FILE_NAME
-            parents = listOf("appDataFolder")
+            mimeType = "application/json"
         }
         
         // Initial empty content
@@ -209,6 +209,6 @@ class DriveDataSource(private val context: Context) {
     
     companion object {
         private const val APP_NAME = "iDo Task Manager"
-        private const val FILE_NAME = "ido_tasks.json"
+        private const val FILE_NAME = "ido-data.json"
     }
 }
