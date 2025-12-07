@@ -25,6 +25,12 @@ class HomeViewModel(
     private val _uiState = MutableStateFlow(HomeUiState())
     val uiState: StateFlow<HomeUiState> = _uiState.asStateFlow()
     
+    private val _isSignedIn = MutableStateFlow(repository.isSignedIn())
+    val isSignedIn: StateFlow<Boolean> = _isSignedIn.asStateFlow()
+    
+    private val _signedInAccount = MutableStateFlow<GoogleSignInAccount?>(repository.getSignedInAccount())
+    val signedInAccount: StateFlow<GoogleSignInAccount?> = _signedInAccount.asStateFlow()
+    
     init {
         loadTasks()
         observeSyncStatus()
@@ -174,6 +180,8 @@ class HomeViewModel(
      */
     fun handleSignIn(account: GoogleSignInAccount) {
         repository.initializeDrive(account)
+        _isSignedIn.value = true
+        _signedInAccount.value = account
         viewModelScope.launch {
             syncManager.requestSync()
             syncManager.schedulePeriodicSync()
@@ -186,6 +194,12 @@ class HomeViewModel(
     fun signOut() {
         repository.signOut()
         syncManager.cancelSync()
+        _isSignedIn.value = false
+        _signedInAccount.value = null
+        // Update UI state to reflect sign-out
+        _uiState.update { it.copy(
+            syncStatus = "Not signed in"
+        ) }
     }
     
     /**

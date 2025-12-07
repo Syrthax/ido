@@ -112,6 +112,9 @@ fun SettingsScreen(
     onSignInClick: () -> Unit,
     onNavigateBack: () -> Unit
 ) {
+    val isSignedIn by viewModel.isSignedIn.collectAsState()
+    val account by viewModel.signedInAccount.collectAsState()
+    
     Scaffold(
         topBar = {
             TopAppBar(
@@ -133,8 +136,7 @@ fun SettingsScreen(
                 .padding(padding)
                 .padding(16.dp)
         ) {
-            if (viewModel.isSignedIn()) {
-                val account = viewModel.getSignedInAccount()
+            if (isSignedIn) {
                 Card(
                     modifier = Modifier.fillMaxWidth()
                 ) {
