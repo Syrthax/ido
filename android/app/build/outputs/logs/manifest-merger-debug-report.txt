@@ -1,6 +1,6 @@
 -- Merging decision tree log ---
 provider#androidx.startup.InitializationProvider
-INJECTED from /Users/sarthakghosh/projects/ido/android/app/src/main/AndroidManifest.xml:26:9-34:20
+INJECTED from /Users/sarthakghosh/projects/ido/android/app/src/main/AndroidManifest.xml:28:9-36:20
 MERGED from [androidx.work:work-runtime:2.9.0] /Users/sarthakghosh/.gradle/caches/9.0-milestone-1/transforms/d94b7d966e54ae1494d52cedf18e7431/transformed/work-runtime-2.9.0/AndroidManifest.xml:29:9-37:20
 MERGED from [androidx.work:work-runtime:2.9.0] /Users/sarthakghosh/.gradle/caches/9.0-milestone-1/transforms/d94b7d966e54ae1494d52cedf18e7431/transformed/work-runtime-2.9.0/AndroidManifest.xml:29:9-37:20
 MERGED from [androidx.emoji2:emoji2:1.3.0] /Users/sarthakghosh/.gradle/caches/9.0-milestone-1/transforms/49b747d5b10ad12cd8c10f4a11c33daf/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:24:9-32:20
@@ -12,19 +12,19 @@ MERGED from [androidx.profileinstaller:profileinstaller:1.3.0] /Users/sarthakgho
 MERGED from [androidx.startup:startup-runtime:1.1.1] /Users/sarthakghosh/.gradle/caches/9.0-milestone-1/transforms/7fa79d28c6e5ae2224fce7cbe48205b9/transformed/jetified-startup-runtime-1.1.1/AndroidManifest.xml:26:9-30:34
 MERGED from [androidx.startup:startup-runtime:1.1.1] /Users/sarthakghosh/.gradle/caches/9.0-milestone-1/transforms/7fa79d28c6e5ae2224fce7cbe48205b9/transformed/jetified-startup-runtime-1.1.1/AndroidManifest.xml:26:9-30:34
 	tools:node
-		ADDED from /Users/sarthakghosh/projects/ido/android/app/src/main/AndroidManifest.xml:30:13-31
+		ADDED from /Users/sarthakghosh/projects/ido/android/app/src/main/AndroidManifest.xml:32:13-31
 	android:authorities
 		INJECTED from /Users/sarthakghosh/projects/ido/android/app/src/main/AndroidManifest.xml
-		ADDED from /Users/sarthakghosh/projects/ido/android/app/src/main/AndroidManifest.xml:28:13-68
+		ADDED from /Users/sarthakghosh/projects/ido/android/app/src/main/AndroidManifest.xml:30:13-68
 	android:exported
-		ADDED from /Users/sarthakghosh/projects/ido/android/app/src/main/AndroidManifest.xml:29:13-37
+		ADDED from /Users/sarthakghosh/projects/ido/android/app/src/main/AndroidManifest.xml:31:13-37
 	android:name
-		ADDED from /Users/sarthakghosh/projects/ido/android/app/src/main/AndroidManifest.xml:27:13-67
+		ADDED from /Users/sarthakghosh/projects/ido/android/app/src/main/AndroidManifest.xml:29:13-67
 manifest
-ADDED from /Users/sarthakghosh/projects/ido/android/app/src/main/AndroidManifest.xml:2:1-38:12
-INJECTED from /Users/sarthakghosh/projects/ido/android/app/src/main/AndroidManifest.xml:2:1-38:12
-INJECTED from /Users/sarthakghosh/projects/ido/android/app/src/main/AndroidManifest.xml:2:1-38:12
-INJECTED from /Users/sarthakghosh/projects/ido/android/app/src/main/AndroidManifest.xml:2:1-38:12
+ADDED from /Users/sarthakghosh/projects/ido/android/app/src/main/AndroidManifest.xml:2:1-40:12
+INJECTED from /Users/sarthakghosh/projects/ido/android/app/src/main/AndroidManifest.xml:2:1-40:12
+INJECTED from /Users/sarthakghosh/projects/ido/android/app/src/main/AndroidManifest.xml:2:1-40:12
+INJECTED from /Users/sarthakghosh/projects/ido/android/app/src/main/AndroidManifest.xml:2:1-40:12
 MERGED from [com.google.android.gms:play-services-auth:20.7.0] /Users/sarthakghosh/.gradle/caches/9.0-milestone-1/transforms/e131f4039b40b18da483d4ebd6057723/transformed/jetified-play-services-auth-20.7.0/AndroidManifest.xml:17:1-40:12
 MERGED from [com.google.android.gms:play-services-auth-api-phone:18.0.1] /Users/sarthakghosh/.gradle/caches/9.0-milestone-1/transforms/1392e4278a3409a98de24d6c748b6277/transformed/jetified-play-services-auth-api-phone-18.0.1/AndroidManifest.xml:2:1-7:12
 MERGED from [com.google.android.gms:play-services-auth-base:18.0.4] /Users/sarthakghosh/.gradle/caches/9.0-milestone-1/transforms/32d1d2095278911874099ce948b6e63a/transformed/jetified-play-services-auth-base-18.0.4/AndroidManifest.xml:2:1-7:12
@@ -134,8 +134,8 @@ ADDED from /Users/sarthakghosh/projects/ido/android/app/src/main/AndroidManifest
 	android:name
 		ADDED from /Users/sarthakghosh/projects/ido/android/app/src/main/AndroidManifest.xml:7:22-76
 application
-ADDED from /Users/sarthakghosh/projects/ido/android/app/src/main/AndroidManifest.xml:9:5-36:19
-INJECTED from /Users/sarthakghosh/projects/ido/android/app/src/main/AndroidManifest.xml:9:5-36:19
+ADDED from /Users/sarthakghosh/projects/ido/android/app/src/main/AndroidManifest.xml:9:5-38:19
+INJECTED from /Users/sarthakghosh/projects/ido/android/app/src/main/AndroidManifest.xml:9:5-38:19
 MERGED from [com.google.android.gms:play-services-auth:20.7.0] /Users/sarthakghosh/.gradle/caches/9.0-milestone-1/transforms/e131f4039b40b18da483d4ebd6057723/transformed/jetified-play-services-auth-20.7.0/AndroidManifest.xml:22:5-38:19
 MERGED from [com.google.android.gms:play-services-auth:20.7.0] /Users/sarthakghosh/.gradle/caches/9.0-milestone-1/transforms/e131f4039b40b18da483d4ebd6057723/transformed/jetified-play-services-auth-20.7.0/AndroidManifest.xml:22:5-38:19
 MERGED from [com.google.android.gms:play-services-fido:20.0.1] /Users/sarthakghosh/.gradle/caches/9.0-milestone-1/transforms/8a8b392836233b8c0777a8f3ad55f022/transformed/jetified-play-services-fido-20.0.1/AndroidManifest.xml:7:5-8:19
@@ -171,39 +171,43 @@ MERGED from [androidx.startup:startup-runtime:1.1.1] /Users/sarthakghosh/.gradle
 	android:appComponentFactory
 		ADDED from [androidx.core:core:1.12.0] /Users/sarthakghosh/.gradle/caches/9.0-milestone-1/transforms/7948d827ad63f3ccba26fc2d53027ef4/transformed/core-1.12.0/AndroidManifest.xml:28:18-86
 	android:supportsRtl
-		ADDED from /Users/sarthakghosh/projects/ido/android/app/src/main/AndroidManifest.xml:12:9-35
+		ADDED from /Users/sarthakghosh/projects/ido/android/app/src/main/AndroidManifest.xml:14:9-35
 	android:label
-		ADDED from /Users/sarthakghosh/projects/ido/android/app/src/main/AndroidManifest.xml:11:9-41
+		ADDED from /Users/sarthakghosh/projects/ido/android/app/src/main/AndroidManifest.xml:13:9-41
+	android:roundIcon
+		ADDED from /Users/sarthakghosh/projects/ido/android/app/src/main/AndroidManifest.xml:12:9-54
+	android:icon
+		ADDED from /Users/sarthakghosh/projects/ido/android/app/src/main/AndroidManifest.xml:11:9-43
 	android:allowBackup
 		ADDED from /Users/sarthakghosh/projects/ido/android/app/src/main/AndroidManifest.xml:10:9-35
 	android:theme
-		ADDED from /Users/sarthakghosh/projects/ido/android/app/src/main/AndroidManifest.xml:13:9-72
+		ADDED from /Users/sarthakghosh/projects/ido/android/app/src/main/AndroidManifest.xml:15:9-72
 activity#com.ido.app.MainActivity
-ADDED from /Users/sarthakghosh/projects/ido/android/app/src/main/AndroidManifest.xml:15:9-23:20
+ADDED from /Users/sarthakghosh/projects/ido/android/app/src/main/AndroidManifest.xml:17:9-25:20
 	android:exported
-		ADDED from /Users/sarthakghosh/projects/ido/android/app/src/main/AndroidManifest.xml:17:13-36
+		ADDED from /Users/sarthakghosh/projects/ido/android/app/src/main/AndroidManifest.xml:19:13-36
 	android:theme
-		ADDED from /Users/sarthakghosh/projects/ido/android/app/src/main/AndroidManifest.xml:18:13-45
+		ADDED from /Users/sarthakghosh/projects/ido/android/app/src/main/AndroidManifest.xml:20:13-45
 	android:name
-		ADDED from /Users/sarthakghosh/projects/ido/android/app/src/main/AndroidManifest.xml:16:13-41
+		ADDED from /Users/sarthakghosh/projects/ido/android/app/src/main/AndroidManifest.xml:18:13-41
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from /Users/sarthakghosh/projects/ido/android/app/src/main/AndroidManifest.xml:19:13-22:29
+ADDED from /Users/sarthakghosh/projects/ido/android/app/src/main/AndroidManifest.xml:21:13-24:29
 action#android.intent.action.MAIN
-ADDED from /Users/sarthakghosh/projects/ido/android/app/src/main/AndroidManifest.xml:20:17-69
+ADDED from /Users/sarthakghosh/projects/ido/android/app/src/main/AndroidManifest.xml:22:17-69
 	android:name
-		ADDED from /Users/sarthakghosh/projects/ido/android/app/src/main/AndroidManifest.xml:20:25-66
+		ADDED from /Users/sarthakghosh/projects/ido/android/app/src/main/AndroidManifest.xml:22:25-66
 category#android.intent.category.LAUNCHER
-ADDED from /Users/sarthakghosh/projects/ido/android/app/src/main/AndroidManifest.xml:21:17-77
+ADDED from /Users/sarthakghosh/projects/ido/android/app/src/main/AndroidManifest.xml:23:17-77
 	android:name
-		ADDED from /Users/sarthakghosh/projects/ido/android/app/src/main/AndroidManifest.xml:21:27-74
+		ADDED from /Users/sarthakghosh/projects/ido/android/app/src/main/AndroidManifest.xml:23:27-74
 meta-data#androidx.work.WorkManagerInitializer
-ADDED from /Users/sarthakghosh/projects/ido/android/app/src/main/AndroidManifest.xml:31:13-33:52
+ADDED from /Users/sarthakghosh/projects/ido/android/app/src/main/AndroidManifest.xml:33:13-35:52
 MERGED from [androidx.work:work-runtime:2.9.0] /Users/sarthakghosh/.gradle/caches/9.0-milestone-1/transforms/d94b7d966e54ae1494d52cedf18e7431/transformed/work-runtime-2.9.0/AndroidManifest.xml:34:13-36:52
 MERGED from [androidx.work:work-runtime:2.9.0] /Users/sarthakghosh/.gradle/caches/9.0-milestone-1/transforms/d94b7d966e54ae1494d52cedf18e7431/transformed/work-runtime-2.9.0/AndroidManifest.xml:34:13-36:52
 	android:value
-		ADDED from /Users/sarthakghosh/projects/ido/android/app/src/main/AndroidManifest.xml:33:17-49
+		ADDED from /Users/sarthakghosh/projects/ido/android/app/src/main/AndroidManifest.xml:35:17-49
 	android:name
-		ADDED from /Users/sarthakghosh/projects/ido/android/app/src/main/AndroidManifest.xml:32:17-68
+		ADDED from /Users/sarthakghosh/projects/ido/android/app/src/main/AndroidManifest.xml:34:17-68
 uses-sdk
 INJECTED from /Users/sarthakghosh/projects/ido/android/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /Users/sarthakghosh/projects/ido/android/app/src/main/AndroidManifest.xml
