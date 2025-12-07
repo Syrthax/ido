@@ -53,8 +53,10 @@ class MainActivity : ComponentActivity() {
         lifecycleScope.launch {
             repository.initialize()
             
-            // Auto-sync if signed in
-            if (repository.isSignedIn()) {
+            // Initialize Drive service if user is already signed in
+            val account = GoogleSignIn.getLastSignedInAccount(applicationContext)
+            if (account != null) {
+                repository.initializeDrive(account)
                 syncManager.requestSync()
                 syncManager.schedulePeriodicSync()
             }

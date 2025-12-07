@@ -84,11 +84,15 @@ class DriveDataSource(private val context: Context) {
      */
     suspend fun loadTasks(): List<Task>? = withContext(Dispatchers.IO) {
         try {
-            val service = driveService ?: return@withContext null
+            val service = driveService ?: run {
+                android.util.Log.e("DriveDataSource", "Drive service not initialized")
+                return@withContext null
+            }
             
             // Find or create the file
             val id = findOrCreateFile(service)
             fileId = id
+            android.util.Log.d("DriveDataSource", "Loading tasks from file: $id")
             
             // Download file content
             val outputStream = ByteArrayOutputStream()
@@ -96,10 +100,14 @@ class DriveDataSource(private val context: Context) {
                 .executeMediaAndDownloadTo(outputStream)
             
             val jsonString = outputStream.toString("UTF-8")
+            android.util.Log.d("DriveDataSource", "Loaded JSON: ${jsonString.take(200)}...")
+            
             val collection = json.decodeFromString<TaskCollection>(jsonString)
+            android.util.Log.d("DriveDataSource", "Loaded ${collection.tasks.size} tasks from Drive")
             
             collection.tasks
         } catch (e: Exception) {
+            android.util.Log.e("DriveDataSource", "Error loading tasks", e)
             e.printStackTrace()
             null
         }
@@ -110,15 +118,21 @@ class DriveDataSource(private val context: Context) {
      */
     suspend fun saveTasks(tasks: List<Task>): Boolean = withContext(Dispatchers.IO) {
         try {
-            val service = driveService ?: return@withContext false
+            val service = driveService ?: run {
+                android.util.Log.e("DriveDataSource", "Drive service not initialized")
+                return@withContext false
+            }
             
             // Find or create the file
             val id = fileId ?: findOrCreateFile(service)
             fileId = id
+            android.util.Log.d("DriveDataSource", "Saving ${tasks.size} tasks to file: $id")
             
             // Prepare content
             val collection = TaskCollection(tasks)
             val jsonString = json.encodeToString(collection)
+            android.util.Log.d("DriveDataSource", "JSON to save: ${jsonString.take(200)}...")
+            
             val content = com.google.api.client.http.ByteArrayContent(
                 "application/json",
                 jsonString.toByteArray()
@@ -126,9 +140,11 @@ class DriveDataSource(private val context: Context) {
             
             // Update file
             service.files().update(id, null, content).execute()
+            android.util.Log.d("DriveDataSource", "Successfully saved tasks to Drive")
             
             true
         } catch (e: Exception) {
+            android.util.Log.e("DriveDataSource", "Error saving tasks", e)
             e.printStackTrace()
             false
         }

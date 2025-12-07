@@ -146,6 +146,7 @@ class TaskRepository(context: Context) {
      */
     suspend fun syncWithDrive(): SyncResult {
         if (!driveDataSource.isSignedIn()) {
+            _syncStatus.value = SyncStatus.Error("Not signed in")
             return SyncResult.NotSignedIn
         }
         
@@ -161,7 +162,7 @@ class TaskRepository(context: Context) {
             if (remoteTasks == null) {
                 // First sync or network error - upload local data
                 val uploaded = driveDataSource.saveTasks(localTasks)
-                _syncStatus.value = SyncStatus.Synced
+                _syncStatus.value = if (uploaded) SyncStatus.Synced else SyncStatus.Error("Failed to upload")
                 return if (uploaded) SyncResult.Success else SyncResult.Error("Failed to upload")
             }
             

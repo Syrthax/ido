@@ -179,11 +179,14 @@ class HomeViewModel(
      * Handle sign in
      */
     fun handleSignIn(account: GoogleSignInAccount) {
+        // Initialize Drive service first
         repository.initializeDrive(account)
         _isSignedIn.value = true
         _signedInAccount.value = account
+        
+        // Trigger immediate sync
         viewModelScope.launch {
-            syncManager.requestSync()
+            repository.syncWithDrive()
             syncManager.schedulePeriodicSync()
         }
     }
