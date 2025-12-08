@@ -77,6 +77,8 @@ async function initiateLogin() {
     authUrl.searchParams.set('code_challenge_method', 'S256');
     authUrl.searchParams.set('access_type', 'offline');
     authUrl.searchParams.set('prompt', 'consent');
+    
+    console.log('OAuth Scopes being requested:', CONFIG.scope);
 
     // Redirect to Google
     window.location.href = authUrl.toString();
