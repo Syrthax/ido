@@ -811,8 +811,8 @@ function sendNotification(task, reminderMinutes, isOverdue = false) {
     
     const notification = new Notification(title, {
         body: body,
-        icon: '/ido/assets/logo.png',
-        badge: '/ido/assets/logo.png',
+        icon: '/ido/assets/logo.svg',
+        badge: '/ido/assets/logo.svg',
         tag: `task-${task.id}`,
         requireInteraction: true
     });
