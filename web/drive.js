@@ -77,8 +77,10 @@ async function initiateLogin() {
     authUrl.searchParams.set('code_challenge_method', 'S256');
     authUrl.searchParams.set('access_type', 'offline');
     authUrl.searchParams.set('prompt', 'consent');
+    authUrl.searchParams.set('include_granted_scopes', 'false');
     
     console.log('OAuth Scopes being requested:', CONFIG.scope);
+    console.log('Full auth URL:', authUrl.toString());
 
     // Redirect to Google
     window.location.href = authUrl.toString();
