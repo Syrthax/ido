@@ -171,6 +171,19 @@ function createDayColumn(date, dayIndex) {
         <span class="calendar-day-name">${dayName}</span>
         <span class="calendar-day-number">${dayNumber}</span>
     `;
+    
+    // Make header clickable to add event on this date
+    header.style.cursor = 'pointer';
+    header.addEventListener('click', (e) => {
+        // Prevent triggering when clicking on events
+        if (e.target === header || e.target.classList.contains('calendar-day-name') || e.target.classList.contains('calendar-day-number')) {
+            if (window.openEventModal) {
+                const dateStr = date.toISOString().split('T')[0];
+                window.openEventModal(dateStr);
+            }
+        }
+    });
+    
     column.appendChild(header);
 
     // Events container
@@ -208,6 +221,8 @@ function createDayColumn(date, dayIndex) {
 function createCalendarEventElement(event) {
     const eventEl = document.createElement('div');
     eventEl.className = 'calendar-event';
+    eventEl.dataset.eventId = event.id;
+    eventEl.style.cursor = 'pointer';
     
     const startTime = event.start.dateTime ? 
         new Date(event.start.dateTime).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' }) : 
@@ -217,6 +232,17 @@ function createCalendarEventElement(event) {
         <div class="calendar-event-time">${startTime}</div>
         <div class="calendar-event-title">${event.summary || 'Untitled Event'}</div>
     `;
+    
+    // Make clickable to edit
+    eventEl.addEventListener('click', () => {
+        if (window.openEditEventModal) {
+            // Find the full event object
+            const fullEvent = calendarEvents.find(e => e.id === event.id);
+            if (fullEvent) {
+                window.openEditEventModal(fullEvent);
+            }
+        }
+    });
     
     return eventEl;
 }

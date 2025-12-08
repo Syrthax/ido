@@ -50,7 +50,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 20px;
+    padding: 0;
     position: relative;
     overflow-x: hidden;
     transition: background 0.3s ease, color 0.3s ease;
@@ -127,7 +127,7 @@ body {
     max-width: 100%;
     position: relative;
     z-index: 1;
-    padding: 0 20px;
+    padding: 0;
 }
 
 .section {
@@ -145,8 +145,13 @@ body {
 }
 
 #app-section {
-    max-width: 1600px;
-    margin: 0 auto;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+    border-radius: 0;
+    border: none;
+    min-height: 100vh;
+    background: var(--bg-primary);
 }
 
 #login-section {
@@ -174,6 +179,11 @@ body {
     transform: translateY(-8px);
     box-shadow: 0 16px 56px 0 rgba(0, 0, 0, 0.4),
                 inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+#app-section:hover {
+    transform: none;
+    box-shadow: none;
 }
 
 @keyframes fadeInUp {
@@ -330,12 +340,12 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 36px;
-    padding-bottom: 24px;
+    padding: 20px 32px;
     border-bottom: 1px solid var(--border-color);
     position: relative;
     gap: 20px;
     flex-wrap: wrap;
+    background: var(--bg-primary);
 }
 
 .header-logo {
@@ -1284,8 +1294,9 @@ body {
     display: grid;
     grid-template-columns: 280px 1fr 320px;
     gap: 24px;
-    height: calc(100vh - 250px);
+    height: calc(100vh - 80px);
     min-height: 600px;
+    padding: 0 32px 32px 32px;
 }
 
 /* ===================================================
@@ -1537,15 +1548,40 @@ body {
     gap: 16px;
 }
 
+.calendar-header-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
 .calendar-view-toggle {
     display: flex;
     gap: 8px;
-    justify-content: flex-end;
     padding: 4px;
     background: var(--bg-secondary);
     border-radius: 12px;
     width: fit-content;
-    margin-left: auto;
+}
+
+.add-event-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: var(--accent);
+    color: var(--bg-primary);
+    border: none;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.add-event-btn:hover {
+    background: var(--accent-hover);
+    transform: translateY(-2px);
 }
 
 .view-toggle-btn {
@@ -2066,4 +2102,211 @@ body {
         width: 100%;
         justify-content: center;
     }
+}
+
+/* ===================================================
+   EVENT MODAL
+   =================================================== */
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.2s ease;
+}
+
+.modal.hidden {
+    display: none;
+}
+
+.modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+}
+
+.modal-content {
+    position: relative;
+    background: var(--glass-bg);
+    -webkit-backdrop-filter: blur(30px);
+    backdrop-filter: blur(30px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    width: 90%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+    animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 28px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.modal-header h2 {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--text-primary);
+}
+
+.close-modal-btn {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: var(--text-secondary);
+}
+
+.close-modal-btn:hover {
+    background: var(--delete-bg);
+    border-color: var(--delete-border);
+    color: var(--delete-text);
+}
+
+.modal-body {
+    padding: 28px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.checkbox-label input[type=\"checkbox\"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.recurring-options {
+    margin-top: 16px;
+    padding: 20px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+}
+
+.modal-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 28px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border-color);
+}
+
+.modal-actions-right {
+    display: flex;
+    gap: 12px;
+}
+
+.btn-delete {
+    padding: 12px 24px;
+    background: var(--delete-bg);
+    color: var(--delete-text);
+    border: 1px solid var(--delete-border);
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-delete:hover {
+    background: rgba(220, 38, 38, 0.2);
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    padding: 12px 24px;
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-secondary:hover {
+    background: var(--glass-bg);
+    transform: translateY(-2px);
+}
+
+.btn-primary {
+    padding: 12px 24px;
+    background: var(--accent);
+    color: var(--bg-primary);
+    border: none;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+    background: var(--accent-hover);
+    transform: translateY(-2px);
 }

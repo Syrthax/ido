@@ -74,11 +74,20 @@
                 <!-- Center Area - Weekly Calendar -->
                 <main class="center-area">
                     <div class="calendar-header">
-                        <div class="calendar-view-toggle">
-                            <button class="view-toggle-btn active" data-view="week">Week</button>
-                            <button class="view-toggle-btn" data-view="day">Day</button>
-                            <button class="view-toggle-btn" data-view="month">Month</button>
-                            <button class="view-toggle-btn" data-view="year">Year</button>
+                        <div class="calendar-header-row">
+                            <div class="calendar-view-toggle">
+                                <button class="view-toggle-btn active" data-view="week">Week</button>
+                                <button class="view-toggle-btn" data-view="day">Day</button>
+                                <button class="view-toggle-btn" data-view="month">Month</button>
+                                <button class="view-toggle-btn" data-view="year">Year</button>
+                            </div>
+                            <button id="add-event-btn" class="add-event-btn">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                </svg>
+                                Add Event
+                            </button>
                         </div>
                         <div id="week-header" class="week-header">
                             <!-- Rendered by calendar.js -->
@@ -215,6 +224,95 @@
                 </div>
             </div>
         </div>
+
+        <!-- Event Creation/Edit Modal -->
+        <div id="event-modal" class="modal hidden">
+            <div class="modal-overlay"></div>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 id="modal-title">Add Event</h2>
+                    <button id="close-modal-btn" class="close-modal-btn" title="Close">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="event-form">
+                        <div class="form-group">
+                            <label for="event-title">Title *</label>
+                            <input type="text" id="event-title" class="glass-input" placeholder="Event title" required />
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="event-description">Description</label>
+                            <textarea id="event-description" class="glass-input" rows="3" placeholder="Add description (optional)"></textarea>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="event-start-date">Start Date *</label>
+                                <input type="date" id="event-start-date" class="glass-input" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="event-start-time">Start Time</label>
+                                <input type="time" id="event-start-time" class="glass-input" />
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="event-end-date">End Date</label>
+                                <input type="date" id="event-end-date" class="glass-input" />
+                            </div>
+                            <div class="form-group">
+                                <label for="event-end-time">End Time</label>
+                                <input type="time" id="event-end-time" class="glass-input" />
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="event-all-day" />
+                                All day event
+                            </label>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="event-recurring" />
+                                Recurring event
+                            </label>
+                        </div>
+                        
+                        <div id="recurring-options" class="recurring-options hidden">
+                            <div class="form-group">
+                                <label for="event-recurrence-type">Repeat</label>
+                                <select id="event-recurrence-type" class="glass-select">
+                                    <option value="DAILY">Daily</option>
+                                    <option value="WEEKLY">Weekly</option>
+                                    <option value="MONTHLY">Monthly</option>
+                                    <option value="YEARLY">Yearly</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="event-recurrence-count">Number of occurrences</label>
+                                <input type="number" id="event-recurrence-count" class="glass-input" min="1" max="365" placeholder="Leave empty for no end" />
+                            </div>
+                        </div>
+                        
+                        <div class="modal-actions">
+                            <button type="button" id="delete-event-btn" class="btn-delete hidden">Delete Event</button>
+                            <div class="modal-actions-right">
+                                <button type="button" id="cancel-event-btn" class="btn-secondary">Cancel</button>
+                                <button type="submit" id="save-event-btn" class="btn-primary">Save Event</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Load Scripts -->
@@ -222,6 +320,7 @@
     <script src="taskSchema.js"></script>
     <script src="drive.js"></script>
     <script src="calendar.js"></script>
+    <script src="events.js"></script>
     <script src="app.js"></script>
 </body>
 </html>

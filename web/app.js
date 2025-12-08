@@ -120,6 +120,11 @@ async function initializeApp() {
             window.initCalendar();
         }
         
+        // Initialize event modal
+        if (window.initEventModal) {
+            window.initEventModal();
+        }
+        
         updateSyncStatus('synced', 'Synced');
     } catch (error) {
         console.error('Failed to load tasks:', error);
