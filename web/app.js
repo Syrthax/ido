@@ -816,11 +816,10 @@ function sendNotification(task, reminderMinutes, isOverdue = false) {
    =================================================== */
 
 let draggedElement = null;
-let draggedTaskId = null;
 
 function handleDragStart(e) {
     draggedElement = this;
-    draggedTaskId = this.dataset.taskId;
+    const draggedTaskId = this.dataset.taskId;
     this.classList.add('dragging');
     e.dataTransfer.effectAllowed = 'move';
     e.dataTransfer.setData('text/html', this.innerHTML);
