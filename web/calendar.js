@@ -6,6 +6,8 @@
 let calendarEvents = [];
 let currentWeekStart = null;
 let currentView = 'week'; // 'day', 'week', 'month', 'year'
+let calendarErrorShown = false; // Track if error was already shown
+let hasCalendarAccess = true; // Track if we have calendar access
 
 /* ===================================================
    CALENDAR API FUNCTIONS
@@ -17,7 +19,12 @@ let currentView = 'week'; // 'day', 'week', 'month', 'year'
 async function fetchCalendarEvents(startDate, endDate) {
     const accessToken = localStorage.getItem('access_token');
     if (!accessToken) {
-        throw new Error('No access token available');
+        return [];
+    }
+
+    // If we know we don't have access, don't keep trying
+    if (!hasCalendarAccess) {
+        return [];
     }
 
     try {
@@ -34,15 +41,38 @@ async function fetchCalendarEvents(startDate, endDate) {
         );
 
         if (!response.ok) {
-            throw new Error('Failed to fetch calendar events');
+            // Check for auth errors
+            if (response.status === 403 || response.status === 401) {
+                hasCalendarAccess = false;
+                
+                // Show error only once
+                if (!calendarErrorShown) {
+                    calendarErrorShown = true;
+                    console.warn('Calendar access denied. You need to logout and login again with Calendar permissions.');
+                    
+                    // Show a non-intrusive notification
+                    const shouldReauth = confirm(
+                        'Calendar access is not authorized. To use calendar features, you need to logout and sign in again.\n\nWould you like to logout now?'
+                    );
+                    
+                    if (shouldReauth) {
+                        localStorage.clear();
+                        window.location.reload();
+                    }
+                }
+            }
+            calendarEvents = [];
+            return [];
         }
 
         const data = await response.json();
         calendarEvents = data.items || [];
+        hasCalendarAccess = true;
         return calendarEvents;
     } catch (error) {
-        console.error('Error fetching calendar events:', error);
-        throw error;
+        // Silent failure - don't spam console
+        calendarEvents = [];
+        return [];
     }
 }
 
@@ -127,11 +157,7 @@ async function renderCalendar() {
     const weekEnd = new Date(weekDays[5]); // Saturday
     weekEnd.setHours(23, 59, 59, 999);
     
-    try {
-        await fetchCalendarEvents(weekDays[0], weekEnd);
-    } catch (error) {
-        console.error('Failed to load calendar events:', error);
-    }
+    await fetchCalendarEvents(weekDays[0], weekEnd);
 
     // Clear existing content
     calendarGrid.innerHTML = '';
@@ -611,11 +637,7 @@ async function renderDayView() {
     const dayEnd = new Date(currentDate);
     dayEnd.setHours(23, 59, 59, 999);
     
-    try {
-        await fetchCalendarEvents(dayStart, dayEnd);
-    } catch (error) {
-        console.error('Failed to load calendar events:', error);
-    }
+    await fetchCalendarEvents(dayStart, dayEnd);
 
     // Update header
     updateDayViewHeader(currentDate);
@@ -775,11 +797,7 @@ async function renderMonthView() {
     const monthStart = new Date(year, month, 1);
     const monthEnd = new Date(year, month + 1, 0, 23, 59, 59, 999);
     
-    try {
-        await fetchCalendarEvents(monthStart, monthEnd);
-    } catch (error) {
-        console.error('Failed to load calendar events:', error);
-    }
+    await fetchCalendarEvents(monthStart, monthEnd);
 
     // Update header
     updateMonthViewHeader(now);
@@ -950,11 +968,7 @@ async function renderYearView() {
     const yearStart = new Date(year, 0, 1);
     const yearEnd = new Date(year, 11, 31, 23, 59, 59, 999);
     
-    try {
-        await fetchCalendarEvents(yearStart, yearEnd);
-    } catch (error) {
-        console.error('Failed to load calendar events:', error);
-    }
+    await fetchCalendarEvents(yearStart, yearEnd);
 
     // Update header
     updateYearViewHeader(year);
