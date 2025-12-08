@@ -167,8 +167,10 @@ async function renderCalendar() {
     
     await fetchCalendarEvents(weekDays[0], weekEnd);
 
-    // Clear existing content
+    // Clear existing content and reset grid styling
     calendarGrid.innerHTML = '';
+    calendarGrid.style.gridTemplateColumns = 'repeat(6, 1fr)';
+    calendarGrid.style.gap = '1px';
 
     // Render day columns
     weekDays.forEach((date, index) => {
@@ -810,7 +812,7 @@ async function renderMonthView() {
     // Update header
     updateMonthViewHeader(now);
 
-    // Clear and set up grid for month view
+    // Clear and reset grid for month view
     calendarGrid.innerHTML = '';
     calendarGrid.style.gridTemplateColumns = 'repeat(7, 1fr)';
     calendarGrid.style.gap = '1px';
@@ -981,7 +983,7 @@ async function renderYearView() {
     // Update header
     updateYearViewHeader(year);
 
-    // Clear and set up grid for year view
+    // Clear and reset grid for year view
     calendarGrid.innerHTML = '';
     calendarGrid.style.gridTemplateColumns = 'repeat(4, 1fr)';
     calendarGrid.style.gap = '24px';
