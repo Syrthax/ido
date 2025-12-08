@@ -7,7 +7,8 @@ let calendarEvents = [];
 let currentWeekStart = null;
 let currentView = 'week'; // 'day', 'week', 'month', 'year'
 let calendarErrorShown = false; // Track if error was already shown
-let hasCalendarAccess = true; // Track if we have calendar access
+let hasCalendarAccess = null; // null = unknown, true = has access, false = no access
+let isInitialLoad = true; // Track if this is the first load
 
 /* ===================================================
    CALENDAR API FUNCTIONS
@@ -24,7 +25,7 @@ async function fetchCalendarEvents(startDate, endDate) {
     }
 
     // If we know we don't have access, don't even attempt the fetch
-    if (!hasCalendarAccess) {
+    if (hasCalendarAccess === false) {
         calendarEvents = [];
         return [];
     }
@@ -48,8 +49,8 @@ async function fetchCalendarEvents(startDate, endDate) {
                 hasCalendarAccess = false;
                 calendarEvents = [];
                 
-                // Show error only once per session
-                if (!calendarErrorShown) {
+                // Show error only once per session and not on initial load
+                if (!calendarErrorShown && !isInitialLoad) {
                     calendarErrorShown = true;
                     
                     // Delay the prompt to avoid blocking UI
@@ -76,7 +77,8 @@ async function fetchCalendarEvents(startDate, endDate) {
         return calendarEvents;
     } catch (error) {
         // Network or other errors - fail silently
-        if (!calendarErrorShown && error.message && !error.message.includes('Failed to fetch')) {
+        // Only log if it's not a fetch error and not initial load
+        if (!isInitialLoad && !calendarErrorShown && error.message && !error.message.includes('Failed to fetch')) {
             console.warn('Calendar error:', error.message);
         }
         calendarEvents = [];
@@ -1128,6 +1130,12 @@ function nextYear() {
  */
 function initCalendar() {
     currentWeekStart = getWeekStart();
+    
+    // Mark that initial load is complete after first render
+    setTimeout(() => {
+        isInitialLoad = false;
+    }, 1000);
+    
     renderCalendar();
     renderMiniCalendar();
     renderTodaySection();
