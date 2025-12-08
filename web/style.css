@@ -1091,16 +1091,20 @@ body {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     opacity: 0;
     transform: scale(0.9);
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%) scale(0.9);
 }
 
 .task-item:hover .delete-button {
     opacity: 1;
-    transform: scale(1);
+    transform: translateY(-50%) scale(1);
 }
 
 .delete-button:hover {
     background: rgba(220, 38, 38, 0.15);
-    transform: scale(1.05);
+    transform: translateY(-50%) scale(1.05);
     box-shadow: 0 4px 12px rgba(220, 38, 38, 0.2);
 }
 
@@ -1773,6 +1777,7 @@ body {
     gap: 16px;
     overflow-y: auto;
     padding-left: 12px;
+    position: relative;
 }
 
 .right-sidebar::-webkit-scrollbar {
@@ -1797,6 +1802,11 @@ body {
     background: var(--glass-bg);
     border: 1px solid var(--border-color);
     border-radius: 16px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 
 .profile-avatar {
@@ -1904,6 +1914,7 @@ body {
     padding: 12px;
     background: var(--bg-secondary);
     cursor: grab;
+    position: relative;
 }
 
 .tasks-list .task-item:hover {
