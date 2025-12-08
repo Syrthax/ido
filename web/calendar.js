@@ -621,9 +621,9 @@ function initCalendar() {
                 renderCalendar();
             } else {
                 // TODO: Implement day, month, year views
-                alert(`${view.charAt(0).toUpperCase() + view.slice(1)} view coming soon!`);
-                // Reset to week view
-                document.querySelector('[data-view="week"]').click();
+                // For now, just keep the button active but stay in week view
+                console.log(`${view} view not yet implemented, staying in week view`);
+                renderCalendar();
             }
         });
     });

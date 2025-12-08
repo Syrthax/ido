@@ -375,7 +375,29 @@ async function handleEventFormSubmit(e) {
         
     } catch (error) {
         console.error('Error saving event:', error);
-        alert('Failed to save event: ' + error.message);
+        
+        if (error.message.includes('insufficient authentication scopes')) {
+            const shouldReauth = confirm(
+                'Your current login doesn\'t have permission to create calendar events. ' +
+                'This requires logging out and signing in again with the correct permissions. ' +
+                'Would you like to logout now?'
+            );
+            
+            if (shouldReauth) {
+                // Clear all auth data
+                localStorage.removeItem('access_token');
+                localStorage.removeItem('refresh_token');
+                localStorage.removeItem('id_token');
+                localStorage.removeItem('user_info');
+                localStorage.removeItem('file_id');
+                
+                // Reload to show login screen
+                window.location.reload();
+                return;
+            }
+        } else {
+            alert('Failed to save event: ' + error.message);
+        }
     } finally {
         saveBtn.textContent = originalText;
         saveBtn.disabled = false;

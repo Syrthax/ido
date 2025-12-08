@@ -1802,6 +1802,9 @@ body {
     font-size: 13px;
     color: var(--text-primary);
     line-height: 1.4;
+    word-break: break-word;
+    white-space: normal;
+    overflow-wrap: break-word;
 }
 
 .calendar-task.completed .calendar-task-text {
