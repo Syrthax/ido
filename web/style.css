@@ -885,7 +885,7 @@ body {
     justify-content: center;
     opacity: 0;
     position: absolute;
-    right: 60px;
+    right: 8px;
     top: 50%;
     transform: translateY(-50%);
 }
@@ -1102,43 +1102,43 @@ body {
     height: 14px;
 }
 
-.delete-button {
-    background: var(--delete-bg);
-    color: var(--delete-text);
-    border: 1px solid var(--delete-border);
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
-    padding: 10px 18px;
-    border-radius: 12px;
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 0.3px;
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    opacity: 0;
-    transform: scale(0.9);
+.delete-button-circle {
     position: absolute;
-    right: 8px;
-    top: 50%;
-    transform: translateY(-50%) scale(0.9);
+    left: -8px;
+    top: -8px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #ff5f57;
+    border: 1px solid #e04340;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    opacity: 0;
+    z-index: 10;
+    padding: 0;
 }
 
-.task-item:hover .delete-button {
+.delete-button-circle svg {
+    width: 10px;
+    height: 10px;
+    color: #4a0000;
+}
+
+.task-item:hover .delete-button-circle {
     opacity: 1;
-    transform: translateY(-50%) scale(1);
 }
 
-.delete-button:hover {
-    background: rgba(220, 38, 38, 0.15);
-    transform: translateY(-50%) scale(1.05);
-    box-shadow: 0 4px 12px rgba(220, 38, 38, 0.2);
+.delete-button-circle:hover {
+    background: #ff4540;
+    transform: scale(1.15);
+    box-shadow: 0 2px 8px rgba(255, 95, 87, 0.4);
 }
 
-@media (prefers-color-scheme: dark) {
-    .delete-button:hover {
-        background: rgba(239, 68, 68, 0.2);
-        box-shadow: 0 4px 12px rgba(239, 68, 68, 0.25);
-    }
+.delete-button-circle:active {
+    transform: scale(0.95);
 }
 
 .empty-state {
@@ -1967,7 +1967,7 @@ body {
 
 .tasks-list .task-item {
     padding: 12px;
-    padding-right: 120px;
+    padding-right: 50px;
     background: var(--bg-secondary);
     cursor: grab;
     position: relative;

@@ -456,11 +456,18 @@ function createSidebarTaskElement(task) {
     div.appendChild(textContainer);
     div.appendChild(priorityBtn);
     
-    // Delete button
+    // Delete button (macOS-style red circle with X in top-left)
     const deleteBtn = document.createElement('button');
-    deleteBtn.className = 'delete-button';
-    deleteBtn.textContent = 'Delete';
-    deleteBtn.addEventListener('click', () => {
+    deleteBtn.className = 'delete-button-circle';
+    deleteBtn.title = 'Delete task';
+    deleteBtn.innerHTML = `
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+            <line x1="7" y1="7" x2="17" y2="17"></line>
+            <line x1="17" y1="7" x2="7" y2="17"></line>
+        </svg>
+    `;
+    deleteBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
         if (confirm('Delete this task?')) {
             deleteTask(task.id);
         }
