@@ -1823,6 +1823,255 @@ body {
 }
 
 /* ===================================================
+   DAY VIEW
+   =================================================== */
+
+.day-view-time-column {
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-secondary);
+    border-right: 1px solid var(--border-color);
+}
+
+.day-view-time-slot {
+    height: 60px;
+    padding: 8px 12px;
+    font-size: 11px;
+    color: var(--text-secondary);
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+    text-align: right;
+}
+
+.day-view-events-column {
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-primary);
+}
+
+.day-view-event-slot {
+    min-height: 60px;
+    padding: 4px 8px;
+    border-bottom: 1px solid var(--border-color);
+    position: relative;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.day-view-event-slot:hover {
+    background: var(--bg-secondary);
+}
+
+.day-view-event-slot.drag-over {
+    background: rgba(37, 99, 235, 0.1);
+    outline: 2px dashed var(--accent);
+    outline-offset: -2px;
+}
+
+/* ===================================================
+   MONTH VIEW
+   =================================================== */
+
+.month-view-day-header {
+    padding: 12px;
+    background: var(--bg-secondary);
+    text-align: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.month-view-day-cell {
+    min-height: 100px;
+    padding: 8px;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.month-view-day-cell.empty {
+    background: var(--bg-secondary);
+    opacity: 0.3;
+    cursor: default;
+}
+
+.month-view-day-cell:not(.empty):hover {
+    background: var(--bg-secondary);
+    transform: scale(1.02);
+    z-index: 10;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.month-view-day-cell.today {
+    background: rgba(37, 99, 235, 0.05);
+    border-color: var(--accent);
+}
+
+.month-view-day-cell.today .month-view-day-number {
+    background: var(--accent);
+    color: var(--bg-primary);
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.month-view-day-number {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+}
+
+.month-view-events {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex: 1;
+    overflow: hidden;
+}
+
+.month-view-event,
+.month-view-task {
+    font-size: 11px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.month-view-event {
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.15) 0%, rgba(59, 130, 246, 0.1) 100%);
+    color: var(--accent);
+    border-left: 2px solid var(--accent);
+}
+
+.month-view-task {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    border-left: 2px solid var(--text-secondary);
+}
+
+.month-view-more {
+    font-size: 10px;
+    color: var(--text-secondary);
+    margin-top: 2px;
+    font-weight: 600;
+}
+
+/* ===================================================
+   YEAR VIEW
+   =================================================== */
+
+.year-view-month {
+    background: var(--glass-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 16px;
+    transition: all 0.2s ease;
+}
+
+.year-view-month:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.year-view-month-header {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 12px;
+    text-align: center;
+}
+
+.year-view-day-headers {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+    margin-bottom: 8px;
+}
+
+.year-view-day-headers div {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-align: center;
+    padding: 4px 0;
+}
+
+.year-view-days-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+}
+
+.year-view-day {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: var(--text-primary);
+    position: relative;
+}
+
+.year-view-day.empty {
+    cursor: default;
+    opacity: 0;
+}
+
+.year-view-day:not(.empty):hover {
+    background: var(--accent);
+    color: var(--bg-primary);
+}
+
+.year-view-day.today {
+    background: var(--accent);
+    color: var(--bg-primary);
+    font-weight: 700;
+}
+
+.year-view-day.has-events::after {
+    content: '';
+    position: absolute;
+    bottom: 2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: currentColor;
+}
+
+.year-view-day.has-events:not(.today)::after {
+    background: var(--accent);
+}
+
+.year-view-event-dot {
+    position: absolute;
+    bottom: 2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--accent);
+}
+
+/* ===================================================
    RIGHT SIDEBAR - TASKS PANEL
    =================================================== */
 
