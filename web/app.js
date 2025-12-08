@@ -16,7 +16,10 @@ const loginBtn = document.getElementById('login-btn');
 const logoutBtn = document.getElementById('logout-btn');
 const taskInput = document.getElementById('task-input');
 const addTaskBtn = document.getElementById('add-task-btn');
-const tasksContainer = document.getElementById('tasks-container');
+const addTaskBtnSidebar = document.getElementById('add-task-btn-sidebar');
+const addTaskSection = document.getElementById('add-task-section');
+const plannedTasksContainer = document.getElementById('planned-tasks-container');
+const unplannedTasksContainer = document.getElementById('unplanned-tasks-container');
 const syncStatusText = document.getElementById('sync-status-text');
 const manualSyncBtn = document.getElementById('manual-sync-btn');
 
@@ -105,13 +108,25 @@ async function initializeApp() {
         
         // Load tasks from Google Drive
         tasks = await window.DriveAPI.loadTasks();
-        renderTasks();
+        
+        // Make tasks available globally for calendar.js
+        window.tasks = tasks;
+        
+        // Render tasks in sidebar
+        renderTasksSidebar();
+        
+        // Initialize calendar
+        if (window.initCalendar) {
+            window.initCalendar();
+        }
+        
         updateSyncStatus('synced', 'Synced');
     } catch (error) {
         console.error('Failed to load tasks:', error);
         updateSyncStatus('error', 'Failed to load tasks');
         tasks = [];
-        renderTasks();
+        window.tasks = tasks;
+        renderTasksSidebar();
     }
     
     // Initialize date/time picker
@@ -120,24 +135,17 @@ async function initializeApp() {
 
 // Display user info in the header
 function displayUserInfo(user) {
-    const headerLogo = document.querySelector('.header-logo');
-    if (!headerLogo) return;
+    const profileInfo = document.getElementById('profile-info');
+    if (!profileInfo) return;
     
-    // Create user info element
-    const userInfoEl = document.createElement('div');
-    userInfoEl.className = 'user-info';
-    userInfoEl.innerHTML = `
-        ${user.picture ? `<img src="${user.picture}" alt="${user.name}" class="user-avatar">` : ''}
-        <div class="user-details">
-            <div class="user-name">${user.name}</div>
-            <div class="user-email">${user.email}</div>
+    // Create profile info element for sidebar
+    profileInfo.innerHTML = `
+        ${user.picture ? `<img src="${user.picture}" alt="${user.name}" class="profile-avatar">` : ''}
+        <div class="profile-details">
+            <div class="profile-name">${user.name}</div>
+            <div class="profile-email">${user.email}</div>
         </div>
     `;
-    
-    // Insert after logout button
-    const header = document.querySelector('.header');
-    const logoutBtn = document.getElementById('logout-btn');
-    header.insertBefore(userInfoEl, logoutBtn);
 }
 
 /* ===================================================
@@ -155,6 +163,16 @@ logoutBtn.addEventListener('click', () => {
         window.DriveAPI.logout();
     }
 });
+
+// Add task button in sidebar header
+if (addTaskBtnSidebar) {
+    addTaskBtnSidebar.addEventListener('click', () => {
+        addTaskSection.classList.toggle('hidden');
+        if (!addTaskSection.classList.contains('hidden')) {
+            taskInput.focus();
+        }
+    });
+}
 
 // Add task button
 addTaskBtn.addEventListener('click', () => {
@@ -200,6 +218,7 @@ async function addTask() {
     
     // Add to tasks array
     tasks.push(newTask);
+    window.tasks = tasks;
     
     // Clear input and reset due date
     taskInput.value = '';
@@ -208,8 +227,16 @@ async function addTask() {
     datetimeToggleBtn.classList.remove('active');
     datetimePanel.classList.add('hidden');
     
-    // Re-render tasks
-    renderTasks();
+    // Re-render tasks sidebar
+    renderTasksSidebar();
+    
+    // Re-render calendar if available
+    if (window.renderCalendar) {
+        window.renderCalendar();
+    }
+    if (window.renderTodaySection) {
+        window.renderTodaySection();
+    }
     
     // Save to Google Drive
     await saveTasksToCloud();
@@ -222,10 +249,20 @@ async function toggleTask(id) {
     
     const index = window.TaskSchema.findTaskIndexById(tasks, id);
     tasks[index] = window.TaskSchema.updateTask(task, { done: !task.done });
+    window.tasks = tasks;
     
-    renderTasks();
+    renderTasksSidebar();
+    if (window.renderCalendar) {
+        window.renderCalendar();
+    }
+    if (window.renderTodaySection) {
+        window.renderTodaySection();
+    }
     await saveTasksToCloud();
 }
+
+// Make toggleTask available globally for onclick handlers
+window.toggleTask = toggleTask;
 
 // Toggle task priority (pin to top)
 async function togglePriority(id) {
@@ -234,6 +271,7 @@ async function togglePriority(id) {
     
     const index = window.TaskSchema.findTaskIndexById(tasks, id);
     tasks[index] = window.TaskSchema.updateTask(task, { priority: !task.priority });
+    window.tasks = tasks;
     
     // Re-sort tasks: pinned first, then by original order
     tasks.sort((a, b) => {
@@ -242,7 +280,10 @@ async function togglePriority(id) {
         return 0;
     });
     
-    renderTasks();
+    renderTasksSidebar();
+    if (window.renderCalendar) {
+        window.renderCalendar();
+    }
     await saveTasksToCloud();
 }
 
@@ -257,8 +298,15 @@ async function deleteTask(id) {
     
     // Filter out deleted tasks for display
     tasks = window.TaskSchema.getActiveTasks(tasks);
+    window.tasks = tasks;
     
-    renderTasks();
+    renderTasksSidebar();
+    if (window.renderCalendar) {
+        window.renderCalendar();
+    }
+    if (window.renderTodaySection) {
+        window.renderTodaySection();
+    }
     await saveTasksToCloud();
 }
 
@@ -266,48 +314,72 @@ async function deleteTask(id) {
    RENDERING
    =================================================== */
 
-// Render all tasks to the DOM
-function renderTasks() {
-    tasksContainer.innerHTML = '';
+// Render tasks in sidebar (planned and unplanned)
+function renderTasksSidebar() {
+    if (!plannedTasksContainer || !unplannedTasksContainer) return;
+    
+    // Clear containers
+    plannedTasksContainer.innerHTML = '';
+    unplannedTasksContainer.innerHTML = '';
     
     if (tasks.length === 0) {
-        tasksContainer.innerHTML = `
+        unplannedTasksContainer.innerHTML = `
             <div class="empty-state">
                 <p>No tasks yet!</p>
-                <small>Add your first task above to get started</small>
+                <small>Add your first task above</small>
             </div>
         `;
         return;
     }
     
-    // Sort: pinned tasks first, then rest maintain their order
+    // Sort tasks: pinned first
     const sortedTasks = [...tasks].sort((a, b) => {
         if (a.priority && !b.priority) return -1;
         if (!a.priority && b.priority) return 1;
         return 0;
     });
     
-    sortedTasks.forEach((task) => {
-        const taskItem = createTaskElement(task);
-        tasksContainer.appendChild(taskItem);
-    });
+    // Separate planned and unplanned tasks
+    const plannedTasks = sortedTasks.filter(task => task.dueDate && !task.deleted);
+    const unplannedTasks = sortedTasks.filter(task => !task.dueDate && !task.deleted);
+    
+    // Render planned tasks
+    if (plannedTasks.length === 0) {
+        plannedTasksContainer.innerHTML = '<div class="empty-state"><small>No planned tasks</small></div>';
+    } else {
+        plannedTasks.forEach(task => {
+            const taskEl = createSidebarTaskElement(task);
+            plannedTasksContainer.appendChild(taskEl);
+        });
+    }
+    
+    // Render unplanned tasks
+    if (unplannedTasks.length === 0) {
+        unplannedTasksContainer.innerHTML = '<div class="empty-state"><small>No unplanned tasks</small></div>';
+    } else {
+        unplannedTasks.forEach(task => {
+            const taskEl = createSidebarTaskElement(task);
+            unplannedTasksContainer.appendChild(taskEl);
+        });
+    }
 }
 
-// Create a task element
-function createTaskElement(task) {
+// Create a sidebar task element (simplified version)
+function createSidebarTaskElement(task) {
     const div = document.createElement('div');
     const isOverdue = task.dueDate && new Date(task.dueDate) < new Date() && !task.done;
     div.className = `task-item ${task.done ? 'completed' : ''} ${isOverdue ? 'overdue' : ''} ${task.priority ? 'pinned' : ''}`;
     div.draggable = true;
-    div.dataset.taskId = task.id; // Use task ID instead of index
+    div.dataset.taskId = task.id;
     
-    // Drag events
-    div.addEventListener('dragstart', handleDragStart);
-    div.addEventListener('dragover', handleDragOver);
-    div.addEventListener('drop', handleDrop);
-    div.addEventListener('dragend', handleDragEnd);
-    div.addEventListener('dragenter', handleDragEnter);
-    div.addEventListener('dragleave', handleDragLeave);
+    // Drag events - use the calendar drag handlers for tasks with dates, or sidebar drag for unplanned
+    if (task.dueDate && window.handleTaskDragStart) {
+        div.addEventListener('dragstart', window.handleTaskDragStart);
+        div.addEventListener('dragend', window.handleTaskDragEnd);
+    } else {
+        div.addEventListener('dragstart', window.handleTaskDragStart || handleDragStart);
+        div.addEventListener('dragend', window.handleTaskDragEnd || handleDragEnd);
+    }
     
     // Drag handle
     const dragHandle = document.createElement('div');
@@ -340,7 +412,7 @@ function createTaskElement(task) {
     text.textContent = task.text;
     textContainer.appendChild(text);
     
-    // Due date display
+    // Due date display (only for planned tasks in sidebar)
     if (task.dueDate) {
         const dueDateEl = document.createElement('span');
         dueDateEl.className = 'task-due-date';
@@ -374,27 +446,10 @@ function createTaskElement(task) {
         togglePriority(task.id);
     });
     
-    // Overdue badge
-    if (isOverdue) {
-        const overdueEl = document.createElement('div');
-        overdueEl.className = 'overdue-badge';
-        overdueEl.innerHTML = `
-            <svg viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5zm0 16h-2v-2h2v2zm0-4h-2V6h2v8z"/>
-            </svg>
-            Task Overdue
-        `;
-        div.appendChild(dragHandle);
-        div.appendChild(checkbox);
-        div.appendChild(textContainer);
-        div.appendChild(overdueEl);
-        div.appendChild(priorityBtn);
-    } else {
-        div.appendChild(dragHandle);
-        div.appendChild(checkbox);
-        div.appendChild(textContainer);
-        div.appendChild(priorityBtn);
-    }
+    div.appendChild(dragHandle);
+    div.appendChild(checkbox);
+    div.appendChild(textContainer);
+    div.appendChild(priorityBtn);
     
     // Delete button
     const deleteBtn = document.createElement('button');
@@ -408,6 +463,19 @@ function createTaskElement(task) {
     div.appendChild(deleteBtn);
     
     return div;
+}
+
+// Legacy renderTasks function (kept for backward compatibility)
+function renderTasks() {
+    renderTasksSidebar();
+}
+
+// Make renderTasksSidebar available globally
+window.renderTasksSidebar = renderTasksSidebar;
+
+// Create a task element (legacy function for compatibility)
+function createTaskElement(task) {
+    return createSidebarTaskElement(task);
 }
 
 /* ===================================================
@@ -426,6 +494,14 @@ async function saveTasksToCloud() {
     try {
         await window.DriveAPI.saveTasks(tasks);
         updateSyncStatus('synced', 'Synced');
+        
+        // Update calendar and today section after save
+        if (window.renderCalendar) {
+            window.renderCalendar();
+        }
+        if (window.renderTodaySection) {
+            window.renderTodaySection();
+        }
     } catch (error) {
         console.error('Failed to save tasks:', error);
         console.error('Error details:', {
@@ -437,6 +513,9 @@ async function saveTasksToCloud() {
         isSaving = false;
     }
 }
+
+// Make saveTasksToCloud available globally
+window.saveTasksToCloud = saveTasksToCloud;
 
 /* ===================================================
    UI UPDATES

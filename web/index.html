@@ -37,6 +37,7 @@
 
         <!-- App Section -->
         <div id="app-section" class="section hidden">
+            <!-- Top Header -->
             <div class="header">
                 <div class="header-logo">
                     <img src="../assets/logo.png" alt="iDo" class="header-logo-img">
@@ -45,97 +46,167 @@
                 <button id="logout-btn" class="logout-button">Logout</button>
             </div>
 
-            <!-- Add Task Input -->
-            <div class="add-task-section">
-                <div class="task-input-wrapper">
-                    <input 
-                        type="text" 
-                        id="task-input" 
-                        placeholder="What needs to be done?" 
-                        autocomplete="off"
-                    />
-                    <button id="add-datetime-btn" class="datetime-toggle-btn" title="Add due date/time">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                            <line x1="16" y1="2" x2="16" y2="6"></line>
-                            <line x1="8" y1="2" x2="8" y2="6"></line>
-                            <line x1="3" y1="10" x2="21" y2="10"></line>
-                        </svg>
-                    </button>
-                </div>
-                
-                <!-- Date/Time Picker Panel -->
-                <div id="datetime-panel" class="datetime-panel hidden">
-                    <div class="datetime-tabs">
-                        <button class="datetime-tab active" data-tab="natural">Natural</button>
-                        <button class="datetime-tab" data-tab="picker">Date & Time</button>
+            <!-- Three-Pane Layout -->
+            <div class="three-pane-layout">
+                <!-- Left Sidebar -->
+                <aside class="left-sidebar">
+                    <!-- Mini Month Calendar -->
+                    <div id="mini-calendar" class="mini-calendar">
+                        <!-- Rendered by calendar.js -->
                     </div>
-                    
-                    <div class="datetime-content">
-                        <!-- Natural Language Input -->
-                        <div class="datetime-tab-content active" data-content="natural">
+
+                    <!-- Today Section -->
+                    <div id="today-section" class="today-section">
+                        <!-- Rendered by calendar.js -->
+                    </div>
+
+                    <!-- Filters -->
+                    <div class="filters-section">
+                        <h3>Filters</h3>
+                        <div class="filter-buttons">
+                            <button class="filter-btn active" data-filter="all">All</button>
+                            <button class="filter-btn" data-filter="personal">Personal</button>
+                            <button class="filter-btn" data-filter="work">Work</button>
+                        </div>
+                    </div>
+                </aside>
+
+                <!-- Center Area - Weekly Calendar -->
+                <main class="center-area">
+                    <div class="calendar-header">
+                        <div id="week-header" class="week-header">
+                            <!-- Rendered by calendar.js -->
+                        </div>
+                    </div>
+                    <div id="calendar-grid" class="calendar-grid">
+                        <!-- Rendered by calendar.js -->
+                    </div>
+                </main>
+
+                <!-- Right Sidebar - Tasks Panel -->
+                <aside class="right-sidebar">
+                    <!-- Profile Info -->
+                    <div id="profile-info" class="profile-info">
+                        <!-- Will be populated by app.js -->
+                    </div>
+
+                    <!-- Tasks Header -->
+                    <div class="tasks-sidebar-header">
+                        <h2>Tasks</h2>
+                        <button id="add-task-btn-sidebar" class="add-task-btn-icon" title="Add task">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <!-- Add Task Input (Collapsible) -->
+                    <div id="add-task-section" class="add-task-section-sidebar hidden">
+                        <div class="task-input-wrapper">
                             <input 
                                 type="text" 
-                                id="natural-date-input" 
-                                placeholder="e.g., tomorrow at 3pm, next monday 9am"
+                                id="task-input" 
+                                placeholder="What needs to be done?" 
                                 autocomplete="off"
                             />
-                            <div class="natural-suggestions">
-                                <button class="suggestion-chip" data-natural="tomorrow 9am">Tomorrow 9am</button>
-                                <button class="suggestion-chip" data-natural="today 6pm">Today 6pm</button>
-                                <button class="suggestion-chip" data-natural="next monday 10am">Next Monday 10am</button>
+                            <button id="add-datetime-btn" class="datetime-toggle-btn" title="Add due date/time">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                                </svg>
+                            </button>
+                        </div>
+                        
+                        <!-- Date/Time Picker Panel -->
+                        <div id="datetime-panel" class="datetime-panel hidden">
+                            <div class="datetime-tabs">
+                                <button class="datetime-tab active" data-tab="natural">Natural</button>
+                                <button class="datetime-tab" data-tab="picker">Date & Time</button>
+                            </div>
+                            
+                            <div class="datetime-content">
+                                <!-- Natural Language Input -->
+                                <div class="datetime-tab-content active" data-content="natural">
+                                    <input 
+                                        type="text" 
+                                        id="natural-date-input" 
+                                        placeholder="e.g., tomorrow at 3pm, next monday 9am"
+                                        autocomplete="off"
+                                    />
+                                    <div class="natural-suggestions">
+                                        <button class="suggestion-chip" data-natural="tomorrow 9am">Tomorrow 9am</button>
+                                        <button class="suggestion-chip" data-natural="today 6pm">Today 6pm</button>
+                                        <button class="suggestion-chip" data-natural="next monday 10am">Next Monday 10am</button>
+                                    </div>
+                                </div>
+                                
+                                <!-- Traditional Picker -->
+                                <div class="datetime-tab-content" data-content="picker">
+                                    <div class="datetime-inputs">
+                                        <input type="date" id="date-picker" class="glass-input" aria-label="Select date" />
+                                        <input type="time" id="time-picker" class="glass-input" aria-label="Select time" />
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Reminder Settings -->
+                            <div class="reminder-section">
+                                <label class="reminder-label">
+                                    <input type="checkbox" id="reminder-enabled" />
+                                    <span>Remind me</span>
+                                </label>
+                                <select id="reminder-time" class="glass-select" disabled aria-label="Reminder time">
+                                    <option value="0">At the time</option>
+                                    <option value="5">5 minutes before</option>
+                                    <option value="15">15 minutes before</option>
+                                    <option value="30">30 minutes before</option>
+                                    <option value="60">1 hour before</option>
+                                </select>
+                            </div>
+                            
+                            <div class="datetime-actions">
+                                <button id="clear-datetime-btn" class="btn-secondary-small">Clear</button>
+                                <button id="set-datetime-btn" class="btn-primary-small">Set</button>
                             </div>
                         </div>
                         
-                        <!-- Traditional Picker -->
-                        <div class="datetime-tab-content" data-content="picker">
-                            <div class="datetime-inputs">
-                                <input type="date" id="date-picker" class="glass-input" aria-label="Select date" />
-                                <input type="time" id="time-picker" class="glass-input" aria-label="Select time" />
-                            </div>
+                        <button id="add-task-btn" class="add-button">Add</button>
+                    </div>
+
+                    <!-- Planned Tasks -->
+                    <div class="tasks-section">
+                        <h3>Planned</h3>
+                        <div id="planned-tasks-container" class="tasks-list">
+                            <!-- Planned tasks rendered here -->
                         </div>
                     </div>
-                    
-                    <!-- Reminder Settings -->
-                    <div class="reminder-section">
-                        <label class="reminder-label">
-                            <input type="checkbox" id="reminder-enabled" />
-                            <span>Remind me</span>
-                        </label>
-                        <select id="reminder-time" class="glass-select" disabled aria-label="Reminder time">
-                            <option value="0">At the time</option>
-                            <option value="5">5 minutes before</option>
-                            <option value="15">15 minutes before</option>
-                            <option value="30">30 minutes before</option>
-                            <option value="60">1 hour before</option>
-                        </select>
+
+                    <!-- Unplanned Tasks -->
+                    <div class="tasks-section">
+                        <h3>Unplanned</h3>
+                        <div id="unplanned-tasks-container" class="tasks-list">
+                            <!-- Unplanned tasks rendered here -->
+                        </div>
                     </div>
-                    
-                    <div class="datetime-actions">
-                        <button id="clear-datetime-btn" class="btn-secondary-small">Clear</button>
-                        <button id="set-datetime-btn" class="btn-primary-small">Set</button>
-                    </div>
+                </aside>
+            </div>
+
+            <!-- Bottom Bar - Sync Status -->
+            <div class="bottom-bar">
+                <div class="sync-status">
+                    <span id="sync-status-text">Synced</span>
+                    <button id="manual-sync-btn" class="sync-button" title="Sync now">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="23 4 23 10 17 10"></polyline>
+                            <polyline points="1 20 1 14 7 14"></polyline>
+                            <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+                        </svg>
+                        <span class="sync-btn-text">Sync</span>
+                    </button>
                 </div>
-                
-                <button id="add-task-btn" class="add-button">Add</button>
-            </div>
-
-            <!-- Tasks List -->
-            <div id="tasks-container" class="tasks-container">
-                <!-- Tasks will be rendered here -->
-            </div>
-
-            <!-- Sync Status -->
-            <div class="sync-status">
-                <span id="sync-status-text">Synced</span>
-                <button id="manual-sync-btn" class="sync-button" title="Sync now">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <polyline points="23 4 23 10 17 10"></polyline>
-                        <polyline points="1 20 1 14 7 14"></polyline>
-                        <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
-                    </svg>
-                    <span class="sync-btn-text">Sync</span>
-                </button>
             </div>
         </div>
     </div>
@@ -144,6 +215,7 @@
     <script src="config.js"></script>
     <script src="taskSchema.js"></script>
     <script src="drive.js"></script>
+    <script src="calendar.js"></script>
     <script src="app.js"></script>
 </body>
 </html>
