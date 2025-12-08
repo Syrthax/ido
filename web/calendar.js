@@ -5,6 +5,7 @@
 // Calendar state
 let calendarEvents = [];
 let currentWeekStart = null;
+let currentView = 'week'; // 'day', 'week', 'month', 'year'
 
 /* ===================================================
    CALENDAR API FUNCTIONS
@@ -576,6 +577,30 @@ function initCalendar() {
     renderCalendar();
     renderMiniCalendar();
     renderTodaySection();
+    
+    // Add view toggle listeners
+    const viewToggleBtns = document.querySelectorAll('.view-toggle-btn');
+    viewToggleBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            // Update active state
+            viewToggleBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            // Switch view
+            const view = btn.dataset.view;
+            currentView = view;
+            
+            // Currently only week view is implemented
+            if (view === 'week') {
+                renderCalendar();
+            } else {
+                // TODO: Implement day, month, year views
+                alert(`${view.charAt(0).toUpperCase() + view.slice(1)} view coming soon!`);
+                // Reset to week view
+                document.querySelector('[data-view="week"]').click();
+            }
+        });
+    });
 }
 
 /* ===================================================

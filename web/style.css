@@ -989,6 +989,9 @@ body {
 
 .task-text {
     flex: 1;
+    min-width: 0;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
     font-size: 16px;
     color: var(--text-primary);
     word-break: break-word;
@@ -1000,6 +1003,9 @@ body {
 
 .task-main-text {
     display: block;
+    word-break: break-word;
+    white-space: normal;
+    overflow-wrap: break-word;
 }
 
 .task-due-date {
@@ -1912,6 +1918,7 @@ body {
 
 .tasks-list .task-item {
     padding: 12px;
+    padding-right: 100px;
     background: var(--bg-secondary);
     cursor: grab;
     position: relative;
