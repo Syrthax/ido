@@ -19,11 +19,13 @@ let hasCalendarAccess = true; // Track if we have calendar access
 async function fetchCalendarEvents(startDate, endDate) {
     const accessToken = localStorage.getItem('access_token');
     if (!accessToken) {
+        calendarEvents = [];
         return [];
     }
 
-    // If we know we don't have access, don't keep trying
+    // If we know we don't have access, don't even attempt the fetch
     if (!hasCalendarAccess) {
+        calendarEvents = [];
         return [];
     }
 
@@ -44,22 +46,25 @@ async function fetchCalendarEvents(startDate, endDate) {
             // Check for auth errors
             if (response.status === 403 || response.status === 401) {
                 hasCalendarAccess = false;
+                calendarEvents = [];
                 
-                // Show error only once
+                // Show error only once per session
                 if (!calendarErrorShown) {
                     calendarErrorShown = true;
-                    console.warn('Calendar access denied. You need to logout and login again with Calendar permissions.');
                     
-                    // Show a non-intrusive notification
-                    const shouldReauth = confirm(
-                        'Calendar access is not authorized. To use calendar features, you need to logout and sign in again.\n\nWould you like to logout now?'
-                    );
-                    
-                    if (shouldReauth) {
-                        localStorage.clear();
-                        window.location.reload();
-                    }
+                    // Delay the prompt to avoid blocking UI
+                    setTimeout(() => {
+                        const shouldReauth = confirm(
+                            'Calendar access is not authorized. To use calendar features, you need to logout and sign in again.\\n\\nWould you like to logout now?'
+                        );
+                        
+                        if (shouldReauth) {
+                            localStorage.clear();
+                            window.location.reload();
+                        }
+                    }, 500);
                 }
+                return [];
             }
             calendarEvents = [];
             return [];
@@ -70,7 +75,10 @@ async function fetchCalendarEvents(startDate, endDate) {
         hasCalendarAccess = true;
         return calendarEvents;
     } catch (error) {
-        // Silent failure - don't spam console
+        // Network or other errors - fail silently
+        if (!calendarErrorShown && error.message && !error.message.includes('Failed to fetch')) {
+            console.warn('Calendar error:', error.message);
+        }
         calendarEvents = [];
         return [];
     }
