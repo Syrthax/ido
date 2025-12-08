@@ -1522,6 +1522,43 @@ body {
 .calendar-header {
     padding: 16px 20px;
     border-bottom: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.calendar-view-toggle {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+    padding: 4px;
+    background: var(--bg-secondary);
+    border-radius: 12px;
+    width: fit-content;
+    margin-left: auto;
+}
+
+.view-toggle-btn {
+    padding: 8px 20px;
+    background: transparent;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.view-toggle-btn:hover {
+    color: var(--text-primary);
+    background: var(--glass-bg);
+}
+
+.view-toggle-btn.active {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .week-header {
