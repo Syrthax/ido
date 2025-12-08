@@ -53,12 +53,17 @@ async function checkCalendarAccess() {
 async function fetchCalendarEvents(startDate, endDate) {
     const accessToken = localStorage.getItem('access_token');
     if (!accessToken) {
+        console.error('Calendar API Error: No access token found. User needs to login.');
         calendarEvents = [];
         return [];
     }
 
-    // If we know we don't have access, don't even attempt the fetch
+    // If we know we don't have access, don't spam API calls but log the issue
     if (hasCalendarAccess === false) {
+        if (!calendarErrorShown) {
+            console.warn('Calendar API blocked: Missing calendar.events scope. User must re-authenticate.');
+            calendarErrorShown = true;
+        }
         calendarEvents = [];
         return [];
     }
@@ -77,19 +82,33 @@ async function fetchCalendarEvents(startDate, endDate) {
         );
 
         if (!response.ok) {
+            const errorText = await response.text();
+            let errorData;
+            try {
+                errorData = JSON.parse(errorText);
+            } catch (e) {
+                errorData = { message: errorText };
+            }
+
+            // Log full error details for debugging
+            console.error('Calendar API Error:', {
+                status: response.status,
+                statusText: response.statusText,
+                error: errorData,
+                dateRange: { timeMin, timeMax }
+            });
+
             // Check for auth errors
             if (response.status === 403 || response.status === 401) {
                 hasCalendarAccess = false;
-                calendarEvents = [];
                 
-                // Show error only once per session
                 if (!calendarErrorShown) {
                     calendarErrorShown = true;
-                    
-                    console.warn('⚠️ Calendar access not authorized. Please logout and sign in again with Calendar permissions.');
+                    console.error('Authentication Error: Calendar access denied. Required scope: calendar.events');
+                    console.info('Solution: Logout and sign in again to grant Calendar permissions.');
                 }
-                return [];
             }
+            
             calendarEvents = [];
             return [];
         }
@@ -99,6 +118,11 @@ async function fetchCalendarEvents(startDate, endDate) {
         hasCalendarAccess = true;
         return calendarEvents;
     } catch (error) {
+        console.error('Calendar Fetch Error:', {
+            message: error.message,
+            stack: error.stack,
+            dateRange: { start: startDate, end: endDate }
+        });
         calendarEvents = [];
         return [];
     }
