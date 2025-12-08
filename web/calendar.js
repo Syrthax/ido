@@ -8,11 +8,44 @@ let currentWeekStart = null;
 let currentView = 'week'; // 'day', 'week', 'month', 'year'
 let calendarErrorShown = false; // Track if error was already shown
 let hasCalendarAccess = null; // null = unknown, true = has access, false = no access
-let isInitialLoad = true; // Track if this is the first load
 
 /* ===================================================
    CALENDAR API FUNCTIONS
    =================================================== */
+
+/**
+ * Check if user has calendar access by verifying token info
+ */
+async function checkCalendarAccess() {
+    const accessToken = localStorage.getItem('access_token');
+    if (!accessToken) {
+        hasCalendarAccess = false;
+        return false;
+    }
+
+    try {
+        // Check token info to see what scopes we have
+        const response = await fetch(
+            `https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=${accessToken}`
+        );
+
+        if (!response.ok) {
+            hasCalendarAccess = false;
+            return false;
+        }
+
+        const tokenInfo = await response.json();
+        const scopes = tokenInfo.scope || '';
+        
+        // Check if we have calendar.events scope
+        hasCalendarAccess = scopes.includes('calendar.events') || scopes.includes('calendar');
+        
+        return hasCalendarAccess;
+    } catch (error) {
+        hasCalendarAccess = false;
+        return false;
+    }
+}
 
 /**
  * Fetch Google Calendar events for a specific date range
@@ -49,21 +82,11 @@ async function fetchCalendarEvents(startDate, endDate) {
                 hasCalendarAccess = false;
                 calendarEvents = [];
                 
-                // Show error only once per session and not on initial load
-                if (!calendarErrorShown && !isInitialLoad) {
+                // Show error only once per session
+                if (!calendarErrorShown) {
                     calendarErrorShown = true;
                     
-                    // Delay the prompt to avoid blocking UI
-                    setTimeout(() => {
-                        const shouldReauth = confirm(
-                            'Calendar access is not authorized. To use calendar features, you need to logout and sign in again.\\n\\nWould you like to logout now?'
-                        );
-                        
-                        if (shouldReauth) {
-                            localStorage.clear();
-                            window.location.reload();
-                        }
-                    }, 500);
+                    console.warn('⚠️ Calendar access not authorized. Please logout and sign in again with Calendar permissions.');
                 }
                 return [];
             }
@@ -76,11 +99,6 @@ async function fetchCalendarEvents(startDate, endDate) {
         hasCalendarAccess = true;
         return calendarEvents;
     } catch (error) {
-        // Network or other errors - fail silently
-        // Only log if it's not a fetch error and not initial load
-        if (!isInitialLoad && !calendarErrorShown && error.message && !error.message.includes('Failed to fetch')) {
-            console.warn('Calendar error:', error.message);
-        }
         calendarEvents = [];
         return [];
     }
@@ -1128,13 +1146,17 @@ function nextYear() {
 /**
  * Initialize calendar view
  */
-function initCalendar() {
+async function initCalendar() {
     currentWeekStart = getWeekStart();
     
-    // Mark that initial load is complete after first render
-    setTimeout(() => {
-        isInitialLoad = false;
-    }, 1000);
+    // Check calendar access first
+    await checkCalendarAccess();
+    
+    // If no calendar access, show a one-time info message
+    if (hasCalendarAccess === false && !calendarErrorShown) {
+        calendarErrorShown = true;
+        console.info('ℹ️ Calendar features are disabled. To enable them, please logout and sign in again to grant Calendar permissions.');
+    }
     
     renderCalendar();
     renderMiniCalendar();
