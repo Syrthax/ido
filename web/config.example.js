@@ -6,5 +6,5 @@ const CONFIG = {
     clientSecret: 'YOUR_CLIENT_SECRET_HERE',
     redirectUri: 'https://sarthakg.tech/ido/web/index.html',
     scope: 'https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/calendar.events',
-    fileName: 'ido-data.json'
+    fileName: 'ido_data.json'
 };
