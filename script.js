@@ -242,49 +242,29 @@ fadeInOnScroll(); // Initial check
    =================================================== */
 
 function initFloatingDock() {
-    const dock = document.getElementById('floating-dock');
+    const dock = document.querySelector('.floating-dock');
     if (!dock) return;
     
-    let lastScrollTop = 0;
-    let scrollThreshold = 5; // Minimum scroll distance to trigger
-    let hideTimeout;
+    let lastScroll = 0;
     
-    function handleScroll() {
-        const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-        
-        // Clear any existing timeout
-        clearTimeout(hideTimeout);
-        
-        // Check if we're at the top of the page
-        if (currentScroll <= 100) {
-            dock.classList.remove('hidden');
-            lastScrollTop = currentScroll;
-            return;
-        }
-        
-        // Determine scroll direction
-        if (Math.abs(currentScroll - lastScrollTop) > scrollThreshold) {
-            if (currentScroll > lastScrollTop) {
-                // Scrolling down - hide dock
-                dock.classList.add('hidden');
-            } else {
-                // Scrolling up - show dock
-                dock.classList.remove('hidden');
-            }
-            lastScrollTop = currentScroll;
-        }
-    }
-    
-    // Use requestAnimationFrame for smoother performance
-    let ticking = false;
     window.addEventListener('scroll', () => {
-        if (!ticking) {
-            window.requestAnimationFrame(() => {
-                handleScroll();
-                ticking = false;
-            });
-            ticking = true;
+        const currentScroll = window.pageYOffset;
+        
+        if (currentScroll > 300) {
+            dock.style.opacity = '1';
+            dock.style.transform = 'translateX(-50%) translateY(0)';
+        } else {
+            dock.style.opacity = '0.9';
         }
+        
+        // Hide dock when scrolling down, show when scrolling up
+        if (currentScroll > lastScroll && currentScroll > 500) {
+            dock.style.transform = 'translateX(-50%) translateY(150%)';
+        } else {
+            dock.style.transform = 'translateX(-50%) translateY(0)';
+        }
+        
+        lastScroll = currentScroll;
     });
 }
 

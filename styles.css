@@ -566,82 +566,85 @@ body {
 
 .floating-dock {
     position: fixed;
-    bottom: 24px;
+    bottom: 1.5rem;
     left: 50%;
-    transform: translateX(-50%) translateY(0);
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    padding: 8px 12px;
+    transform: translateX(-50%);
+    z-index: 1000;
     background: var(--glass-bg);
     -webkit-backdrop-filter: blur(20px);
     backdrop-filter: blur(20px);
     border: 1px solid var(--glass-border);
+    padding: 0.75rem 1rem;
     border-radius: 50px;
-    box-shadow: 0 8px 32px rgba(37, 99, 235, 0.15),
-                0 0 0 1px rgba(255, 255, 255, 0.1) inset;
-    z-index: 1000;
-    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                opacity 0.3s ease;
-    opacity: 1;
+    box-shadow: 0 8px 32px 0 rgba(37, 99, 235, 0.2);
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    justify-content: center;
+    animation: slideUp 0.5s ease-out;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
+    box-sizing: border-box;
 }
 
-.floating-dock.hidden {
-    transform: translateX(-50%) translateY(150%);
-    opacity: 0;
-    pointer-events: none;
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
 }
 
 @media (prefers-color-scheme: dark) {
     .floating-dock {
-        box-shadow: 0 8px 32px rgba(59, 130, 246, 0.2),
-                    0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+        box-shadow: 0 8px 32px 0 rgba(59, 130, 246, 0.25);
     }
 }
 
 .dock-item {
+    position: relative;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 4px;
-    padding: 10px 14px;
+    width: 44px;
+    height: 44px;
+    padding: 0.5rem;
     color: var(--text-primary);
     text-decoration: none;
-    border-radius: 40px;
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 12px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
-    position: relative;
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.3px;
+    background: transparent;
+    border: none;
 }
 
 .dock-item svg {
-    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.dock-item span {
-    white-space: nowrap;
-    color: var(--text-secondary);
+    width: 24px;
+    height: 24px;
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), color 0.2s ease;
 }
 
 .dock-item:hover {
     background: var(--bg-secondary);
-    transform: translateY(-3px);
+    transform: translateY(-5px);
 }
 
 .dock-item:hover svg {
-    transform: scale(1.15);
-    color: var(--accent);
-}
-
-.dock-item:hover span {
+    transform: scale(1.1);
     color: var(--accent);
 }
 
 .dock-item:active {
-    transform: translateY(-1px) scale(0.95);
+    transform: translateY(-3px) scale(0.95);
+}
+
+.dock-divider {
+    width: 1px;
+    height: 32px;
+    background: var(--glass-border);
+    margin: 0 0.25rem;
 }
 
 /* ===================================================
