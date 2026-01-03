@@ -10,6 +10,18 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import java.time.Instant
+import java.time.LocalDate
+import java.time.ZoneId
+
+/**
+ * Task sections for grouping tasks in the UI
+ */
+enum class TaskSection {
+    PRIORITY,
+    TODAY,
+    LATER,
+    UNSCHEDULED
+}
 
 /**
  * Task repository implementing offline-first architecture
@@ -55,6 +67,60 @@ class TaskRepository(context: Context) {
         return _tasks.value.find { it.id == id }
     }
     
+    /**
+     * Get tasks grouped by section for UI display
+     * 
+     * Sections:
+     * - PRIORITY: Tasks marked as priority (regardless of date)
+     * - TODAY: Non-priority tasks due today
+     * - LATER: Non-priority tasks due after today
+     * - UNSCHEDULED: Non-priority tasks with no due date
+     * 
+     * Matches web app behavior from app.js getSectionForTask()
+     */
+    fun getTasksBySection(): Map<TaskSection, List<Task>> {
+        val today = LocalDate.now()
+        val activeTasks = _tasks.value.filter { !it.deleted && !it.done }
+        
+        val priority = mutableListOf<Task>()
+        val todayTasks = mutableListOf<Task>()
+        val later = mutableListOf<Task>()
+        val unscheduled = mutableListOf<Task>()
+        
+        for (task in activeTasks) {
+            when {
+                task.priority -> {
+                    priority.add(task)
+                }
+                task.dueDate != null -> {
+                    try {
+                        val taskDate = Instant.parse(task.dueDate)
+                            .atZone(ZoneId.systemDefault())
+                            .toLocalDate()
+                        
+                        when {
+                            taskDate == today || taskDate.isBefore(today) -> todayTasks.add(task)
+                            taskDate.isAfter(today) -> later.add(task)
+                        }
+                    } catch (e: Exception) {
+                        // If date parsing fails, treat as unscheduled
+                        unscheduled.add(task)
+                    }
+                }
+                else -> {
+                    unscheduled.add(task)
+                }
+            }
+        }
+        
+        return mapOf(
+            TaskSection.PRIORITY to priority.sortedByDescending { it.updatedAt },
+            TaskSection.TODAY to todayTasks.sortedBy { it.dueDate },
+            TaskSection.LATER to later.sortedBy { it.dueDate },
+            TaskSection.UNSCHEDULED to unscheduled.sortedByDescending { it.updatedAt }
+        )
+    }
+
     /**
      * Create new task
      */

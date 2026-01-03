@@ -1,7 +1,9 @@
 package com.ido.app.ui.screens.edit
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
@@ -37,6 +39,8 @@ fun EditTaskSheet(
     var reminderEnabled by remember { mutableStateOf(reminderTime != null) }
     var reminderOffset by remember { mutableStateOf(ReminderOffset.AT_TIME) }
     
+    val scrollState = rememberScrollState()
+    
     ModalBottomSheet(
         onDismissRequest = onDismiss,
         modifier = Modifier.fillMaxHeight(0.9f)
@@ -46,6 +50,12 @@ fun EditTaskSheet(
                 .fillMaxSize()
                 .padding(16.dp)
         ) {
+            // Scrollable content
+            Column(
+                modifier = Modifier
+                    .weight(1f)
+                    .verticalScroll(scrollState)
+            ) {
             // Header
             Text(
                 text = if (task == null) "New Task" else "Edit Task",
@@ -197,9 +207,11 @@ fun EditTaskSheet(
                 )
             }
             
-            Spacer(modifier = Modifier.weight(1f))
+            // Extra space before buttons
+            Spacer(modifier = Modifier.height(16.dp))
+            } // End of scrollable Column
             
-            // Action buttons
+            // Action buttons (fixed at bottom, outside scroll)
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(8.dp)

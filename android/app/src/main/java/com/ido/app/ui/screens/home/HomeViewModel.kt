@@ -7,6 +7,7 @@ import com.ido.app.data.model.Task
 import com.ido.app.data.model.sortedByPriority
 import com.ido.app.data.repository.SyncStatus
 import com.ido.app.data.repository.TaskRepository
+import com.ido.app.data.repository.TaskSection
 import com.ido.app.notifications.TaskNotificationManager
 import com.ido.app.sync.SyncManager
 import kotlinx.coroutines.flow.*
@@ -31,6 +32,14 @@ class HomeViewModel(
     private val _signedInAccount = MutableStateFlow<GoogleSignInAccount?>(repository.getSignedInAccount())
     val signedInAccount: StateFlow<GoogleSignInAccount?> = _signedInAccount.asStateFlow()
     
+    // Task sections for TasksScreen
+    private val _taskSections = MutableStateFlow<Map<TaskSection, List<Task>>>(emptyMap())
+    val taskSections: StateFlow<Map<TaskSection, List<Task>>> = _taskSections.asStateFlow()
+    
+    // Last sync time for SettingsScreen
+    private val _lastSyncTime = MutableStateFlow<Instant?>(null)
+    val lastSyncTime: StateFlow<Instant?> = _lastSyncTime.asStateFlow()
+    
     init {
         loadTasks()
         observeSyncStatus()
@@ -46,6 +55,8 @@ class HomeViewModel(
                     tasks = tasks.sortedByPriority(),
                     isLoading = false
                 ) }
+                // Update sectioned tasks for TasksScreen
+                _taskSections.value = repository.getTasksBySection()
             }
         }
     }
@@ -57,6 +68,10 @@ class HomeViewModel(
         viewModelScope.launch {
             repository.syncStatus.collect { status ->
                 _uiState.update { it.copy(syncStatus = status) }
+                // Update last sync time when sync completes successfully
+                if (status is SyncStatus.Synced) {
+                    _lastSyncTime.value = Instant.now()
+                }
             }
         }
     }
@@ -110,6 +125,15 @@ class HomeViewModel(
     }
     
     /**
+     * Force sync now (for cloud icon click)
+     */
+    fun syncNow() {
+        viewModelScope.launch {
+            syncManager.requestSync()
+        }
+    }
+    
+    /**
      * Show create task sheet
      */
     fun showCreateTask() {
@@ -128,6 +152,53 @@ class HomeViewModel(
      */
     fun hideEditSheet() {
         _uiState.update { it.copy(showEditSheet = false, editingTask = null) }
+    }
+    
+    /**
+     * Save existing task (for CalendarItemSheet)
+     */
+    fun saveTask(task: Task) {
+        viewModelScope.launch {
+            repository.updateTask(
+                id = task.id,
+                text = task.text,
+                done = task.done,
+                priority = task.priority,
+                dueDate = task.dueDate,
+                reminderTime = task.reminderTime
+            )
+            
+            // Update notification
+            if (task.reminderTime != null) {
+                val instant = Instant.parse(task.reminderTime)
+                notificationManager.scheduleNotification(task.id, task.text, instant)
+            } else {
+                notificationManager.cancelNotification(task.id)
+            }
+            
+            syncManager.requestDebouncedSync()
+        }
+    }
+    
+    /**
+     * Create task with Instant parameters (for calendar create task)
+     */
+    fun createTask(text: String, priority: Boolean, dueDate: Instant?, reminderTime: Instant?) {
+        viewModelScope.launch {
+            val task = repository.createTask(
+                text = text,
+                priority = priority,
+                dueDate = dueDate?.toString(),
+                reminderTime = reminderTime?.toString()
+            )
+            
+            // Schedule notification if reminder is set
+            if (reminderTime != null) {
+                notificationManager.scheduleNotification(task.id, task.text, reminderTime)
+            }
+            
+            syncManager.requestDebouncedSync()
+        }
     }
     
     /**

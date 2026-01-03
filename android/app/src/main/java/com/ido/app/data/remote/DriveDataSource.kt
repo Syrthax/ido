@@ -20,6 +20,9 @@ import kotlinx.serialization.json.Json
 import java.io.ByteArrayOutputStream
 import java.io.OutputStreamWriter
 
+// Calendar scope constant for Google Calendar API
+const val CALENDAR_EVENTS_SCOPE = "https://www.googleapis.com/auth/calendar.events"
+
 /**
  * Google Drive remote data source
  * Handles authentication and file operations in Drive App Data folder
@@ -36,12 +39,15 @@ class DriveDataSource(private val context: Context) {
     private var fileId: String? = null
     
     /**
-     * Get Google Sign-In options for Drive access
+     * Get Google Sign-In options for Drive and Calendar access
      */
     fun getSignInOptions(): GoogleSignInOptions {
         return GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestEmail()
-            .requestScopes(Scope(DriveScopes.DRIVE_FILE))
+            .requestScopes(
+                Scope(DriveScopes.DRIVE_FILE),
+                Scope(CALENDAR_EVENTS_SCOPE)
+            )
             .build()
     }
     
