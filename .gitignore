@@ -1,5 +1,7 @@
 # OAuth Secrets
 web/config.js
+Client Secret*.json
+*credentials*.json
 
 # macOS
 .DS_Store
