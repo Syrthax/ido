@@ -20,9 +20,6 @@ const addTaskBtnSidebar = document.getElementById('add-task-btn-sidebar');
 const addTaskSection = document.getElementById('add-task-section');
 const plannedTasksContainer = document.getElementById('planned-tasks-container');
 const unplannedTasksContainer = document.getElementById('unplanned-tasks-container');
-const completedTasksContainer = document.getElementById('completed-tasks-container');
-const completedCount = document.getElementById('completed-count');
-const completedHeader = document.getElementById('completed-header');
 const syncStatusText = document.getElementById('sync-status-text');
 const manualSyncBtn = document.getElementById('manual-sync-btn');
 
@@ -62,8 +59,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         await initializeApp();
     } else {
         // Check if user is already logged in
-        // CRITICAL FIX: await the async checkExistingAuth to properly handle token refresh
-        const isLoggedIn = await window.DriveAPI.checkExistingAuth();
+        const isLoggedIn = window.DriveAPI.checkExistingAuth();
         
         if (isLoggedIn) {
             await initializeApp();
@@ -206,16 +202,6 @@ manualSyncBtn.addEventListener('click', async () => {
     }
 });
 
-// Completed section collapsible toggle
-if (completedHeader) {
-    completedHeader.addEventListener('click', () => {
-        const isCollapsed = completedHeader.classList.toggle('collapsed');
-        if (completedTasksContainer) {
-            completedTasksContainer.classList.toggle('collapsed', isCollapsed);
-        }
-    });
-}
-
 /* ===================================================
    TASK OPERATIONS
    =================================================== */
@@ -227,9 +213,6 @@ async function addTask() {
     if (!text) {
         return;
     }
-    
-    // Check if this task has a reminder (for education popup)
-    const hasReminder = currentReminderTime !== null;
     
     // Create new task using schema
     const newTask = window.TaskSchema.createTask(text, {
@@ -262,11 +245,6 @@ async function addTask() {
     
     // Save to Google Drive
     await saveTasksToCloud();
-    
-    // Show sync education popup if task has reminder
-    if (hasReminder) {
-        showSyncEducationPopup();
-    }
 }
 
 // Toggle task done/undone
@@ -341,16 +319,13 @@ async function deleteTask(id) {
    RENDERING
    =================================================== */
 
-// Render tasks in sidebar (planned, unplanned, and completed)
+// Render tasks in sidebar (planned and unplanned)
 function renderTasksSidebar() {
     if (!plannedTasksContainer || !unplannedTasksContainer) return;
     
     // Clear containers
     plannedTasksContainer.innerHTML = '';
     unplannedTasksContainer.innerHTML = '';
-    if (completedTasksContainer) {
-        completedTasksContainer.innerHTML = '';
-    }
     
     if (tasks.length === 0) {
         unplannedTasksContainer.innerHTML = `
@@ -359,24 +334,19 @@ function renderTasksSidebar() {
                 <small>Add your first task above</small>
             </div>
         `;
-        if (completedCount) completedCount.textContent = '(0)';
         return;
     }
     
-    // Separate completed and active tasks first
-    const activeTasks = tasks.filter(task => !task.done && !task.deleted);
-    const completedTasks = tasks.filter(task => task.done && !task.deleted);
-    
-    // Sort active tasks: pinned first
-    const sortedActiveTasks = [...activeTasks].sort((a, b) => {
+    // Sort tasks: pinned first
+    const sortedTasks = [...tasks].sort((a, b) => {
         if (a.priority && !b.priority) return -1;
         if (!a.priority && b.priority) return 1;
         return 0;
     });
     
-    // Separate planned and unplanned from active tasks only
-    const plannedTasks = sortedActiveTasks.filter(task => task.dueDate);
-    const unplannedTasks = sortedActiveTasks.filter(task => !task.dueDate);
+    // Separate planned and unplanned tasks
+    const plannedTasks = sortedTasks.filter(task => task.dueDate && !task.deleted);
+    const unplannedTasks = sortedTasks.filter(task => !task.dueDate && !task.deleted);
     
     // Render planned tasks
     if (plannedTasks.length === 0) {
@@ -396,30 +366,6 @@ function renderTasksSidebar() {
             const taskEl = createSidebarTaskElement(task);
             unplannedTasksContainer.appendChild(taskEl);
         });
-    }
-    
-    // Render completed tasks
-    if (completedTasksContainer) {
-        // Update count
-        if (completedCount) {
-            completedCount.textContent = `(${completedTasks.length})`;
-        }
-        
-        if (completedTasks.length === 0) {
-            completedTasksContainer.innerHTML = '<div class="empty-state"><small>No completed tasks</small></div>';
-        } else {
-            // Sort completed tasks by updatedAt (most recent first)
-            const sortedCompletedTasks = [...completedTasks].sort((a, b) => {
-                const dateA = new Date(a.updatedAt || a.createdAt || 0);
-                const dateB = new Date(b.updatedAt || b.createdAt || 0);
-                return dateB - dateA;
-            });
-            
-            sortedCompletedTasks.forEach(task => {
-                const taskEl = createSidebarTaskElement(task);
-                completedTasksContainer.appendChild(taskEl);
-            });
-        }
     }
 }
 
@@ -584,71 +530,6 @@ async function saveTasksToCloud() {
 window.saveTasksToCloud = saveTasksToCloud;
 
 /* ===================================================
-   SYNC EDUCATION POPUP
-   =================================================== */
-
-/**
- * Show one-time education popup about cross-device sync
- * Only shows once per browser (stored in localStorage)
- */
-function showSyncEducationPopup() {
-    // Check if already shown
-    const hasSeenPopup = localStorage.getItem('ido_sync_education_seen');
-    if (hasSeenPopup === 'true') {
-        return;
-    }
-    
-    // Create popup element
-    const popup = document.createElement('div');
-    popup.className = 'sync-education-popup';
-    popup.innerHTML = `
-        <div class="sync-education-content">
-            <div class="sync-education-icon">☁️</div>
-            <div class="sync-education-text">
-                <strong>Cross-Device Sync</strong>
-                <p>iDo syncs directly between your devices via Google Drive. For reminders to stay accurate on your phone, make sure it syncs periodically.</p>
-            </div>
-            <div class="sync-education-actions">
-                <button class="sync-education-dismiss" id="sync-popup-dismiss">Got it</button>
-                <button class="sync-education-never" id="sync-popup-never">Don't show again</button>
-            </div>
-        </div>
-    `;
-    
-    document.body.appendChild(popup);
-    
-    // Animate in
-    requestAnimationFrame(() => {
-        popup.classList.add('visible');
-    });
-    
-    // Dismiss button
-    document.getElementById('sync-popup-dismiss').addEventListener('click', () => {
-        popup.classList.remove('visible');
-        setTimeout(() => popup.remove(), 300);
-    });
-    
-    // Don't show again button
-    document.getElementById('sync-popup-never').addEventListener('click', () => {
-        localStorage.setItem('ido_sync_education_seen', 'true');
-        popup.classList.remove('visible');
-        setTimeout(() => popup.remove(), 300);
-    });
-    
-    // Auto-dismiss after 10 seconds
-    setTimeout(() => {
-        if (document.body.contains(popup)) {
-            popup.classList.remove('visible');
-            setTimeout(() => {
-                if (document.body.contains(popup)) {
-                    popup.remove();
-                }
-            }, 300);
-        }
-    }, 10000);
-}
-
-/*
    UI UPDATES
    =================================================== */
 
