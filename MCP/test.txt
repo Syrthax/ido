@@ -1,0 +1,2177 @@
+<!-- Settings (Consistent Dock) -->
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>iDo Settings</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#5048e5",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#121121",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 antialiased">
+<div class="relative flex h-auto min-h-screen w-full max-w-md mx-auto flex-col bg-white dark:bg-background-dark overflow-x-hidden shadow-2xl">
+<div class="flex items-center bg-white dark:bg-background-dark p-4 sticky top-0 z-10 border-b border-slate-100 dark:border-slate-800">
+<div class="text-slate-900 dark:text-slate-100 flex size-10 shrink-0 items-center justify-center cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800 rounded-full transition-colors">
+<span class="material-symbols-outlined">arrow_back</span>
+</div>
+<h2 class="text-slate-900 dark:text-slate-100 text-lg font-bold leading-tight tracking-tight flex-1 text-center pr-10">Settings</h2>
+</div>
+<div class="flex-1 overflow-y-auto pb-32">
+<div class="px-4 pt-6 pb-4">
+<div class="flex items-center gap-4 bg-slate-50 dark:bg-slate-800/50 p-4 rounded-xl border border-slate-100 dark:border-slate-800">
+<div class="relative size-14 rounded-full overflow-hidden bg-primary/10 flex items-center justify-center">
+<img alt="User Avatar" class="w-full h-full object-cover" data-alt="Close up portrait of a smiling person" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDzwKTzuXfUVRwzZQhWgRf5KBmAmi1xNNfL6PWQUnY_nvS89pXp4Erbev1Euo3URvhqeUNQiHnmiLrw8jzWGQL7m_baVTU50pGRoHt4OpfZry-IqmasL1G_SMjCT4H8MsNs7KN5Qm_2sXCMReNoEuRCBRF7f82v2SPmLHm4jBe5kVRen5CnBI68o7EepmByPSjWtdK4CzKv48VOOrbwY6WnYqkarbkOrICwSt5RtfHEKU3i1kSSI2euoe9b_F8hkwTXypWdF0-BuowY"/>
+</div>
+<div class="flex flex-col">
+<h4 class="text-slate-900 dark:text-slate-100 font-bold text-base">Sarthak G</h4>
+<p class="text-slate-500 dark:text-slate-400 text-sm">sarthak@sarthakg.tech</p>
+</div>
+<button class="ml-auto text-primary p-2 hover:bg-primary/10 rounded-full transition-colors">
+<span class="material-symbols-outlined">edit</span>
+</button>
+</div>
+</div>
+<div class="px-4 py-2 mt-2">
+<h3 class="text-slate-400 dark:text-slate-500 text-xs font-bold uppercase tracking-widest px-1 pb-3">Sync Status</h3>
+<div class="space-y-1">
+<div class="flex items-center gap-4 bg-white dark:bg-background-dark min-h-[64px] py-2 justify-between">
+<div class="flex items-center gap-4">
+<div class="text-primary flex items-center justify-center rounded-lg bg-primary/10 shrink-0 size-10">
+<span class="material-symbols-outlined">sync</span>
+</div>
+<div class="flex flex-col justify-center">
+<p class="text-slate-900 dark:text-slate-100 text-base font-medium leading-normal">Auto-sync</p>
+<p class="text-slate-500 dark:text-slate-400 text-xs font-normal">Sync data across all devices</p>
+</div>
+</div>
+<div class="shrink-0">
+<label class="relative flex h-[28px] w-[48px] cursor-pointer items-center rounded-full border-none bg-slate-200 dark:bg-slate-700 p-0.5 has-[:checked]:justify-end has-[:checked]:bg-primary transition-all">
+<div class="h-full w-[24px] rounded-full bg-white shadow-sm"></div>
+<input checked="" class="invisible absolute" type="checkbox"/>
+</label>
+</div>
+</div>
+<div class="flex items-center gap-4 bg-white dark:bg-background-dark min-h-[56px] justify-between">
+<div class="flex items-center gap-4">
+<div class="text-slate-400 dark:text-slate-500 flex items-center justify-center rounded-lg bg-slate-100 dark:bg-slate-800 shrink-0 size-10">
+<span class="material-symbols-outlined">cloud_done</span>
+</div>
+<p class="text-slate-900 dark:text-slate-100 text-base font-medium flex-1">Last Synced</p>
+</div>
+<div class="shrink-0 flex items-center gap-2">
+<p class="text-slate-500 dark:text-slate-400 text-sm">2 mins ago</p>
+<button class="text-primary text-sm font-semibold hover:underline px-2 py-1">Sync Now</button>
+</div>
+</div>
+</div>
+</div>
+<div class="px-4 py-4 mt-2">
+<h3 class="text-slate-400 dark:text-slate-500 text-xs font-bold uppercase tracking-widest px-1 pb-3">Account</h3>
+<div class="space-y-2">
+<a class="flex items-center gap-4 bg-white dark:bg-background-dark min-h-[56px] justify-between group" href="#">
+<div class="flex items-center gap-4">
+<div class="text-slate-400 dark:text-slate-500 flex items-center justify-center rounded-lg bg-slate-100 dark:bg-slate-800 shrink-0 size-10 group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</div>
+<p class="text-slate-900 dark:text-slate-100 text-base font-medium">Notifications</p>
+</div>
+<div class="shrink-0 text-slate-300">
+<span class="material-symbols-outlined">chevron_right</span>
+</div>
+</a>
+</div>
+</div>
+<div class="px-4 py-4 mt-2 mb-20">
+<h3 class="text-slate-400 dark:text-slate-500 text-xs font-bold uppercase tracking-widest px-1 pb-3">About iDo</h3>
+<div class="space-y-2">
+<div class="flex items-center gap-4 bg-white dark:bg-background-dark min-h-[56px] justify-between">
+<div class="flex items-center gap-4">
+<div class="text-slate-400 dark:text-slate-500 flex items-center justify-center rounded-lg bg-slate-100 dark:bg-slate-800 shrink-0 size-10">
+<span class="material-symbols-outlined">info</span>
+</div>
+<p class="text-slate-900 dark:text-slate-100 text-base font-medium">App Version</p>
+</div>
+<div class="shrink-0"><p class="text-slate-500 dark:text-slate-400 text-sm">v1.2.0</p></div>
+</div>
+<a class="flex items-center gap-4 bg-white dark:bg-background-dark min-h-[56px] justify-between group" href="#">
+<div class="flex items-center gap-4">
+<div class="text-slate-400 dark:text-slate-500 flex items-center justify-center rounded-lg bg-slate-100 dark:bg-slate-800 shrink-0 size-10 group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined">description</span>
+</div>
+<p class="text-slate-900 dark:text-slate-100 text-base font-medium">Privacy Policy</p>
+</div>
+<div class="shrink-0 text-slate-300">
+<span class="material-symbols-outlined">open_in_new</span>
+</div>
+</a>
+<a class="flex items-center gap-4 bg-white dark:bg-background-dark min-h-[56px] justify-between group" href="#">
+<div class="flex items-center gap-4">
+<div class="text-slate-400 dark:text-slate-500 flex items-center justify-center rounded-lg bg-slate-100 dark:bg-slate-800 shrink-0 size-10 group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined">star</span>
+</div>
+<p class="text-slate-900 dark:text-slate-100 text-base font-medium">Rate the App</p>
+</div>
+<div class="shrink-0 text-slate-300">
+<span class="material-symbols-outlined">chevron_right</span>
+</div>
+</a>
+</div>
+<div class="mt-12 flex justify-center px-4">
+<button class="w-full max-w-xs py-3.5 px-6 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 font-semibold text-base hover:bg-red-50 hover:text-red-600 dark:hover:bg-red-900/20 dark:hover:text-red-400 transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[20px]">logout</span>
+                        Log Out
+                    </button>
+</div>
+</div>
+</div>
+<div class="fixed bottom-6 left-1/2 -translate-x-1/2 w-auto z-50">
+<div class="bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border border-white/20 dark:border-slate-700/50 shadow-2xl rounded-full px-6 py-3 flex items-center justify-between gap-12">
+<a class="flex flex-col items-center justify-center gap-1 text-slate-400 dark:text-slate-500 hover:text-primary transition-all active:scale-95 group" href="#">
+<div class="flex items-center justify-center relative">
+<span class="material-symbols-outlined text-[24px] group-hover:-translate-y-0.5 transition-transform duration-300">task_alt</span>
+</div>
+</a>
+<a class="flex flex-col items-center justify-center gap-1 text-slate-400 dark:text-slate-500 hover:text-primary transition-all active:scale-95 group" href="#">
+<div class="flex items-center justify-center relative">
+<span class="material-symbols-outlined text-[24px] group-hover:-translate-y-0.5 transition-transform duration-300">calendar_month</span>
+</div>
+</a>
+<a class="flex flex-col items-center justify-center gap-1 text-primary transition-all active:scale-95 group" href="#">
+<div class="flex items-center justify-center relative">
+<span class="material-symbols-outlined text-[24px] group-hover:-translate-y-0.5 transition-transform duration-300" style="font-variation-settings: 'FILL' 1;">person</span>
+<div class="absolute -bottom-2 w-1 h-1 bg-primary rounded-full"></div>
+</div>
+</a>
+</div>
+</div>
+</div>
+</body></html>
+
+<!-- Home (Consistent Dock) -->
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>iDo Settings - Dark Mode</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        dark: '#050505',
+                        card: '#1C1C1E', // Charcoal
+                        separator: '#2C2C2E',
+                        accent: '#0A84FF', // iOS Blue
+                        text: '#F2F2F7',
+                        subtext: '#8E8E93',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.filled {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #000000;
+        }
+        .glass-dock {
+            background: rgba(28, 28, 30, 0.65);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }.toggle-checkbox:checked {
+            right: 0;
+            border-color: #34C759;}
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #34C759;
+        }
+        .toggle-switch {
+            position: relative;
+            width: 51px;
+            height: 31px;
+            -webkit-appearance: none;
+            background-color: #39393D;
+            outline: none;
+            border-radius: 9999px;
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+            transition: background 0.3s;
+            cursor: pointer;
+        }
+        .toggle-switch::after {
+            content: "";
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 27px;
+            height: 27px;
+            background-color: white;
+            border-radius: 50%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s;
+        }
+        .toggle-switch:checked {
+            background-color: #34C759;
+        }
+        .toggle-switch:checked::after {
+            transform: translateX(20px);
+        }
+    </style>
+<style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="min-h-screen flex flex-col font-sans antialiased text-text bg-black">
+<header class="pt-14 pb-4 px-6 flex justify-between items-center bg-black sticky top-0 z-10">
+<h1 class="text-3xl font-bold text-white tracking-tight">Settings</h1>
+</header>
+<main class="flex-grow px-4 pb-28 space-y-8 overflow-y-auto">
+<div class="bg-card rounded-[20px] p-4 flex items-center space-x-4 shadow-sm border border-white/5 mt-2">
+<div class="w-16 h-16 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white text-2xl font-semibold shadow-inner">
+                SG
+            </div>
+<div class="flex-grow">
+<h2 class="text-xl font-semibold text-white">Sarthak G</h2>
+<p class="text-subtext text-sm">Pro Member</p>
+</div>
+<button class="w-8 h-8 rounded-full bg-[#2C2C2E] flex items-center justify-center">
+<span class="material-symbols-outlined text-subtext text-lg">chevron_right</span>
+</button>
+</div>
+<div class="space-y-3">
+<h3 class="text-subtext text-xs font-semibold uppercase tracking-wider ml-4">Appearance</h3>
+<div class="bg-card rounded-[20px] overflow-hidden border border-white/5">
+<div class="flex items-center justify-between p-4 border-b border-separator/50">
+<div class="flex items-center space-x-3">
+<div class="w-8 h-8 rounded-md bg-black flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-lg">dark_mode</span>
+</div>
+<span class="text-base font-medium">Dark Mode</span>
+</div>
+<input checked="" class="toggle-switch" type="checkbox"/>
+</div>
+<div class="flex items-center justify-between p-4">
+<div class="flex items-center space-x-3">
+<div class="w-8 h-8 rounded-md bg-black flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-lg">contrast</span>
+</div>
+<span class="text-base font-medium">True Black (OLED)</span>
+</div>
+<input checked="" class="toggle-switch" type="checkbox"/>
+</div>
+</div>
+<p class="text-subtext text-xs px-4">Use pure black background to save battery on OLED screens.</p>
+</div>
+<div class="space-y-3">
+<h3 class="text-subtext text-xs font-semibold uppercase tracking-wider ml-4">General</h3>
+<div class="bg-card rounded-[20px] overflow-hidden border border-white/5">
+<div class="flex items-center justify-between p-4 border-b border-separator/50 active:bg-separator/30 transition-colors cursor-pointer">
+<div class="flex items-center space-x-3">
+<div class="w-8 h-8 rounded-md bg-blue-500/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-blue-400 text-lg">notifications</span>
+</div>
+<span class="text-base font-medium">Notifications</span>
+</div>
+<span class="material-symbols-outlined text-subtext text-lg">chevron_right</span>
+</div>
+<div class="flex items-center justify-between p-4 border-b border-separator/50 active:bg-separator/30 transition-colors cursor-pointer">
+<div class="flex items-center space-x-3">
+<div class="w-8 h-8 rounded-md bg-orange-500/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-orange-400 text-lg">sync</span>
+</div>
+<span class="text-base font-medium">Sync</span>
+</div>
+<div class="flex items-center space-x-2">
+<span class="text-subtext text-sm">On</span>
+<span class="material-symbols-outlined text-subtext text-lg">chevron_right</span>
+</div>
+</div>
+<div class="flex items-center justify-between p-4 active:bg-separator/30 transition-colors cursor-pointer">
+<div class="flex items-center space-x-3">
+<div class="w-8 h-8 rounded-md bg-green-500/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-green-400 text-lg">lock</span>
+</div>
+<span class="text-base font-medium">Privacy</span>
+</div>
+<span class="material-symbols-outlined text-subtext text-lg">chevron_right</span>
+</div>
+</div>
+</div>
+<div class="text-center pt-4 pb-8 space-y-1">
+<div class="w-12 h-12 bg-white/10 rounded-xl mx-auto flex items-center justify-center mb-3">
+<span class="material-symbols-outlined filled text-white text-2xl">check_circle</span>
+</div>
+<h4 class="text-white font-semibold text-sm">iDo v2.4.0</h4>
+<p class="text-xs text-subtext">Made with ❤️ by KrispLabs &amp; Sarthak</p>
+</div>
+</main>
+<nav class="fixed bottom-0 left-0 right-0 glass-dock pb-8 pt-2 px-6">
+<div class="flex justify-between items-center max-w-md mx-auto">
+<button class="flex flex-col items-center justify-center p-2 text-subtext hover:text-white transition-colors space-y-1">
+<span class="material-symbols-outlined text-2xl">home</span>
+<span class="text-[10px] font-medium">Home</span>
+</button>
+<button class="flex flex-col items-center justify-center p-2 text-subtext hover:text-white transition-colors space-y-1">
+<span class="material-symbols-outlined text-2xl">calendar_month</span>
+<span class="text-[10px] font-medium">Calendar</span>
+</button>
+<div class="relative -top-6">
+<button class="w-14 h-14 bg-white rounded-full flex items-center justify-center shadow-[0_0_15px_rgba(255,255,255,0.3)] hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-black text-3xl">add</span>
+</button>
+</div>
+<button class="flex flex-col items-center justify-center p-2 text-subtext hover:text-white transition-colors space-y-1">
+<span class="material-symbols-outlined text-2xl">folder</span>
+<span class="text-[10px] font-medium">Projects</span>
+</button>
+<button class="flex flex-col items-center justify-center p-2 text-white transition-colors space-y-1">
+<span class="material-symbols-outlined filled text-2xl">person</span>
+<span class="text-[10px] font-medium">Profile</span>
+</button>
+</div>
+</nav>
+
+</body></html>
+
+<!-- Home (Consistent Dock) -->
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>iDo Home - Dark Mode</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#6366f1', // Indigo-500
+                        'dark-bg': '#050505',
+                        'dark-card': '#111111',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'glow': '0 0 20px rgba(99, 102, 241, 0.15)',
+                        'inner-glow': 'inset 0 0 20px rgba(255, 255, 255, 0.03)',
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.filled {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #050505;color: #e5e5e5;
+        }.hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .glass-card {
+            background: rgba(30, 30, 30, 0.4);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.02);
+        }
+        .glass-dock {
+            background: rgba(15, 15, 15, 0.85);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 -10px 40px rgba(0,0,0,0.5);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="min-h-screen flex flex-col font-sans antialiased relative selection:bg-indigo-500/30">
+<header class="pt-16 px-6 pb-6 w-full flex justify-between items-end">
+<div>
+<p class="text-sm text-neutral-400 font-medium mb-1 tracking-wide uppercase">Tuesday, Oct 24</p>
+<h1 class="text-3xl font-bold text-white tracking-tight leading-tight">
+                Good evening,<br/>
+<span class="text-neutral-200">Sarthak</span>
+</h1>
+</div>
+<div class="h-10 w-10 rounded-full bg-neutral-800 border border-neutral-700 flex items-center justify-center overflow-hidden">
+<span class="material-symbols-outlined text-neutral-400 text-xl">person</span>
+</div>
+</header>
+<div class="px-6 mb-8">
+<div class="glass-card rounded-2xl p-3 flex items-center gap-3 group focus-within:ring-1 focus-within:ring-primary/50 transition-all">
+<span class="material-symbols-outlined text-neutral-500 pl-2">add_circle</span>
+<input class="bg-transparent border-none text-neutral-200 placeholder-neutral-500 w-full focus:ring-0 text-base font-medium" placeholder="Add a new task..." type="text"/>
+</div>
+</div>
+<main class="flex-grow px-6 pb-32 overflow-y-auto hide-scrollbar">
+<div class="flex gap-4 mb-8 overflow-x-auto hide-scrollbar pb-2">
+<button class="bg-indigo-600 text-white px-5 py-2 rounded-full text-sm font-medium whitespace-nowrap shadow-glow">All Tasks</button>
+<button class="bg-neutral-800/50 border border-white/5 text-neutral-400 px-5 py-2 rounded-full text-sm font-medium whitespace-nowrap">Personal</button>
+<button class="bg-neutral-800/50 border border-white/5 text-neutral-400 px-5 py-2 rounded-full text-sm font-medium whitespace-nowrap">Work</button>
+<button class="bg-neutral-800/50 border border-white/5 text-neutral-400 px-5 py-2 rounded-full text-sm font-medium whitespace-nowrap">Ideas</button>
+</div>
+<div class="space-y-4">
+<h2 class="text-neutral-400 text-xs font-semibold uppercase tracking-wider mb-4">Today's Focus</h2>
+<div class="glass-card rounded-2xl p-4 flex items-center gap-4 group active:scale-[0.99] transition-transform">
+<button class="h-6 w-6 rounded-full border-2 border-indigo-500 flex items-center justify-center hover:bg-indigo-500/20 transition-colors">
+<span class="material-symbols-outlined text-indigo-500 text-base opacity-0 group-hover:opacity-100">check</span>
+</button>
+<div class="flex-1">
+<h3 class="text-neutral-100 font-medium text-lg leading-snug">Design System Review</h3>
+<p class="text-neutral-500 text-xs mt-1">10:00 AM • Figma Team</p>
+</div>
+<div class="h-2 w-2 rounded-full bg-indigo-500 shadow-[0_0_8px_rgba(99,102,241,0.6)]"></div>
+</div>
+<div class="glass-card rounded-2xl p-4 flex items-center gap-4 group active:scale-[0.99] transition-transform">
+<button class="h-6 w-6 rounded-full border-2 border-neutral-600 flex items-center justify-center hover:border-indigo-500 transition-colors">
+</button>
+<div class="flex-1">
+<h3 class="text-neutral-200 font-medium text-lg leading-snug">Quarterly Report</h3>
+<p class="text-neutral-500 text-xs mt-1">2:30 PM • Finance</p>
+</div>
+</div>
+<div class="glass-card rounded-2xl p-4 flex items-center gap-4 group active:scale-[0.99] transition-transform opacity-75">
+<button class="h-6 w-6 rounded-full border-2 border-neutral-600 flex items-center justify-center hover:border-indigo-500 transition-colors">
+</button>
+<div class="flex-1">
+<h3 class="text-neutral-200 font-medium text-lg leading-snug">Call with Mentor</h3>
+<p class="text-neutral-500 text-xs mt-1">5:00 PM • Zoom</p>
+</div>
+</div>
+<h2 class="text-neutral-400 text-xs font-semibold uppercase tracking-wider mt-8 mb-4">Upcoming</h2>
+<div class="glass-card rounded-2xl p-4 flex items-center gap-4 group active:scale-[0.99] transition-transform opacity-60">
+<button class="h-6 w-6 rounded-full border-2 border-neutral-700 flex items-center justify-center">
+</button>
+<div class="flex-1">
+<h3 class="text-neutral-300 font-medium text-base">Buy Groceries</h3>
+<p class="text-neutral-600 text-xs mt-1">Tomorrow</p>
+</div>
+</div>
+</div>
+</main>
+<div class="fixed bottom-8 left-1/2 -translate-x-1/2 w-[90%] max-w-[360px] glass-dock rounded-3xl p-2 flex justify-between items-center z-50">
+<button class="flex-1 flex flex-col items-center justify-center py-2 relative group">
+<span class="absolute top-0 w-12 h-1 bg-indigo-500/50 blur-md rounded-full"></span>
+<span class="material-symbols-outlined text-indigo-400 filled text-3xl drop-shadow-[0_0_8px_rgba(99,102,241,0.5)] transition-all">check_circle</span>
+</button>
+<button class="flex-1 flex flex-col items-center justify-center py-2 text-neutral-500 hover:text-neutral-300 transition-colors">
+<span class="material-symbols-outlined text-3xl">calendar_month</span>
+</button>
+<button class="flex-1 flex flex-col items-center justify-center py-2 text-neutral-500 hover:text-neutral-300 transition-colors">
+<span class="material-symbols-outlined text-3xl">settings</span>
+</button>
+</div>
+
+</body></html>
+
+<!-- Home (Consistent Dock) -->
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>iDo Calendar Day - Dark Mode</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<style type="text/tailwindcss">
+        :root {
+            --bg-dark: #121214;
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --accent-indigo: #6366f1;
+            --text-primary: #e2e8f0;
+            --text-secondary: #94a3b8;
+            --line-color: rgba(255, 255, 255, 0.05);
+        }
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+        }
+        .glass-block {
+            background: var(--glass-bg);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid var(--glass-border);
+        }
+        .event-card {
+            background: rgba(99, 102, 241, 0.1);
+            border-left: 3px solid var(--accent-indigo);
+            backdrop-filter: blur(4px);
+        }
+        .event-card-secondary {
+            background: rgba(255, 255, 255, 0.03);
+            border-left: 3px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(4px);
+        }
+        .bottom-dock {
+            background: rgba(18, 18, 20, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-top: 1px solid var(--glass-border);
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.4);
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .time-marker {
+            position: absolute;
+            left: 0;
+            right: 0;
+            border-top: 1px solid var(--line-color);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="min-h-screen font-sans antialiased overflow-hidden flex flex-col relative selection:bg-indigo-500/30">
+<header class="pt-12 pb-4 px-6 flex justify-between items-center z-10 glass-block border-b border-[var(--glass-border)] sticky top-0">
+<div>
+<h1 class="text-2xl font-bold tracking-tight text-white">Wednesday</h1>
+<p class="text-sm text-[var(--text-secondary)] font-medium mt-0.5">October 24, 2023</p>
+</div>
+<button class="w-10 h-10 rounded-full flex items-center justify-center bg-[var(--glass-bg)] border border-[var(--glass-border)] text-white hover:bg-white/10 transition-colors">
+<span class="material-symbols-outlined" style="font-size: 20px;">calendar_month</span>
+</button>
+</header>
+<div class="flex-1 overflow-y-auto hide-scrollbar relative bg-[var(--bg-dark)] pb-24">
+<div class="absolute w-full top-[340px] z-20 pointer-events-none flex items-center">
+<div class="w-16 text-right pr-3 text-xs font-bold text-indigo-400">11:15</div>
+<div class="flex-1 h-[1px] bg-indigo-500 shadow-[0_0_8px_rgba(99,102,241,0.6)]"></div>
+<div class="w-2 h-2 rounded-full bg-indigo-500 -ml-1 shadow-[0_0_8px_rgba(99,102,241,0.8)]"></div>
+</div>
+<div class="relative min-h-[1000px] w-full pt-4">
+<div class="flex w-full h-24 relative group">
+<div class="w-16 text-right pr-4 text-xs font-medium text-[var(--text-secondary)] -mt-2">09:00</div>
+<div class="flex-1 border-t border-[var(--line-color)] relative h-full">
+<div class="absolute top-2 left-2 right-4 bottom-2 event-card rounded-xl p-3 flex flex-col justify-center">
+<div class="text-sm font-semibold text-white">Weekly Team Sync</div>
+<div class="text-xs text-indigo-200/70 mt-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[10px]">videocam</span> Google Meet
+                        </div>
+</div>
+</div>
+</div>
+<div class="flex w-full h-24 relative">
+<div class="w-16 text-right pr-4 text-xs font-medium text-[var(--text-secondary)] -mt-2">10:00</div>
+<div class="flex-1 border-t border-[var(--line-color)] relative h-full">
+<div class="absolute top-0 left-2 right-12 h-[120px] event-card-secondary rounded-xl p-3 flex flex-col z-10">
+<div class="text-sm font-semibold text-gray-200">Deep Work: Project Alpha</div>
+<div class="text-xs text-gray-400 mt-1">Design System Implementation</div>
+</div>
+</div>
+</div>
+<div class="flex w-full h-24 relative">
+<div class="w-16 text-right pr-4 text-xs font-medium text-[var(--text-secondary)] -mt-2">11:00</div>
+<div class="flex-1 border-t border-[var(--line-color)] relative h-full">
+</div>
+</div>
+<div class="flex w-full h-24 relative">
+<div class="w-16 text-right pr-4 text-xs font-medium text-[var(--text-secondary)] -mt-2">12:00</div>
+<div class="flex-1 border-t border-[var(--line-color)] relative h-full">
+<div class="absolute top-4 left-2 right-4 bottom-4 border border-dashed border-gray-700/50 rounded-xl flex items-center justify-center">
+<span class="text-xs text-gray-600">Lunch Break</span>
+</div>
+</div>
+</div>
+<div class="flex w-full h-24 relative">
+<div class="w-16 text-right pr-4 text-xs font-medium text-[var(--text-secondary)] -mt-2">13:00</div>
+<div class="flex-1 border-t border-[var(--line-color)] relative h-full">
+<div class="absolute top-2 left-2 right-4 bottom-2 event-card rounded-xl p-3 flex flex-col justify-center bg-indigo-900/20 border-indigo-500/30">
+<div class="text-sm font-semibold text-white">Client Presentation</div>
+<div class="text-xs text-indigo-200/70 mt-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[10px]">location_on</span> Conference Room B
+                        </div>
+</div>
+</div>
+</div>
+<div class="flex w-full h-24 relative">
+<div class="w-16 text-right pr-4 text-xs font-medium text-[var(--text-secondary)] -mt-2">14:00</div>
+<div class="flex-1 border-t border-[var(--line-color)] relative h-full">
+<div class="absolute top-2 left-2 w-[45%] bottom-2 event-card-secondary rounded-xl p-2 flex flex-col justify-center border-l-orange-400/50 bg-orange-900/10">
+<div class="text-xs font-semibold text-gray-200 truncate">Code Review</div>
+<div class="text-[10px] text-gray-400 mt-1">PR #402</div>
+</div>
+<div class="absolute top-8 left-[50%] right-4 bottom-[-20px] z-10 event-card-secondary rounded-xl p-2 flex flex-col justify-center border-l-emerald-400/50 bg-emerald-900/10">
+<div class="text-xs font-semibold text-gray-200 truncate">1:1 with Manager</div>
+</div>
+</div>
+</div>
+<div class="flex w-full h-24 relative">
+<div class="w-16 text-right pr-4 text-xs font-medium text-[var(--text-secondary)] -mt-2">15:00</div>
+<div class="flex-1 border-t border-[var(--line-color)] relative h-full">
+</div>
+</div>
+<div class="flex w-full h-24 relative">
+<div class="w-16 text-right pr-4 text-xs font-medium text-[var(--text-secondary)] -mt-2">16:00</div>
+<div class="flex-1 border-t border-[var(--line-color)] relative h-full">
+<div class="absolute top-2 left-2 right-4 bottom-2 event-card rounded-xl p-3 flex flex-col justify-center opacity-80">
+<div class="text-sm font-semibold text-white">Wrap up &amp; Planning</div>
+</div>
+</div>
+</div>
+<div class="flex w-full h-24 relative">
+<div class="w-16 text-right pr-4 text-xs font-medium text-[var(--text-secondary)] -mt-2">17:00</div>
+<div class="flex-1 border-t border-[var(--line-color)] relative h-full">
+</div>
+</div>
+</div>
+</div>
+<button class="fixed bottom-24 right-6 w-14 h-14 rounded-full bg-indigo-600 text-white shadow-lg shadow-indigo-900/40 flex items-center justify-center active:scale-95 transition-transform z-30">
+<span class="material-symbols-outlined text-3xl">add</span>
+</button>
+<div class="fixed bottom-0 left-0 right-0 h-20 bottom-dock flex justify-around items-center px-6 z-40 pb-2">
+<button class="flex flex-col items-center justify-center gap-1 w-16 h-full group">
+<span class="material-symbols-outlined text-[var(--text-secondary)] group-hover:text-indigo-400 transition-colors" style="font-variation-settings: 'FILL' 0;">check_circle</span>
+<span class="text-[10px] font-medium text-[var(--text-secondary)] group-hover:text-indigo-400 transition-colors">Tasks</span>
+</button>
+<button class="flex flex-col items-center justify-center gap-1 w-16 h-full group">
+<span class="material-symbols-outlined text-indigo-400 drop-shadow-[0_0_8px_rgba(99,102,241,0.5)]" style="font-variation-settings: 'FILL' 1;">calendar_today</span>
+<span class="text-[10px] font-medium text-white">Day</span>
+</button>
+<button class="flex flex-col items-center justify-center gap-1 w-16 h-full group">
+<span class="material-symbols-outlined text-[var(--text-secondary)] group-hover:text-indigo-400 transition-colors">settings</span>
+<span class="text-[10px] font-medium text-[var(--text-secondary)] group-hover:text-indigo-400 transition-colors">Settings</span>
+</button>
+</div>
+
+</body></html>
+
+<!-- iDo Calendar - Month View -->
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>iDo Calendar - Month View</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#5048e5",
+              "background-light": "#f6f6f8",
+              "background-dark": "#121121",
+            },
+            fontFamily: {
+              "display": ["Inter", "sans-serif"]
+            },
+            borderRadius: {
+              "DEFAULT": "0.5rem",
+              "lg": "1rem",
+              "xl": "1.5rem",
+              "2xl": "2rem",
+              "3xl": "2.5rem",
+              "full": "9999px"
+            },
+            boxShadow: {
+                "glass": "0 8px 32px 0 rgba(31, 38, 135, 0.07)",
+                "glow": "0 0 15px rgba(80, 72, 229, 0.5)",
+                "soft": "0 10px 40px -10px rgba(0,0,0,0.08)",
+                "nav": "0 -5px 20px rgba(0,0,0,0.05)"
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .glass {
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+        }
+        .glass-dark {
+            background: rgba(18, 17, 33, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+        }.no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display min-h-screen relative overflow-hidden text-slate-900 dark:text-slate-100 selection:bg-primary/30">
+<div class="fixed top-[-20%] left-[-10%] w-[500px] h-[500px] bg-primary/10 rounded-full blur-[120px] pointer-events-none"></div>
+<div class="fixed bottom-[-10%] right-[-10%] w-[400px] h-[400px] bg-indigo-300/20 rounded-full blur-[100px] pointer-events-none"></div>
+<main class="relative z-10 flex flex-col h-screen max-w-md mx-auto">
+<div class="pt-12 px-6 pb-4 flex items-center justify-between">
+<div class="flex flex-col">
+<span class="text-slate-500 text-sm font-medium tracking-wide">2023</span>
+<div class="flex items-center gap-2">
+<h1 class="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">October</h1>
+<span class="material-symbols-outlined text-slate-400 text-2xl cursor-pointer hover:text-primary transition-colors">expand_more</span>
+</div>
+</div>
+<div class="flex gap-4">
+<button class="w-10 h-10 flex items-center justify-center rounded-full bg-white dark:bg-slate-800 shadow-sm text-slate-600 dark:text-slate-300 hover:text-primary transition-colors border border-slate-100 dark:border-slate-700">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-full bg-primary shadow-glow text-white hover:bg-indigo-600 transition-colors">
+<span class="material-symbols-outlined text-[20px]">add</span>
+</button>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto no-scrollbar pb-32 px-6">
+<div class="my-6 p-1 bg-slate-200/50 dark:bg-slate-800/50 rounded-full flex relative">
+<div class="absolute left-[25%] top-1 bottom-1 w-[25%] bg-white dark:bg-slate-700 rounded-full shadow-sm transition-all duration-300 ease-out"></div>
+<button class="flex-1 py-2 text-xs font-medium text-slate-500 z-10 relative">Year</button>
+<button class="flex-1 py-2 text-xs font-semibold text-slate-900 dark:text-white z-10 relative">Month</button>
+<button class="flex-1 py-2 text-xs font-medium text-slate-500 z-10 relative">Week</button>
+<button class="flex-1 py-2 text-xs font-medium text-slate-500 z-10 relative">Day</button>
+</div>
+<div class="mb-8">
+<div class="grid grid-cols-7 mb-2">
+<div class="text-center text-xs font-medium text-slate-400 py-2">S</div>
+<div class="text-center text-xs font-medium text-slate-400 py-2">M</div>
+<div class="text-center text-xs font-medium text-slate-400 py-2">T</div>
+<div class="text-center text-xs font-medium text-slate-400 py-2">W</div>
+<div class="text-center text-xs font-medium text-slate-400 py-2">T</div>
+<div class="text-center text-xs font-medium text-slate-400 py-2">F</div>
+<div class="text-center text-xs font-medium text-slate-400 py-2">S</div>
+</div>
+<div class="grid grid-cols-7 gap-y-2">
+<button class="h-10 w-full flex flex-col items-center justify-center text-slate-300 dark:text-slate-600 text-sm font-medium">28</button>
+<button class="h-10 w-full flex flex-col items-center justify-center text-slate-300 dark:text-slate-600 text-sm font-medium">29</button>
+<button class="h-10 w-full flex flex-col items-center justify-center text-slate-300 dark:text-slate-600 text-sm font-medium">30</button>
+<button class="h-10 w-full flex flex-col items-center justify-center text-slate-700 dark:text-slate-300 text-sm font-medium group">
+<span>1</span>
+</button>
+<button class="h-10 w-full flex flex-col items-center justify-center text-slate-700 dark:text-slate-300 text-sm font-medium">
+<span>2</span>
+<div class="flex gap-[2px] mt-1">
+<span class="w-1 h-1 rounded-full bg-rose-400"></span>
+</div>
+</button>
+<button class="h-10 w-full flex flex-col items-center justify-center text-slate-700 dark:text-slate-300 text-sm font-medium">3</button>
+<button class="h-10 w-full flex flex-col items-center justify-center text-slate-700 dark:text-slate-300 text-sm font-medium">
+<span>4</span>
+<div class="flex gap-[2px] mt-1">
+<span class="w-1 h-1 rounded-full bg-amber-400"></span>
+<span class="w-1 h-1 rounded-full bg-emerald-400"></span>
+</div>
+</button>
+<button class="h-10 w-full flex flex-col items-center justify-center text-slate-700 dark:text-slate-300 text-sm font-medium">5</button>
+<button class="h-10 w-full flex flex-col items-center justify-center text-slate-700 dark:text-slate-300 text-sm font-medium">6</button>
+<button class="h-10 w-full flex flex-col items-center justify-center text-slate-700 dark:text-slate-300 text-sm font-medium">7</button>
+<button class="h-10 w-full flex flex-col items-center justify-center text-slate-700 dark:text-slate-300 text-sm font-medium">8</button>
+<button class="h-10 w-full flex flex-col items-center justify-center text-slate-700 dark:text-slate-300 text-sm font-medium">
+<span>9</span>
+<div class="flex gap-[2px] mt-1">
+<span class="w-1 h-1 rounded-full bg-primary"></span>
+</div>
+</button>
+<button class="h-10 w-full flex flex-col items-center justify-center text-slate-700 dark:text-slate-300 text-sm font-medium">10</button>
+<button class="h-10 w-full flex flex-col items-center justify-center text-slate-700 dark:text-slate-300 text-sm font-medium">11</button>
+<button class="h-10 w-full flex flex-col items-center justify-center text-slate-700 dark:text-slate-300 text-sm font-medium">12</button>
+<button class="h-10 w-full flex flex-col items-center justify-center text-slate-700 dark:text-slate-300 text-sm font-medium">13</button>
+<button class="h-10 w-full flex flex-col items-center justify-center text-slate-700 dark:text-slate-300 text-sm font-medium">14</button>
+<button class="h-10 w-full flex flex-col items-center justify-center text-slate-700 dark:text-slate-300 text-sm font-medium">15</button>
+<button class="h-10 w-full flex flex-col items-center justify-center text-slate-700 dark:text-slate-300 text-sm font-medium">16</button>
+<button class="h-10 w-full flex flex-col items-center justify-center text-slate-700 dark:text-slate-300 text-sm font-medium">
+<span>17</span>
+<div class="flex gap-[2px] mt-1">
+<span class="w-1 h-1 rounded-full bg-slate-300"></span>
+<span class="w-1 h-1 rounded-full bg-slate-300"></span>
+<span class="w-1 h-1 rounded-full bg-slate-300"></span>
+</div>
+</button>
+<button class="h-10 w-full flex flex-col items-center justify-center text-slate-700 dark:text-slate-300 text-sm font-medium">18</button>
+<button class="h-10 w-full flex flex-col items-center justify-center text-slate-700 dark:text-slate-300 text-sm font-medium">19</button>
+<button class="h-10 w-full flex flex-col items-center justify-center text-slate-700 dark:text-slate-300 text-sm font-medium">20</button>
+<button class="h-10 w-full flex flex-col items-center justify-center text-slate-700 dark:text-slate-300 text-sm font-medium">21</button>
+<button class="h-10 w-full flex flex-col items-center justify-center text-slate-700 dark:text-slate-300 text-sm font-medium">22</button>
+<button class="h-10 w-full flex flex-col items-center justify-center text-slate-700 dark:text-slate-300 text-sm font-medium">23</button>
+<button class="relative h-10 w-full flex flex-col items-center justify-center text-white text-sm font-bold">
+<div class="absolute inset-x-1 inset-y-0 bg-primary rounded-full shadow-glow z-0"></div>
+<span class="relative z-10">24</span>
+</button>
+<button class="h-10 w-full flex flex-col items-center justify-center text-slate-700 dark:text-slate-300 text-sm font-medium">
+<span>25</span>
+<div class="flex gap-[2px] mt-1">
+<span class="w-1 h-1 rounded-full bg-purple-400"></span>
+<span class="w-1 h-1 rounded-full bg-primary"></span>
+</div>
+</button>
+<button class="h-10 w-full flex flex-col items-center justify-center text-slate-700 dark:text-slate-300 text-sm font-medium">26</button>
+<button class="h-10 w-full flex flex-col items-center justify-center text-slate-700 dark:text-slate-300 text-sm font-medium">27</button>
+<button class="h-10 w-full flex flex-col items-center justify-center text-slate-700 dark:text-slate-300 text-sm font-medium">28</button>
+<button class="h-10 w-full flex flex-col items-center justify-center text-slate-700 dark:text-slate-300 text-sm font-medium">29</button>
+<button class="h-10 w-full flex flex-col items-center justify-center text-slate-700 dark:text-slate-300 text-sm font-medium">30</button>
+<button class="h-10 w-full flex flex-col items-center justify-center text-slate-700 dark:text-slate-300 text-sm font-medium">31</button>
+</div>
+</div>
+<div class="glass rounded-3xl p-6 shadow-soft mb-8 border border-white/60">
+<div class="flex items-center justify-between mb-5">
+<div>
+<h2 class="text-slate-900 dark:text-slate-800 font-bold text-lg tracking-tight">Today's Focus</h2>
+<p class="text-slate-500 text-xs font-medium mt-0.5">3 tasks remaining</p>
+</div>
+<button class="w-8 h-8 flex items-center justify-center rounded-full bg-white/70 text-slate-400 hover:text-primary transition-colors shadow-sm border border-white/60">
+<span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+<div class="space-y-4">
+<div class="flex items-center gap-4 group cursor-pointer p-1 rounded-lg hover:bg-white/40 transition-colors">
+<div class="w-1 h-10 rounded-full bg-primary/40 group-hover:bg-primary transition-colors"></div>
+<div class="flex-1">
+<h3 class="text-slate-800 font-semibold text-sm">Design Review</h3>
+<p class="text-slate-500 text-xs mt-0.5">10:00 AM • Zoom</p>
+</div>
+<div class="w-6 h-6 rounded-full border border-slate-300 flex items-center justify-center group-hover:border-primary group-hover:text-primary text-transparent transition-all bg-white/50">
+<span class="material-symbols-outlined text-xs font-bold">check</span>
+</div>
+</div>
+<div class="flex items-center gap-4 group cursor-pointer p-1 rounded-lg hover:bg-white/40 transition-colors">
+<div class="w-1 h-10 rounded-full bg-amber-400/40 group-hover:bg-amber-400 transition-colors"></div>
+<div class="flex-1">
+<h3 class="text-slate-800 font-semibold text-sm">Client Call</h3>
+<p class="text-slate-500 text-xs mt-0.5">02:00 PM • Phone</p>
+</div>
+<div class="w-6 h-6 rounded-full border border-slate-300 flex items-center justify-center group-hover:border-primary group-hover:text-primary text-transparent transition-all bg-white/50">
+<span class="material-symbols-outlined text-xs font-bold">check</span>
+</div>
+</div>
+<div class="flex items-center gap-4 group cursor-pointer p-1 rounded-lg hover:bg-white/40 transition-colors">
+<div class="w-1 h-10 rounded-full bg-emerald-400/40 group-hover:bg-emerald-400 transition-colors"></div>
+<div class="flex-1">
+<h3 class="text-slate-800 font-semibold text-sm">Gym Session</h3>
+<p class="text-slate-500 text-xs mt-0.5">05:30 PM • Fitness First</p>
+</div>
+<div class="w-6 h-6 rounded-full border border-slate-300 flex items-center justify-center group-hover:border-primary group-hover:text-primary text-transparent transition-all bg-white/50">
+<span class="material-symbols-outlined text-xs font-bold">check</span>
+</div>
+</div>
+</div>
+</div>
+<div class="h-20"></div>
+</div>
+<div class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 w-full max-w-[340px]">
+<div class="glass-nav h-[68px] rounded-full flex items-center justify-around px-8 shadow-glass relative">
+<a class="flex flex-col items-center justify-center gap-1 group w-12" href="#">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-slate-600 transition-colors text-[28px] font-light">check_circle</span>
+</a>
+<a class="flex flex-col items-center justify-center gap-1 relative w-12" href="#">
+<span class="material-symbols-outlined text-primary text-[28px] drop-shadow-sm font-medium">calendar_month</span>
+<span class="absolute -bottom-2 w-1.5 h-1.5 bg-primary rounded-full shadow-glow"></span>
+</a>
+<a class="flex flex-col items-center justify-center gap-1 group w-12" href="#">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-slate-600 transition-colors text-[28px] font-light">person</span>
+</a>
+</div>
+</div>
+</main>
+</body></html>
+
+<!-- Home (Consistent Dock) -->
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>All Tasks - Dark Mode</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#6366f1', // Indigo-500
+                        'dark-surface': '#18181b', // Zinc-900
+                        'dark-bg': '#000000', // Black for OLED
+                        'charcoal': '#1f1f23', // Slightly lighter than surface
+                        'glass-dark': 'rgba(24, 24, 27, 0.75)',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'soft-glow': '0 0 20px rgba(99, 102, 241, 0.4)',
+                        'task-depth': '0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.3)',
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #000000;
+            color: #ffffff;
+        }.no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .glass-dock {
+            background: rgba(30, 30, 35, 0.65);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .task-item {
+            background: linear-gradient(145deg, #1f1f23, #18181b);
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+    </style>
+<style>
+        body {
+            min-height: max(844px, 100dvh);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="min-h-screen flex flex-col font-sans antialiased relative overflow-hidden bg-dark-bg text-white">
+<header class="pt-14 px-6 pb-2 sticky top-0 z-10 bg-dark-bg/95 backdrop-blur-sm">
+<div class="flex items-center justify-between mb-8">
+<h1 class="text-3xl font-bold tracking-tight">My Tasks</h1>
+<div class="w-10 h-10 rounded-full bg-charcoal border border-white/10 flex items-center justify-center overflow-hidden">
+<img alt="User" class="w-full h-full object-cover opacity-90" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCy9pDNowOa5FxCNf2hXn-M9mPf9IqIn91aBo4vHhd7Q8q4nuxDHoJbqJiW47iMcqOUybLKea-Oxn2CFWYc8t1pz5t0W7ER6DdmMTD-_bZSmXnI6iYJR23Am5SSC8AY_3uGK_6s2wdjXDP7eGRYJIWG7eOK2TBm-fjZTMQXzlDOvGB-cYuBjpBLlgOzWG0pHDgH0gmvlgSN4rtIY7xAy3ZDmk-jVHI12gyGUBB_ryREcaARSVMRwdSy1K4w2LLr1AMXb6c-my6rrLn0"/>
+</div>
+</div>
+<nav class="flex space-x-8 border-b border-white/10 relative">
+<button class="pb-3 text-sm font-medium text-white relative">
+                Today
+                <span class="absolute bottom-0 left-0 w-full h-0.5 bg-primary rounded-t-full shadow-[0_0_10px_rgba(99,102,241,0.6)]"></span>
+</button>
+<button class="pb-3 text-sm font-medium text-gray-500 hover:text-gray-300 transition-colors">
+                Upcoming
+            </button>
+<button class="pb-3 text-sm font-medium text-gray-500 hover:text-gray-300 transition-colors">
+                Completed
+            </button>
+</nav>
+</header>
+<main class="flex-grow px-4 pt-4 pb-28 overflow-y-auto no-scrollbar">
+<div class="mb-6">
+<h2 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3 px-2">High Priority</h2>
+<div class="space-y-3">
+<div class="task-item p-4 rounded-2xl flex items-center gap-4 shadow-task-depth group active:scale-[0.98] transition-transform">
+<button class="w-6 h-6 rounded-full border-2 border-indigo-500/50 hover:bg-indigo-500/20 flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined text-transparent group-hover:text-indigo-400 text-[16px]">check</span>
+</button>
+<div class="flex-grow">
+<h3 class="text-sm font-medium text-gray-100">Review Q3 design system</h3>
+<p class="text-xs text-gray-500 mt-0.5">10:00 AM • Design Team</p>
+</div>
+<div class="w-2 h-2 rounded-full bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.6)]"></div>
+</div>
+<div class="task-item p-4 rounded-2xl flex items-center gap-4 shadow-task-depth group active:scale-[0.98] transition-transform">
+<button class="w-6 h-6 rounded-full border-2 border-gray-600 hover:border-indigo-500/50 hover:bg-indigo-500/20 flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined text-transparent group-hover:text-indigo-400 text-[16px]">check</span>
+</button>
+<div class="flex-grow">
+<h3 class="text-sm font-medium text-gray-100">Client meeting with Alex</h3>
+<p class="text-xs text-gray-500 mt-0.5">02:30 PM • Zoom</p>
+</div>
+<span class="material-symbols-outlined text-gray-600 text-[20px]">videocam</span>
+</div>
+</div>
+</div>
+<div class="mb-6">
+<h2 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3 px-2">Tasks</h2>
+<div class="space-y-3">
+<div class="task-item p-4 rounded-2xl flex items-center gap-4 shadow-task-depth group active:scale-[0.98] transition-transform">
+<button class="w-6 h-6 rounded-full border-2 border-gray-600 hover:border-indigo-500/50 hover:bg-indigo-500/20 flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined text-transparent group-hover:text-indigo-400 text-[16px]">check</span>
+</button>
+<div class="flex-grow">
+<h3 class="text-sm font-medium text-gray-100">Grocery shopping</h3>
+<p class="text-xs text-gray-500 mt-0.5">6 items</p>
+</div>
+</div>
+<div class="task-item p-4 rounded-2xl flex items-center gap-4 shadow-task-depth group active:scale-[0.98] transition-transform">
+<button class="w-6 h-6 rounded-full border-2 border-gray-600 hover:border-indigo-500/50 hover:bg-indigo-500/20 flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined text-transparent group-hover:text-indigo-400 text-[16px]">check</span>
+</button>
+<div class="flex-grow">
+<h3 class="text-sm font-medium text-gray-100">Read 'Atomic Habits'</h3>
+<p class="text-xs text-gray-500 mt-0.5">30 mins • Personal Growth</p>
+</div>
+</div>
+<div class="task-item p-4 rounded-2xl flex items-center gap-4 shadow-task-depth group active:scale-[0.98] transition-transform opacity-75">
+<button class="w-6 h-6 rounded-full border-2 border-gray-600 hover:border-indigo-500/50 hover:bg-indigo-500/20 flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined text-transparent group-hover:text-indigo-400 text-[16px]">check</span>
+</button>
+<div class="flex-grow">
+<h3 class="text-sm font-medium text-gray-100">Water the plants</h3>
+<p class="text-xs text-gray-500 mt-0.5">Living room</p>
+</div>
+</div>
+<div class="task-item p-4 rounded-2xl flex items-center gap-4 shadow-task-depth group active:scale-[0.98] transition-transform opacity-75">
+<button class="w-6 h-6 rounded-full border-2 border-gray-600 hover:border-indigo-500/50 hover:bg-indigo-500/20 flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined text-transparent group-hover:text-indigo-400 text-[16px]">check</span>
+</button>
+<div class="flex-grow">
+<h3 class="text-sm font-medium text-gray-100">Call Mom</h3>
+<p class="text-xs text-gray-500 mt-0.5">Evening</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<button class="fixed right-6 bottom-28 z-20 w-14 h-14 rounded-full bg-primary text-white flex items-center justify-center shadow-soft-glow hover:scale-105 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-3xl">add</span>
+</button>
+<nav class="fixed bottom-0 left-0 w-full glass-dock pb-8 pt-4 px-6 z-30">
+<div class="flex justify-around items-center max-w-md mx-auto">
+<button class="flex flex-col items-center gap-1 text-white group">
+<span class="material-symbols-outlined text-[28px] group-hover:scale-110 transition-transform" style="font-variation-settings: 'FILL' 1;">check_box</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-gray-500 hover:text-gray-300 transition-colors group">
+<span class="material-symbols-outlined text-[28px] group-hover:scale-110 transition-transform" style="font-variation-settings: 'FILL' 0;">calendar_month</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-gray-500 hover:text-gray-300 transition-colors group">
+<span class="material-symbols-outlined text-[28px] group-hover:scale-110 transition-transform" style="font-variation-settings: 'FILL' 0;">settings</span>
+</button>
+</div>
+</nav>
+
+</body></html>
+
+<!-- Home (Consistent Dock) -->
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>iDo Calendar - Dark Mode</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<style>
+        body {
+            background-color: #000000;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.filled {
+            font-variation-settings: 'FILL' 1, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }.oled-glow {
+            background: radial-gradient(circle at center, rgba(80, 72, 229, 0.15) 0%, rgba(0,0,0,0) 70%);
+        }
+        .glass-dark {
+            background: rgba(20, 20, 20, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .glass-card {
+            background: rgba(30, 30, 30, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        }
+        .day-active {
+            background: rgba(80, 72, 229, 0.3);
+            color: #ffffff;
+            box-shadow: 0 0 15px rgba(80, 72, 229, 0.4);
+            border: 1px solid rgba(99, 102, 241, 0.4);
+        }
+        .dock-container {
+            padding-bottom: env(safe-area-inset-bottom, 20px);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="min-h-screen flex flex-col relative overflow-hidden bg-black text-gray-200">
+<div class="absolute top-[-20%] left-[-20%] w-[80%] h-[80%] rounded-full bg-indigo-900/10 blur-[120px] pointer-events-none"></div>
+<div class="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] rounded-full bg-purple-900/10 blur-[100px] pointer-events-none"></div>
+<header class="pt-12 px-6 flex justify-between items-center z-10">
+<div>
+<h2 class="text-sm text-gray-500 font-medium uppercase tracking-wider mb-1">2023</h2>
+<div class="flex items-center gap-2">
+<h1 class="text-3xl font-bold text-white tracking-tight">October</h1>
+<span class="material-symbols-outlined text-gray-500 text-xl pt-1">expand_more</span>
+</div>
+</div>
+<button class="w-10 h-10 rounded-full bg-[#1A1A1A] border border-gray-800 flex items-center justify-center">
+<span class="material-symbols-outlined text-gray-400">search</span>
+</button>
+</header>
+<main class="flex-grow px-4 mt-6 z-10 flex flex-col">
+<div class="grid grid-cols-7 mb-4">
+<div class="text-center text-xs font-medium text-gray-600 py-2">S</div>
+<div class="text-center text-xs font-medium text-gray-600 py-2">M</div>
+<div class="text-center text-xs font-medium text-gray-600 py-2">T</div>
+<div class="text-center text-xs font-medium text-gray-600 py-2">W</div>
+<div class="text-center text-xs font-medium text-gray-600 py-2">T</div>
+<div class="text-center text-xs font-medium text-gray-600 py-2">F</div>
+<div class="text-center text-xs font-medium text-gray-600 py-2">S</div>
+</div>
+<div class="grid grid-cols-7 gap-y-4 mb-6">
+<div class="text-center py-2"><span class="text-sm text-gray-800">28</span></div>
+<div class="text-center py-2"><span class="text-sm text-gray-800">29</span></div>
+<div class="text-center py-2"><span class="text-sm text-gray-800">30</span></div>
+<div class="text-center py-2"><span class="text-sm text-gray-500">1</span></div>
+<div class="text-center py-2"><span class="text-sm text-gray-500">2</span></div>
+<div class="text-center py-2"><span class="text-sm text-gray-500">3</span></div>
+<div class="text-center py-2"><span class="text-sm text-gray-500">4</span></div>
+<div class="text-center py-2"><span class="text-sm text-gray-500">5</span></div>
+<div class="text-center py-2"><span class="text-sm text-gray-500">6</span></div>
+<div class="text-center py-2"><span class="text-sm text-gray-500">7</span></div>
+<div class="text-center py-2"><span class="text-sm text-gray-500">8</span></div>
+<div class="text-center py-2 relative">
+<span class="text-sm text-gray-500">9</span>
+<div class="absolute bottom-1 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-indigo-500 rounded-full"></div>
+</div>
+<div class="text-center py-2"><span class="text-sm text-gray-500">10</span></div>
+<div class="text-center py-2"><span class="text-sm text-gray-500">11</span></div>
+<div class="text-center py-2"><span class="text-sm text-gray-500">12</span></div>
+<div class="text-center py-2"><span class="text-sm text-gray-500">13</span></div>
+<div class="text-center py-2"><span class="text-sm text-gray-500">14</span></div>
+<div class="text-center py-2"><span class="text-sm text-gray-500">15</span></div>
+<div class="text-center py-2"><span class="text-sm text-gray-500">16</span></div>
+<div class="text-center py-2 relative">
+<span class="text-sm text-gray-500">17</span>
+<div class="absolute bottom-1 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-indigo-500 rounded-full"></div>
+</div>
+<div class="text-center py-2"><span class="text-sm text-gray-500">18</span></div>
+<div class="text-center py-2"><span class="text-sm text-gray-500">19</span></div>
+<div class="text-center py-2"><span class="text-sm text-gray-500">20</span></div>
+<div class="text-center py-2"><span class="text-sm text-gray-500">21</span></div>
+<div class="text-center py-2"><span class="text-sm text-gray-500">22</span></div>
+<div class="text-center py-2"><span class="text-sm text-gray-500">23</span></div>
+<div class="flex items-center justify-center relative">
+<div class="w-9 h-9 rounded-full day-active flex items-center justify-center z-10">
+<span class="text-sm font-semibold text-white">24</span>
+</div>
+<div class="absolute inset-0 bg-indigo-600 blur-xl opacity-20"></div>
+</div>
+<div class="text-center py-2"><span class="text-sm text-gray-500">25</span></div>
+<div class="text-center py-2"><span class="text-sm text-gray-500">26</span></div>
+<div class="text-center py-2"><span class="text-sm text-gray-500">27</span></div>
+<div class="text-center py-2"><span class="text-sm text-gray-500">28</span></div>
+<div class="text-center py-2"><span class="text-sm text-gray-500">29</span></div>
+<div class="text-center py-2"><span class="text-sm text-gray-500">30</span></div>
+<div class="text-center py-2"><span class="text-sm text-gray-500">31</span></div>
+</div>
+<div class="mt-auto mb-28">
+<h3 class="text-xs text-gray-500 font-medium uppercase tracking-wide mb-3 pl-1">Today's Focus</h3>
+<div class="glass-card rounded-2xl p-5 flex items-start gap-4">
+<div class="mt-1 w-5 h-5 rounded-md border border-indigo-500/50 flex items-center justify-center">
+<div class="w-3 h-3 bg-indigo-500 rounded-[2px] opacity-0 hover:opacity-100 transition-opacity"></div>
+</div>
+<div class="flex-1">
+<h4 class="text-white font-medium text-base mb-1">Finalize Design System</h4>
+<p class="text-gray-500 text-xs mb-3">10:00 AM - 11:30 AM</p>
+<div class="flex items-center gap-2">
+<div class="flex -space-x-2">
+<img alt="User" class="w-6 h-6 rounded-full border border-black" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB4pmlXP6IWp-pJPKVDls7k7mJOtc8zYcU4aNcT_RfCrznwFtCkcxJf8MZpWY69kiiULS6DU21uR2-MyKITKSLjAiGb2Gnk3lm6hHt_PwqffncohvFvk3elZ7WT6IZBX-PFa9FCnEdCqTJE19Hy3wnx13guHrtWhu-kk4BRXeKfJF77QEw_WBAwLeOiTwqaZAZLdU7BnAs91is8_q0Xp0U6qJzTXz9x8gDX8WGY-5GvtEyhtw47Yn52zS5XyJN56ba3LCAWwWyBygq2"/>
+<img alt="User" class="w-6 h-6 rounded-full border border-black" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAs36g6oWFW2WTbRwE9kR9VArA-LYFdFrsfRbnyyDjQlcopOKPXEo3qiHc3ZJjfs2QiM7RlvOMcXXecgtJXOyuMPhgEDPWLxMBpno6aZa-lDbB9vxMQq7G7tjCIlwuUIN2qA6z9w4FDNBTAU5j0SXbNDVo-wUazPPmv4qTp_c8RSPXP_o3bc-Q0pPvcaiD7JEKb0OiNcO6-_-U8onuX7rjDs71C9XT_gwhPCbl7UfaoXJYzsBM4g0QGfnz_N6bALTnP9kNZZPm_njnU"/>
+</div>
+<span class="text-[10px] text-gray-500">+2 others</span>
+</div>
+</div>
+<button class="text-gray-400 hover:text-white transition-colors">
+<span class="material-symbols-outlined text-xl">more_vert</span>
+</button>
+</div>
+</div>
+</main>
+<div class="fixed bottom-0 left-0 right-0 glass-dark dock-container z-50">
+<div class="flex justify-around items-center pt-3 pb-1 px-6 max-w-md mx-auto">
+<button class="flex flex-col items-center gap-1 p-2 group opacity-60 hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-2xl font-light text-gray-300 group-hover:text-white transition-colors">check_circle</span>
+</button>
+<button class="flex flex-col items-center gap-1 p-2 relative group">
+<div class="absolute -top-3 w-8 h-8 bg-indigo-500/20 blur-lg rounded-full"></div>
+<span class="material-symbols-outlined filled text-2xl text-indigo-400">calendar_month</span>
+<span class="w-1 h-1 rounded-full bg-indigo-400 mt-0.5"></span>
+</button>
+<button class="flex flex-col items-center gap-1 p-2 group opacity-60 hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-2xl font-light text-gray-300 group-hover:text-white transition-colors">settings</span>
+</button>
+</div>
+</div>
+
+</body></html>
+
+<!-- Home (Consistent Dock) -->
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>iDo Login - Dark Mode</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#5048e5',
+                        charcoal: '#121212',
+                        darkgray: '#1E1E1E',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #121212;}
+        .dark-ambient-glow {
+            background: 
+                radial-gradient(circle at 50% 0%, rgba(80, 72, 229, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 100% 100%, rgba(100, 100, 100, 0.05) 0%, transparent 40%);
+        }
+        .glass-panel-dark {
+            background: rgba(30, 30, 30, 0.4);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .btn-google-dark {
+            background: rgba(40, 40, 40, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+            transition: all 0.2s ease;
+        }
+        .btn-google-dark:active {
+            background: rgba(50, 50, 50, 0.8);
+        }
+        .btn-offline-dark {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            transition: all 0.2s ease;
+        }
+        .btn-offline-dark:active {
+            background: rgba(255, 255, 255, 0.05);
+        }
+    </style>
+<style>
+        body {
+            min-height: max(600px, 100dvh);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="min-h-screen flex flex-col justify-center items-center font-sans antialiased relative overflow-hidden text-gray-200">
+<div class="absolute inset-0 z-[-1] bg-[#0F0F11] dark-ambient-glow"></div>
+<div class="absolute top-[-20%] left-1/2 -translate-x-1/2 w-[80%] h-[50%] rounded-full bg-indigo-900/20 blur-[100px]"></div>
+<div class="absolute bottom-[-10%] right-[-10%] w-[60%] h-[40%] rounded-full bg-slate-800/20 blur-[80px]"></div>
+<div class="w-full max-w-md px-8 flex flex-col items-center justify-center flex-grow pt-10">
+<div class="w-20 h-20 mb-8 rounded-3xl glass-panel-dark flex items-center justify-center shadow-2xl ring-1 ring-white/5">
+<span class="material-symbols-outlined text-4xl text-indigo-400" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<h1 class="text-3xl font-bold text-gray-100 mb-2 tracking-tight">Welcome to iDo</h1>
+<p class="text-gray-400 mb-12 text-center text-sm font-medium opacity-80">Simplify your life, one task at a time.</p>
+<div class="w-full space-y-4">
+<button class="w-full py-4 px-6 rounded-2xl flex items-center justify-center gap-3 btn-google-dark active:scale-[0.98] group">
+<svg class="w-5 h-5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"></path>
+<path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"></path>
+<path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"></path>
+<path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"></path>
+</svg>
+<span class="text-gray-200 font-semibold text-lg">Login with Google</span>
+</button>
+<button class="w-full py-4 px-6 rounded-2xl flex items-center justify-center gap-3 btn-offline-dark active:scale-[0.98]">
+<span class="material-symbols-outlined text-gray-400">wifi_off</span>
+<span class="text-gray-300 font-semibold text-lg">Use Offline</span>
+</button>
+</div>
+<p class="mt-8 text-xs text-gray-500 text-center max-w-[260px] leading-relaxed opacity-60">
+            To ensure cross-platform sync, login with Google is needed
+        </p>
+</div>
+<footer class="w-full text-center py-8 relative z-10">
+<p class="text-[11px] font-medium text-gray-600 font-sans tracking-wide">
+            iDo made with <span class="text-red-500/80 mx-0.5">❤️</span> by KrispLabs &amp; Sarthak
+        </p>
+</footer>
+
+</body></html>
+
+<!-- Home (Consistent Dock) -->
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>iDo - Home Screen</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#5048e5",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#121121",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .task-checkbox:checked + .task-label {
+            text-decoration: line-through;
+            opacity: 0.5;
+        }input[type="checkbox"] {
+            appearance: none;
+            background-color: transparent;
+            margin: 0;
+            font: inherit;
+            color: currentColor;
+            width: 1.5rem;
+            height: 1.5rem;
+            border: 2px solid #5048e5;
+            border-radius: 50%;
+            display: grid;
+            place-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+        }
+        input[type="checkbox"]::before {
+            content: "";
+            width: 0.75rem;
+            height: 0.75rem;
+            transform: scale(0);
+            transition: 120ms transform ease-in-out;
+            box-shadow: inset 1em 1em white;
+            background-color: CanvasText;
+            clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+        }
+        input[type="checkbox"]:checked {
+            background-color: #5048e5;
+        }
+        input[type="checkbox"]:checked::before {
+            transform: scale(1);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-display bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen flex flex-col pb-32">
+<header class="px-6 pt-10 pb-6 flex flex-col gap-1">
+<div class="flex items-center justify-between mb-4">
+<div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center overflow-hidden border-2 border-primary/20">
+<img alt="User avatar" class="w-full h-full object-cover" data-alt="Portrait of a professional man smiling" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBh8YkuMw5AQqzJaB_O1Mh4lJBsIfueFKjgAbQLgBgc0sTqPeRJ5jzCL2d6cokoBCN6ZqgjIBHkhfCIh_GxrV7JEFgIsQY9vE9apwVXccCvCZxABDiYjaCoqkDOcXR3mNWjZCiXayr9COsLUMuYoUAdRP6KGELKkedpXZBFQSaJ3ou5CPAECo_CZ_w0a0ZdRgdYXO8DzJMZoo0qgDzIsHJVdyHfOvzPujwq_zkuWYd6UE_y7y59Uog89iy0YSu7P-6ozKhworX5aPoo"/>
+</div>
+<button class="p-2 rounded-full hover:bg-primary/10 transition-colors text-slate-600 dark:text-slate-400">
+<span class="material-symbols-outlined">calendar_today</span>
+</button>
+</div>
+<h1 class="text-3xl font-bold tracking-tight">Good evening, Sarthak</h1>
+<p class="text-slate-500 dark:text-slate-400 font-medium">Monday, October 12</p>
+</header>
+<main class="flex-1 px-6">
+<div class="flex items-center justify-between mb-4 mt-4">
+<h2 class="text-sm font-bold uppercase tracking-widest text-primary">Today</h2>
+<span class="text-xs font-medium text-slate-400">3 Tasks</span>
+</div>
+<div class="flex flex-col gap-3">
+<div class="bg-white dark:bg-slate-800/50 p-4 rounded-xl flex items-center gap-4 shadow-sm border border-primary/5">
+<div class="flex-shrink-0">
+<input class="task-checkbox" id="task1" type="checkbox"/>
+</div>
+<div class="flex-1">
+<label class="task-label block text-base font-semibold text-slate-800 dark:text-slate-100 transition-all duration-300" for="task1">
+                        Review project proposal
+                    </label>
+<span class="text-xs font-medium text-slate-400 flex items-center gap-1 mt-0.5">
+<span class="material-symbols-outlined text-[14px]">schedule</span> 6:00 PM
+                    </span>
+</div>
+<div class="flex-shrink-0 text-slate-300 dark:text-slate-600">
+<span class="material-symbols-outlined">more_vert</span>
+</div>
+</div>
+<div class="bg-white dark:bg-slate-800/50 p-4 rounded-xl flex items-center gap-4 shadow-sm border border-primary/5">
+<div class="flex-shrink-0">
+<input class="task-checkbox" id="task2" type="checkbox"/>
+</div>
+<div class="flex-1">
+<label class="task-label block text-base font-semibold text-slate-800 dark:text-slate-100 transition-all duration-300" for="task2">
+                        Call the gym
+                    </label>
+<span class="text-xs font-medium text-slate-400 flex items-center gap-1 mt-0.5">
+<span class="material-symbols-outlined text-[14px]">schedule</span> 7:30 PM
+                    </span>
+</div>
+<div class="flex-shrink-0 text-slate-300 dark:text-slate-600">
+<span class="material-symbols-outlined">more_vert</span>
+</div>
+</div>
+<div class="bg-white dark:bg-slate-800/50 p-4 rounded-xl flex items-center gap-4 shadow-sm border border-primary/5">
+<div class="flex-shrink-0">
+<input class="task-checkbox" id="task3" type="checkbox"/>
+</div>
+<div class="flex-1">
+<label class="task-label block text-base font-semibold text-slate-800 dark:text-slate-100 transition-all duration-300" for="task3">
+                        Dinner with Sarah
+                    </label>
+<span class="text-xs font-medium text-slate-400 flex items-center gap-1 mt-0.5">
+<span class="material-symbols-outlined text-[14px]">schedule</span> 8:30 PM
+                    </span>
+</div>
+<div class="flex-shrink-0 text-slate-300 dark:text-slate-600">
+<span class="material-symbols-outlined">more_vert</span>
+</div>
+</div>
+</div>
+</main>
+<div class="fixed bottom-[6rem] right-6 z-40">
+<button class="w-14 h-14 bg-primary text-white rounded-full shadow-lg shadow-primary/30 flex items-center justify-center hover:scale-105 transition-transform active:scale-95">
+<span class="material-symbols-outlined text-3xl">add</span>
+</button>
+</div>
+<nav class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-white/70 dark:bg-black/60 backdrop-blur-md border border-white/20 dark:border-white/10 shadow-2xl rounded-full px-6 py-4 flex items-center justify-between gap-8 z-50">
+<a class="flex flex-col items-center justify-center gap-1 relative group w-12" href="#">
+<div class="w-10 h-10 rounded-full bg-indigo-100 dark:bg-indigo-500/20 text-indigo-600 dark:text-indigo-400 flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1, 'wght' 500;">check_circle</span>
+</div>
+</a>
+<a class="flex flex-col items-center justify-center gap-1 relative group w-12" href="#">
+<span class="material-symbols-outlined text-2xl text-slate-400 dark:text-slate-500 group-hover:text-primary dark:group-hover:text-slate-300 transition-colors" style="font-variation-settings: 'wght' 300;">calendar_month</span>
+</a>
+<a class="flex flex-col items-center justify-center gap-1 relative group w-12" href="#">
+<span class="material-symbols-outlined text-2xl text-slate-400 dark:text-slate-500 group-hover:text-primary dark:group-hover:text-slate-300 transition-colors" style="font-variation-settings: 'wght' 300;">person</span>
+</a>
+</nav>
+</body></html>
+
+<!-- iDo Calendar - Day View -->
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>iDo Calendar - Day View</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#5048e5",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#121121",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "2xl": "2rem", "full": "9999px"},
+                    boxShadow: {
+                        'glass': '0 8px 32px 0 rgba(31, 38, 135, 0.07)',
+                        'glass-sm': '0 4px 16px 0 rgba(31, 38, 135, 0.05)',
+                    }
+                },
+            },
+        }
+    </script>
+<style>.glass-panel {
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        .dark .glass-panel {
+            background: rgba(30, 30, 40, 0.65);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+        }
+        .dark .glass-card {
+            background: rgba(40, 40, 55, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }.no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display min-h-screen relative overflow-hidden flex flex-col antialiased">
+<div class="fixed top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
+<div class="absolute top-[-10%] left-[-10%] w-[50%] h-[40%] rounded-full bg-primary/10 blur-[100px]"></div>
+<div class="absolute bottom-[-10%] right-[-10%] w-[60%] h-[50%] rounded-full bg-primary/5 blur-[80px]"></div>
+</div>
+<header class="sticky top-0 z-20 pt-12 pb-4 px-6 glass-panel rounded-b-2xl shadow-glass-sm">
+<div class="flex flex-col gap-5">
+<div class="flex items-center justify-between">
+<div>
+<h2 class="text-sm font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wide">Today</h2>
+<h1 class="text-3xl font-bold text-slate-900 dark:text-white tracking-tight">Mon, Oct 24</h1>
+</div>
+<div class="h-10 w-10 rounded-full overflow-hidden border-2 border-white dark:border-slate-700 shadow-sm">
+<img alt="User Avatar" class="h-full w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD7ucWUsoJskfeXKk7mMXuKsz3o3ahqyPZjj8lxP2ahfG9DQXab05wPkiDEJ0mvBCTb6_dX9Dve6EXs9XsppWGo797iXDKa8ptqhwLvU_ZTLAJSbl0v1x2VQIOhftnhyMy7LrftWeAoyk0tNon-ZYIzf5z4ekiqmn4znexxNVjq7kWoimKtSP_Nh4lQCVfdtlcy_G5XpqEgzJyEWQtztuZK9rDJOoLJDspTAH1VGN_Rbqys5crje7ditR4FsnQZP_vLLRPJHkLmz9Yz"/>
+</div>
+</div>
+<div class="flex p-1 bg-slate-200/50 dark:bg-slate-800/50 rounded-xl backdrop-blur-sm self-start w-full">
+<button class="flex-1 py-1.5 px-4 rounded-lg bg-white dark:bg-slate-700 shadow-sm text-primary font-semibold text-sm transition-all duration-200">Day</button>
+<button class="flex-1 py-1.5 px-4 rounded-lg text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 font-medium text-sm transition-all duration-200">Week</button>
+<button class="flex-1 py-1.5 px-4 rounded-lg text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 font-medium text-sm transition-all duration-200">Month</button>
+</div>
+</div>
+</header>
+<main class="flex-1 overflow-y-auto no-scrollbar relative px-4 pb-32 pt-6">
+<div class="absolute w-full flex items-center gap-2 left-0 px-4 z-10" style="top: 180px;">
+<span class="text-xs font-bold text-primary w-12 text-right">09:42</span>
+<div class="h-px bg-primary flex-1 relative">
+<div class="absolute -left-1 -top-1 w-2 h-2 rounded-full bg-primary ring-4 ring-primary/20"></div>
+</div>
+</div>
+<div class="flex gap-4 min-h-[80px] group">
+<div class="w-12 text-right pt-2">
+<span class="text-xs font-medium text-slate-400">08:00</span>
+</div>
+<div class="flex-1 border-t border-slate-200/60 dark:border-slate-700/60 pt-2 pb-4">
+</div>
+</div>
+<div class="flex gap-4 min-h-[140px]">
+<div class="w-12 text-right pt-2 relative">
+<span class="text-xs font-medium text-slate-400">09:00</span>
+</div>
+<div class="flex-1 border-t border-slate-200/60 dark:border-slate-700/60 pt-2 pb-4 relative">
+<div class="absolute top-2 left-0 right-0 glass-card p-4 rounded-xl shadow-glass border-l-4 border-l-primary flex gap-4">
+<div class="flex flex-col justify-between flex-1">
+<div>
+<h3 class="text-slate-900 dark:text-white font-bold text-lg leading-tight mb-1">Weekly Design Sync</h3>
+<div class="flex items-center gap-1 text-slate-500 dark:text-slate-400 text-xs">
+<span class="material-symbols-outlined text-[16px]">schedule</span>
+<span>09:00 - 10:00 AM</span>
+</div>
+</div>
+<div class="flex items-center gap-3 mt-3">
+<div class="flex -space-x-2">
+<img alt="Team member 1" class="inline-block h-6 w-6 rounded-full ring-2 ring-white dark:ring-slate-800" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAxFQiBRXgOBq1qa_QxsS6LPx8qeH6sUEZ2mU7gi1ncokxiYMHi0aDsG-DRNw3s6bECJO8CPSTSCLPBWJRH5V_5q3Hcrr0sJkU7eVBJzjY3Whsi1ETVqb9QJLi-7Kr7nW-8hmsi2aCrtdHhGhcru73mBzauxKv9SZVihyaU9YN1U4H9DH8IOi-GKSQBI4UqGcSNc0Ueh0ZAQZlakhPzwG8W-dFxqqBDrStVEWvsQ2vsmU1yvCCcOf1fgvjtNwDa7A90Cbnv4U282wtY"/>
+<img alt="Team member 2" class="inline-block h-6 w-6 rounded-full ring-2 ring-white dark:ring-slate-800" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD6cK_sbsFwWDyI4zsw3qseT4BMTbRJ6Ua86S5xrtAp_m76K7lyBgDBsCPkRc8xEBosCzCdwmq3NmIllx6pbY3fUpmE3oNbrGQzzeAX8YA1gmzU6B9jrv0Fy3XskxuSr1T5NNGxCRgu8XMndfG0TrGjOiA9x0mjfa2RAT24YUyLz0IYuaYX_y9nkqdYNTt0H3sdYPYeXOpDIN4Q6KJyQniHORJo4A9af2ygHRBxsKeqArvZt2nZrnlDSrps0GuI3f7faq86rztXV9qq"/>
+<div class="h-6 w-6 rounded-full ring-2 ring-white dark:ring-slate-800 bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-[10px] font-medium text-slate-500">+2</div>
+</div>
+<span class="text-xs text-primary font-medium bg-primary/10 px-2 py-0.5 rounded-full">Room 402</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="flex gap-4 min-h-[80px]">
+<div class="w-12 text-right pt-2">
+<span class="text-xs font-medium text-slate-400">10:00</span>
+</div>
+<div class="flex-1 border-t border-slate-200/60 dark:border-slate-700/60 pt-2 pb-4">
+</div>
+</div>
+<div class="flex gap-4 min-h-[100px]">
+<div class="w-12 text-right pt-2">
+<span class="text-xs font-medium text-slate-400">11:00</span>
+</div>
+<div class="flex-1 border-t border-slate-200/60 dark:border-slate-700/60 pt-2 pb-4 relative">
+<div class="absolute top-8 left-0 right-0 glass-card p-3 rounded-xl shadow-glass flex items-center gap-3 group/task">
+<label class="relative flex items-center justify-center cursor-pointer">
+<input class="peer h-5 w-5 rounded border-gray-300 text-primary focus:ring-primary/50" type="checkbox"/>
+</label>
+<div class="flex-1">
+<h3 class="text-slate-900 dark:text-white font-semibold text-base group-has-[:checked]/task:line-through group-has-[:checked]/task:text-slate-400 transition-all">Review Q3 Report</h3>
+<p class="text-xs text-slate-500 dark:text-slate-400 group-has-[:checked]/task:text-slate-300">Due 11:30 AM</p>
+</div>
+<span class="material-symbols-outlined text-slate-400 text-xl">flag</span>
+</div>
+</div>
+</div>
+<div class="flex gap-4 min-h-[140px]">
+<div class="w-12 text-right pt-2">
+<span class="text-xs font-medium text-slate-400">12:00</span>
+</div>
+<div class="flex-1 border-t border-slate-200/60 dark:border-slate-700/60 pt-2 pb-4 relative">
+<div class="absolute top-6 left-0 right-0 glass-card p-4 rounded-xl shadow-glass border-l-4 border-l-orange-400">
+<div class="flex items-start justify-between gap-4">
+<div>
+<h3 class="text-slate-900 dark:text-white font-bold text-lg leading-tight mb-1">Lunch with Sarah</h3>
+<div class="flex items-center gap-1 text-slate-500 dark:text-slate-400 text-xs">
+<span class="material-symbols-outlined text-[16px]">schedule</span>
+<span>12:30 - 01:30 PM</span>
+</div>
+<div class="flex items-center gap-1 text-slate-500 dark:text-slate-400 text-xs mt-1">
+<span class="material-symbols-outlined text-[16px]">location_on</span>
+<span>Bistro Cafe</span>
+</div>
+</div>
+<img alt="Sarah" class="h-10 w-10 rounded-full object-cover border-2 border-white dark:border-slate-700 shadow-sm" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDA73QPhsPS1V8fXjNPAA1tDgzGwEyeUxtO94tutlGMIjI3gDG4eos9vhmE6t_gdntqquQl8Y8i6K-Vh1aVca8-CY1i_848OwBZIcrFIHM4uB2q7PPSVb2b8A5Jzzm0_RXW_I2exSQ_a5keBZqlQ1D32vUa3cErnb2WcNQXkI6fCl4IQpbV0bfuhPzcbNdLaMDNOQTr-_hFslg2aqjcwAhFJ1NhVKk5NlXgWCRB7fYA9rW6blfYub0Vi4GPTQxS8yQ_YNDR8K_ef3k6"/>
+</div>
+</div>
+</div>
+</div>
+<div class="flex gap-4 min-h-[80px]">
+<div class="w-12 text-right pt-2">
+<span class="text-xs font-medium text-slate-400">13:00</span>
+</div>
+<div class="flex-1 border-t border-slate-200/60 dark:border-slate-700/60 pt-2 pb-4">
+</div>
+</div>
+<div class="flex gap-4 min-h-[80px]">
+<div class="w-12 text-right pt-2">
+<span class="text-xs font-medium text-slate-400">14:00</span>
+</div>
+<div class="flex-1 border-t border-slate-200/60 dark:border-slate-700/60 pt-2 pb-4">
+</div>
+</div>
+</main>
+<button class="fixed bottom-24 right-6 h-14 w-14 rounded-full bg-primary text-white shadow-lg shadow-primary/30 flex items-center justify-center z-30 hover:scale-105 active:scale-95 transition-transform duration-200 group">
+<span class="material-symbols-outlined text-3xl group-hover:rotate-90 transition-transform duration-300">add</span>
+</button>
+<div class="fixed bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background-light dark:from-background-dark to-transparent pointer-events-none z-10"></div>
+<nav class="fixed bottom-6 left-1/2 -translate-x-1/2 w-[240px] glass-panel rounded-full shadow-glass p-1.5 flex justify-between items-center z-40 px-4">
+<a class="flex flex-col items-center justify-center w-12 h-12 rounded-full text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors" href="#">
+<span class="material-symbols-outlined text-[28px] font-light">check_circle</span>
+</a>
+<a class="flex flex-col items-center justify-center w-12 h-12 rounded-full text-primary hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-[28px] font-variation-settings-fill">calendar_month</span>
+</a>
+<a class="flex flex-col items-center justify-center w-12 h-12 rounded-full text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors" href="#">
+<span class="material-symbols-outlined text-[28px] font-light">person</span>
+</a>
+</nav>
+</body></html>
+
+<!-- Home (Consistent Dock) -->
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>iDo Login Screen</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#5048e5',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background: 
+                radial-gradient(at 0% 0%, hsla(253,16%,7%,1) 0, transparent 50%), 
+                radial-gradient(at 50% 0%, hsla(225,39%,30%,1) 0, transparent 50%), 
+                radial-gradient(at 100% 0%, hsla(339,49%,30%,1) 0, transparent 50%);
+            background-color: #f6f6f8;
+        }
+        .pastel-gradient {
+            background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+            background: -webkit-linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.10);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+        .btn-google {
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        .btn-offline {
+            background: rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="min-h-screen flex flex-col justify-center items-center font-sans antialiased relative overflow-hidden">
+<div class="absolute inset-0 z-[-1] bg-[#f8f9fa]"></div>
+<div class="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] rounded-full bg-blue-200/40 blur-[80px]"></div>
+<div class="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] rounded-full bg-purple-200/40 blur-[80px]"></div>
+<div class="absolute top-[40%] left-[30%] w-[40%] h-[40%] rounded-full bg-pink-100/40 blur-[60px]"></div>
+<div class="w-full max-w-md px-8 flex flex-col items-center justify-center flex-grow">
+<div class="w-20 h-20 mb-8 rounded-3xl glass-panel flex items-center justify-center shadow-lg">
+<span class="material-symbols-outlined text-4xl text-indigo-600" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<h1 class="text-3xl font-bold text-slate-800 mb-2 tracking-tight">Welcome to iDo</h1>
+<p class="text-slate-500 mb-12 text-center text-sm font-medium">Simplify your life, one task at a time.</p>
+<div class="w-full space-y-4">
+<button class="w-full py-4 px-6 rounded-2xl flex items-center justify-center gap-3 btn-google transition-transform active:scale-[0.98] group">
+<svg class="w-5 h-5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"></path>
+<path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"></path>
+<path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"></path>
+<path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"></path>
+</svg>
+<span class="text-slate-700 font-semibold text-lg">Login with Google</span>
+</button>
+<button class="w-full py-4 px-6 rounded-2xl flex items-center justify-center gap-3 btn-offline hover:bg-white/50 transition-all active:scale-[0.98]">
+<span class="material-symbols-outlined text-slate-600">wifi_off</span>
+<span class="text-slate-700 font-semibold text-lg">Use Offline</span>
+</button>
+</div>
+<p class="mt-6 text-xs text-slate-400 text-center max-w-[260px] leading-relaxed">
+            To ensure cross-platform sync, login with Google is needed
+        </p>
+</div>
+<footer class="w-full text-center py-8">
+<p class="text-xs font-medium text-slate-400 opacity-80 font-sans tracking-wide">
+            iDo made with <span class="text-red-400 mx-0.5">❤️</span> by KrispLabs &amp; Sarthak
+        </p>
+</footer>
+
+</body></html>
+
+<!-- All Tasks (Consistent Dock) -->
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>iDo - Task Manager</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#5048e5",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#121121",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .task-checkbox:checked {
+            background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3e%3c/svg%3e");
+        }
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased">
+<header class="sticky top-0 z-20 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-primary/10 px-4 py-3">
+<div class="flex items-center justify-between max-w-2xl mx-auto">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-3xl">check_circle</span>
+<h1 class="text-xl font-bold tracking-tight">iDo</h1>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2 hover:bg-primary/10 rounded-full transition-colors">
+<span class="material-symbols-outlined text-slate-600 dark:text-slate-400">search</span>
+</button>
+<button class="p-2 hover:bg-primary/10 rounded-full transition-colors">
+<span class="material-symbols-outlined text-slate-600 dark:text-slate-400">tune</span>
+</button>
+</div>
+</div>
+<nav class="flex mt-4 max-w-2xl mx-auto border-b border-slate-200 dark:border-slate-800">
+<a class="flex-1 py-3 text-center border-b-2 border-primary text-primary font-semibold text-sm" href="#">Today</a>
+<a class="flex-1 py-3 text-center border-b-2 border-transparent text-slate-500 dark:text-slate-400 font-medium text-sm hover:text-primary transition-colors" href="#">Upcoming</a>
+<a class="flex-1 py-3 text-center border-b-2 border-transparent text-slate-500 dark:text-slate-400 font-medium text-sm hover:text-primary transition-colors" href="#">Completed</a>
+</nav>
+</header>
+<main class="max-w-2xl mx-auto p-4 pb-32 space-y-8">
+<section>
+<div class="flex items-center justify-between mb-4">
+<h2 class="text-lg font-bold flex items-center gap-2">
+                    Today
+                    <span class="bg-primary/10 text-primary text-xs px-2 py-0.5 rounded-full">5</span>
+</h2>
+<span class="text-xs font-medium text-slate-400 uppercase tracking-wider">Mon, Oct 24</span>
+</div>
+<div class="space-y-3">
+<div class="bg-white dark:bg-slate-900 p-4 rounded-xl shadow-sm border border-slate-100 dark:border-slate-800 flex items-center justify-between group">
+<div class="flex items-center gap-4">
+<input class="task-checkbox h-6 w-6 rounded-full border-2 border-primary/30 text-primary focus:ring-primary/20 transition-all cursor-pointer" type="checkbox"/>
+<div>
+<p class="font-medium text-slate-900 dark:text-slate-100">Review design system</p>
+<div class="flex items-center gap-2 mt-0.5">
+<span class="text-xs text-slate-500 flex items-center gap-1">
+<span class="size-2 rounded-full bg-blue-500"></span>
+                                    Work
+                                </span>
+<span class="text-xs text-slate-400">•</span>
+<span class="text-xs text-slate-500">10:00 AM</span>
+</div>
+</div>
+</div>
+<span class="material-symbols-outlined text-slate-300 dark:text-slate-700 opacity-0 group-hover:opacity-100 transition-opacity">more_vert</span>
+</div>
+<div class="bg-white dark:bg-slate-900 p-4 rounded-xl shadow-sm border border-slate-100 dark:border-slate-800 flex items-center justify-between group">
+<div class="flex items-center gap-4">
+<input class="task-checkbox h-6 w-6 rounded-full border-2 border-primary/30 text-primary focus:ring-primary/20 transition-all cursor-pointer" type="checkbox"/>
+<div>
+<p class="font-medium text-slate-900 dark:text-slate-100">Gym session - Leg day</p>
+<div class="flex items-center gap-2 mt-0.5">
+<span class="text-xs text-slate-500 flex items-center gap-1">
+<span class="size-2 rounded-full bg-orange-500"></span>
+                                    Personal
+                                </span>
+<span class="text-xs text-slate-400">•</span>
+<span class="text-xs text-slate-500">04:30 PM</span>
+</div>
+</div>
+</div>
+<span class="material-symbols-outlined text-slate-300 dark:text-slate-700 opacity-0 group-hover:opacity-100 transition-opacity">more_vert</span>
+</div>
+<div class="bg-white dark:bg-slate-900 p-4 rounded-xl shadow-sm border border-slate-100 dark:border-slate-800 flex items-center justify-between group">
+<div class="flex items-center gap-4">
+<input class="task-checkbox h-6 w-6 rounded-full border-2 border-primary/30 text-primary focus:ring-primary/20 transition-all cursor-pointer" type="checkbox"/>
+<div>
+<p class="font-medium text-slate-900 dark:text-slate-100">Buy groceries for dinner</p>
+<div class="flex items-center gap-2 mt-0.5">
+<span class="text-xs text-slate-500 flex items-center gap-1">
+<span class="size-2 rounded-full bg-green-500"></span>
+                                    Shopping
+                                </span>
+<span class="text-xs text-slate-400">•</span>
+<span class="text-xs text-slate-500">06:00 PM</span>
+</div>
+</div>
+</div>
+<span class="material-symbols-outlined text-slate-300 dark:text-slate-700 opacity-0 group-hover:opacity-100 transition-opacity">more_vert</span>
+</div>
+</div>
+</section>
+<section>
+<div class="flex items-center justify-between mb-4">
+<h2 class="text-lg font-bold flex items-center gap-2">
+                    Upcoming
+                    <span class="bg-slate-100 dark:bg-slate-800 text-slate-500 text-xs px-2 py-0.5 rounded-full">2</span>
+</h2>
+</div>
+<div class="space-y-3">
+<div class="bg-white/50 dark:bg-slate-900/50 p-4 rounded-xl border border-dashed border-slate-200 dark:border-slate-800 flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="h-6 w-6 rounded-full border-2 border-slate-200 dark:border-slate-700 flex items-center justify-center">
+<span class="size-1 rounded-full bg-slate-300 dark:bg-slate-700"></span>
+</div>
+<div>
+<p class="font-medium text-slate-600 dark:text-slate-400">Quarterly project sync</p>
+<p class="text-xs text-slate-400 mt-0.5">Tomorrow, 11:00 AM</p>
+</div>
+</div>
+</div>
+<div class="bg-white/50 dark:bg-slate-900/50 p-4 rounded-xl border border-dashed border-slate-200 dark:border-slate-800 flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="h-6 w-6 rounded-full border-2 border-slate-200 dark:border-slate-700 flex items-center justify-center">
+<span class="size-1 rounded-full bg-slate-300 dark:bg-slate-700"></span>
+</div>
+<div>
+<p class="font-medium text-slate-600 dark:text-slate-400">Car maintenance appointment</p>
+<p class="text-xs text-slate-400 mt-0.5">Wed, Oct 26</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section>
+<div class="flex items-center justify-between mb-4">
+<h2 class="text-lg font-bold text-slate-400 dark:text-slate-600 flex items-center gap-2">
+                    Completed
+                    <span class="bg-slate-100 dark:bg-slate-800 text-slate-400 text-xs px-2 py-0.5 rounded-full">12</span>
+</h2>
+<button class="text-xs font-semibold text-primary hover:underline">Clear all</button>
+</div>
+<div class="space-y-3 opacity-60">
+<div class="flex items-center justify-between p-2">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary">check_circle</span>
+<p class="text-sm line-through text-slate-500 dark:text-slate-400">Draft weekly report</p>
+</div>
+<span class="text-xs text-slate-400">Done at 08:30 AM</span>
+</div>
+<div class="flex items-center justify-between p-2">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary">check_circle</span>
+<p class="text-sm line-through text-slate-500 dark:text-slate-400">Morning meditation</p>
+</div>
+<span class="text-xs text-slate-400">Done at 07:00 AM</span>
+</div>
+</div>
+</section>
+</main>
+<button class="fixed right-6 bottom-32 size-14 bg-primary text-white rounded-full shadow-lg shadow-primary/30 flex items-center justify-center hover:scale-105 active:scale-95 transition-transform z-30">
+<span class="material-symbols-outlined text-3xl">add</span>
+</button>
+<footer class="fixed bottom-6 left-1/2 -translate-x-1/2 z-40">
+<div class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-full shadow-lg shadow-slate-200/50 dark:shadow-black/50 border border-white/50 dark:border-slate-700/50 px-8 py-4 flex items-center gap-12">
+<a class="flex items-center justify-center text-primary" href="#">
+<span class="material-symbols-outlined text-[28px]" style="font-variation-settings: 'FILL' 1, 'wght' 400;">task_alt</span>
+</a>
+<a class="flex items-center justify-center text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300 transition-colors" href="#">
+<span class="material-symbols-outlined text-[28px]" style="font-variation-settings: 'FILL' 0, 'wght' 400;">calendar_today</span>
+</a>
+<a class="flex items-center justify-center text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300 transition-colors" href="#">
+<span class="material-symbols-outlined text-[28px]" style="font-variation-settings: 'FILL' 0, 'wght' 400;">person</span>
+</a>
+</div>
+</footer>
+</body></html>

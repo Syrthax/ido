@@ -3,198 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>iDo - Minimalist To-Do List Synced to Google Drive</title>
-    <link rel="icon" type="image/png" href="assets/logo.png">
-    <link rel="stylesheet" href="styles.css">
+    <title>iDo - Simple. Synced. Yours.</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://apis.google.com/js/api.js"></script>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 <body>
-    <!-- Animated Background -->
-    <div class="background">
-        <div class="blob blob-1"></div>
-        <div class="blob blob-2"></div>
-        <div class="blob blob-3"></div>
+    <!-- Cookie Consent Modal -->
+    <div id="cookieModal" class="cookie-modal">
+        <div class="cookie-modal-content">
+            <div class="cookie-icon">
+                <i data-lucide="cookie"></i>
+            </div>
+            <h3>Cookies Required</h3>
+            <p>Google Sign-In requires third-party cookies to be enabled.</p>
+            <div class="cookie-instructions">
+                <p><strong>To enable cookies:</strong></p>
+                <ol>
+                    <li>Click the settings icon in your browser</li>
+                    <li>Go to Privacy & Security settings</li>
+                    <li>Enable "Allow all cookies" or add an exception for this site</li>
+                    <li>Refresh this page</li>
+                </ol>
+            </div>
+            <button id="closeCookieModal" class="cookie-btn">
+                <i data-lucide="check"></i>
+                Got it
+            </button>
+        </div>
     </div>
 
-    <!-- Main Container -->
     <div class="container">
-        <!-- Hero Section -->
-        <section class="hero">
-            <div class="hero-content">
-                <div class="glass-card hero-main">
-                    <div class="logo">
-                        <span class="logo-icon">📝</span>
-                        <h1 class="logo-text">iDo</h1>
-                    </div>
-                    
-                    <h2 class="tagline">Minimalist task management<br>Synced to Google Drive</h2>
-                    
-                    <p class="description">
-                        Focus on what matters.<br>
-                        Simple, clean, and always in sync.
-                    </p>
+        <!-- Header -->
+        <header class="header">
+            <h1 class="logo">iDo</h1>
+            <p class="tagline">Simple. Synced. Yours.</p>
+        </header>
 
-                    <div class="testing-notice glass-card">
-                        <div class="notice-icon">⚠️</div>
-                        <div class="notice-content">
-                            <h4>Testing Phase</h4>
-                            <p>This app is currently in testing. Due to Google OAuth restrictions, you need to provide your Gmail address before accessing. Please DM me on <a href="https://instagram.com/i._._.sarthak" target="_blank" rel="noopener" class="notice-link">Instagram (@i._._.sarthak)</a> to get whitelisted.</p>
-                        </div>
-                    </div>
+        <!-- Google Sign In & Drive Connect -->
+        <div class="auth-section">
+            <button id="googleSignInBtn" class="auth-btn">
+                <svg class="google-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                    <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                    <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+                    <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+                </svg>
+                <span id="signInStatus">Sign in with Google</span>
+            </button>
+            <button id="driveConnectBtn" class="drive-btn" style="display: none;">
+                <i data-lucide="cloud"></i>
+                <span id="driveStatus">Enable Drive Sync</span>
+            </button>
+        </div>
 
-                    <div class="cta-buttons">
-                        <a href="web/index.html" class="btn btn-primary">
-                            <span class="btn-text">Launch App</span>
-                            <span class="btn-icon">→</span>
-                        </a>
-                        <a href="https://github.com/Syrthax/ido/releases/tag/v0.0.1-alpha" target="_blank" rel="noopener" class="btn btn-secondary">
-                            <span class="btn-text">Download App</span>
-                            <span class="btn-icon">📱</span>
-                        </a>
-                        <button class="btn btn-secondary" id="learn-more">
-                            <span class="btn-text">Learn More</span>
-                            <span class="btn-icon">↓</span>
-                        </button>
-                    </div>
-                </div>
-
-                <div class="hero-side">
-                    <div class="glass-card demo-preview">
-                        <h3 class="demo-title">See it in action</h3>
-                        <div class="demo-todolist">
-                            <div class="demo-task" data-delay="0">
-                                <div class="demo-checkbox">
-                                    <svg class="checkmark" width="16" height="16" viewBox="0 0 16 16">
-                                        <path d="M3 8L6 11L13 4" stroke="currentColor" stroke-width="2" fill="none"/>
-                                    </svg>
-                                </div>
-                                <span class="demo-task-text">Review project proposal</span>
-                            </div>
-                            
-                            <div class="demo-task" data-delay="2">
-                                <div class="demo-checkbox">
-                                    <svg class="checkmark" width="16" height="16" viewBox="0 0 16 16">
-                                        <path d="M3 8L6 11L13 4" stroke="currentColor" stroke-width="2" fill="none"/>
-                                    </svg>
-                                </div>
-                                <span class="demo-task-text">Schedule team meeting</span>
-                            </div>
-                            
-                            <div class="demo-task" data-delay="4">
-                                <div class="demo-checkbox">
-                                    <svg class="checkmark" width="16" height="16" viewBox="0 0 16 16">
-                                        <path d="M3 8L6 11L13 4" stroke="currentColor" stroke-width="2" fill="none"/>
-                                    </svg>
-                                </div>
-                                <span class="demo-task-text">Update documentation</span>
-                            </div>
-                            
-                            <div class="demo-task" data-delay="6">
-                                <div class="demo-checkbox">
-                                    <svg class="checkmark" width="16" height="16" viewBox="0 0 16 16">
-                                        <path d="M3 8L6 11L13 4" stroke="currentColor" stroke-width="2" fill="none"/>
-                                    </svg>
-                                </div>
-                                <span class="demo-task-text">Deploy to production</span>
-                            </div>
-                            
-                            <div class="demo-task" data-delay="8">
-                                <div class="demo-checkbox">
-                                    <svg class="checkmark" width="16" height="16" viewBox="0 0 16 16">
-                                        <path d="M3 8L6 11L13 4" stroke="currentColor" stroke-width="2" fill="none"/>
-                                    </svg>
-                                </div>
-                                <span class="demo-task-text">Celebrate success 🎉</span>
-                            </div>
-                        </div>
-                    </div>
+        <!-- Main Task Box -->
+        <main class="task-container">
+            <!-- Input Section -->
+            <div class="input-section">
+                <div class="input-wrapper">
+                    <i data-lucide="plus-circle" class="input-icon"></i>
+                    <input 
+                        type="text" 
+                        id="taskInput" 
+                        placeholder="What needs to be done?"
+                        autocomplete="off"
+                    >
+                    <button id="addTaskBtn" class="add-btn">
+                        <i data-lucide="plus"></i>
+                    </button>
                 </div>
             </div>
-        </section>
 
-        <!-- Features Section -->
-        <section class="features" id="features">
-            <div class="features-grid">
-                <div class="feature-card glass-card">
-                    <div class="feature-icon">☁️</div>
-                    <h3>Cloud Synced</h3>
-                    <p>Automatically saves all your tasks to Google Drive. Access from anywhere.</p>
-                </div>
-
-                <div class="feature-card glass-card">
-                    <div class="feature-icon">✨</div>
-                    <h3>Minimalist Design</h3>
-                    <p>Clean and distraction-free interface. Focus on what matters.</p>
-                </div>
-
-                <div class="feature-card glass-card">
-                    <div class="feature-icon">🔒</div>
-                    <h3>Secure & Private</h3>
-                    <p>Your data stays in your Google Drive. Complete privacy guaranteed.</p>
-                </div>
-
-                <div class="feature-card glass-card">
-                    <div class="feature-icon">⚡</div>
-                    <h3>Lightning Fast</h3>
-                    <p>Instant sync and real-time updates. No delays, no hassle.</p>
-                </div>
-
-                <div class="feature-card glass-card">
-                    <div class="feature-icon">📱</div>
-                    <h3>Responsive</h3>
-                    <p>Works perfectly on desktop, tablet, and mobile devices.</p>
-                </div>
-
-                <div class="feature-card glass-card">
-                    <div class="feature-icon">🎯</div>
-                    <h3>Simple & Effective</h3>
-                    <p>No complex features. Just tasks, checkboxes, and done.</p>
-                </div>
+            <!-- Active Tasks -->
+            <div class="tasks-section">
+                <div id="tasksList" class="tasks-list"></div>
             </div>
-        </section>
+
+            <!-- Completed Tasks -->
+            <div class="completed-section">
+                <button id="completedToggle" class="completed-header">
+                    <i data-lucide="chevron-down" id="completedChevron"></i>
+                    <span>Completed</span>
+                    <span id="completedCount" class="count-badge">0</span>
+                </button>
+                <div id="completedList" class="completed-list collapsed"></div>
+            </div>
+        </main>
 
         <!-- Footer -->
         <footer class="footer">
-            <div class="glass-card footer-content">
-                <p>Made by <a href="https://sarthakg.tech/" target="_blank" rel="noopener" class="footer-link">Sarthak</a></p>
-                <p class="footer-links">
-                    <a href="https://github.com/Syrthax/ido" target="_blank" rel="noopener" class="footer-link">GitHub</a>
-                    <span class="separator">•</span>
-                    <a href="https://sarthakg.tech/" target="_blank" rel="noopener" class="footer-link">Portfolio</a>
-                </p>
-                <p class="footer-year">© 2025 iDo. All rights reserved.</p>
-            </div>
+            <p>&copy; 2025 iDo. All rights reserved.</p>
         </footer>
     </div>
-
-    <!-- Floating Dock -->
-    <nav class="floating-dock">
-        <a href="web/index.html" class="dock-item" title="Launch App">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" stroke-width="2"/>
-                <polyline points="9 22 9 12 15 12 15 22" stroke-width="2"/>
-            </svg>
-        </a>
-        <a href="#features" class="dock-item" title="Features">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                <rect x="3" y="3" width="7" height="7" stroke-width="2"/>
-                <rect x="14" y="3" width="7" height="7" stroke-width="2"/>
-                <rect x="14" y="14" width="7" height="7" stroke-width="2"/>
-                <rect x="3" y="14" width="7" height="7" stroke-width="2"/>
-            </svg>
-        </a>
-        <div class="dock-divider"></div>
-        <a href="https://github.com/Syrthax/ido" target="_blank" rel="noopener" class="dock-item" title="GitHub">
-            <svg viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-            </svg>
-        </a>
-        <a href="https://sarthakg.tech/" target="_blank" rel="noopener" class="dock-item" title="Developer Profile">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" stroke-width="2"/>
-                <circle cx="12" cy="7" r="4" stroke-width="2"/>
-            </svg>
-        </a>
-    </nav>
 
     <script src="script.js"></script>
 </body>

@@ -28,7 +28,7 @@ iDo uses a **serverless-first** design:
 | Component | Implementation |
 |-----------|----------------|
 | Identity | Google OAuth 2.0 |
-| Task Storage | Google Drive JSON (`iDo/ido_data.json`) |
+| Task Storage | Google Drive JSON (`iDo/ido-data.json`) |
 | Event Storage | Google Calendar API |
 | Conflict Resolution | Last-write-wins (`updatedAt` timestamp) |
 | Backend | None — all client-side |
@@ -93,7 +93,7 @@ No intermediate servers. Your data stays in your Google account.
 2. OAuth returns a token authorized for Drive + Calendar access
 3. iDo checks for a folder named "iDo" in Google Drive
    - If not found, it creates one
-4. Tasks are stored in a JSON file: `iDo/ido_data.json`
+4. Tasks are stored in a JSON file: `iDo/ido-data.json`
 5. Events are read/written via Google Calendar API
 6. Adding/deleting tasks immediately updates the Drive file
 

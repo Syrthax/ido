@@ -16,3 +16,6 @@ Client Secret*.json
 # Build artifacts
 _site/
 .jekyll-cache/
+
+# MCP secrets
+MCP/google-stitch.mcp.json

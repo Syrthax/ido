@@ -167,7 +167,8 @@ async function handleCallback() {
 }
 
 // Check if user is already logged in
-function checkExistingAuth() {
+// CRITICAL FIX: Made async to properly await token refresh
+async function checkExistingAuth() {
     const token = localStorage.getItem('access_token');
     const expiry = localStorage.getItem('token_expiry');
 
@@ -177,7 +178,7 @@ function checkExistingAuth() {
             return true;
         } else {
             // Token expired, try to refresh
-            return refreshAccessToken();
+            return await refreshAccessToken();
         }
     }
     return false;
