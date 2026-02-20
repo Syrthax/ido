@@ -5,6 +5,6 @@ const CONFIG = {
     clientId: 'YOUR_CLIENT_ID_HERE',
     clientSecret: 'YOUR_CLIENT_SECRET_HERE',
     redirectUri: 'https://sarthakg.tech/ido/web/index.html',
-    scope: 'https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/calendar.events',
+    scope: 'https://www.googleapis.com/auth/drive https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/calendar.events',
     fileName: 'ido-data.json'  // CRITICAL: Must match Android app (ido-data.json, not ido_data.json)
 };

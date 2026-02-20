@@ -45,7 +45,7 @@ class DriveDataSource(private val context: Context) {
         return GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestEmail()
             .requestScopes(
-                Scope(DriveScopes.DRIVE_FILE),
+                Scope(DriveScopes.DRIVE),
                 Scope(CALENDAR_EVENTS_SCOPE)
             )
             .build()
@@ -57,7 +57,7 @@ class DriveDataSource(private val context: Context) {
     fun initializeDriveService(account: GoogleSignInAccount) {
         val credential = GoogleAccountCredential.usingOAuth2(
             context,
-            listOf(DriveScopes.DRIVE_FILE)
+            listOf(DriveScopes.DRIVE)
         )
         credential.selectedAccount = account.account
         
