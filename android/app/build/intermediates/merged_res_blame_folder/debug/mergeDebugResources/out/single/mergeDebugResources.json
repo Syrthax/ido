@@ -1,0 +1,86 @@
+[
+    {
+        "merged": "com.ido.app-debug-68:/xml_task_widget_info.xml.flat",
+        "source": "com.ido.app-main-70:/xml/task_widget_info.xml"
+    },
+    {
+        "merged": "com.ido.app-debug-68:/drawable_widget_star.xml.flat",
+        "source": "com.ido.app-main-70:/drawable/widget_star.xml"
+    },
+    {
+        "merged": "com.ido.app-debug-68:/drawable_widget_checkbox_checked.xml.flat",
+        "source": "com.ido.app-main-70:/drawable/widget_checkbox_checked.xml"
+    },
+    {
+        "merged": "com.ido.app-debug-68:/mipmap-hdpi_ic_launcher.png.flat",
+        "source": "com.ido.app-main-70:/mipmap-hdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.ido.app-debug-68:/mipmap-xxhdpi_ic_launcher.png.flat",
+        "source": "com.ido.app-main-70:/mipmap-xxhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.ido.app-debug-68:/drawable_widget_item_background.xml.flat",
+        "source": "com.ido.app-main-70:/drawable/widget_item_background.xml"
+    },
+    {
+        "merged": "com.ido.app-debug-68:/mipmap-xxxhdpi_ic_launcher_round.png.flat",
+        "source": "com.ido.app-main-70:/mipmap-xxxhdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "com.ido.app-debug-68:/mipmap-xxxhdpi_ic_launcher.png.flat",
+        "source": "com.ido.app-main-70:/mipmap-xxxhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.ido.app-debug-68:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "com.ido.app-main-70:/mipmap-anydpi-v26/ic_launcher.xml"
+    },
+    {
+        "merged": "com.ido.app-debug-68:/drawable_widget_checkbox_unchecked.xml.flat",
+        "source": "com.ido.app-main-70:/drawable/widget_checkbox_unchecked.xml"
+    },
+    {
+        "merged": "com.ido.app-debug-68:/mipmap-xhdpi_ic_launcher_round.png.flat",
+        "source": "com.ido.app-main-70:/mipmap-xhdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "com.ido.app-debug-68:/mipmap-xxhdpi_ic_launcher_round.png.flat",
+        "source": "com.ido.app-main-70:/mipmap-xxhdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "com.ido.app-debug-68:/mipmap-mdpi_ic_launcher_round.png.flat",
+        "source": "com.ido.app-main-70:/mipmap-mdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "com.ido.app-debug-68:/mipmap-mdpi_ic_launcher.png.flat",
+        "source": "com.ido.app-main-70:/mipmap-mdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.ido.app-debug-68:/drawable_ic_launcher_foreground.xml.flat",
+        "source": "com.ido.app-main-70:/drawable/ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "com.ido.app-debug-68:/layout_widget_task_item.xml.flat",
+        "source": "com.ido.app-main-70:/layout/widget_task_item.xml"
+    },
+    {
+        "merged": "com.ido.app-debug-68:/mipmap-hdpi_ic_launcher_round.png.flat",
+        "source": "com.ido.app-main-70:/mipmap-hdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "com.ido.app-debug-68:/drawable_widget_background.xml.flat",
+        "source": "com.ido.app-main-70:/drawable/widget_background.xml"
+    },
+    {
+        "merged": "com.ido.app-debug-68:/mipmap-xhdpi_ic_launcher.png.flat",
+        "source": "com.ido.app-main-70:/mipmap-xhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.ido.app-debug-68:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "com.ido.app-main-70:/mipmap-anydpi-v26/ic_launcher_round.xml"
+    },
+    {
+        "merged": "com.ido.app-debug-68:/layout_widget_task_list.xml.flat",
+        "source": "com.ido.app-main-70:/layout/widget_task_list.xml"
+    }
+]

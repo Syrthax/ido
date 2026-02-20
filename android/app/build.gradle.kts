@@ -97,6 +97,12 @@ dependencies {
     implementation("com.google.apis:google-api-services-drive:v3-rev20230822-2.0.0")
     implementation("com.google.http-client:google-http-client-gson:1.43.3")
     
+    // Google Calendar API
+    implementation("com.google.apis:google-api-services-calendar:v3-rev20231123-2.0.0")
+    
+    // Coil for image loading (profile avatars)
+    implementation("io.coil-kt:coil-compose:2.5.0")
+    
     // WorkManager
     implementation("androidx.work:work-runtime-ktx:2.9.0")
     

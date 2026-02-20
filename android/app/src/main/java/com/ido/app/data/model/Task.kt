@@ -5,6 +5,17 @@ import java.time.Instant
 import java.util.UUID
 
 /**
+ * Wrapper to distinguish between "not provided" and "explicitly set (including null)"
+ * Used to fix the critical bug where nullable fields couldn't be cleared
+ */
+sealed class OptionalString {
+    /** Value was not provided - keep existing */
+    object NotProvided : OptionalString()
+    /** Value was explicitly set (can be null to clear, or a value to update) */
+    data class Provided(val value: String?) : OptionalString()
+}
+
+/**
  * Task data model matching the web app schema v2.0
  * 
  * All fields are required and always present to ensure consistency
@@ -51,21 +62,37 @@ data class Task(
     
     /**
      * Update task with new values and refresh updatedAt timestamp
+     * 
+     * CRITICAL FIX: Uses OptionalString wrapper to distinguish between:
+     * - NotProvided: keep existing value
+     * - Provided(null): clear the value  
+     * - Provided(value): update to new value
+     * 
+     * This fixes the bug where dueDate and reminderTime changes weren't persisting.
      */
     fun update(
         text: String? = null,
         done: Boolean? = null,
         priority: Boolean? = null,
-        dueDate: String? = this.dueDate,
-        reminderTime: String? = this.reminderTime,
+        dueDate: OptionalString = OptionalString.NotProvided,
+        reminderTime: OptionalString = OptionalString.NotProvided,
         notified: Boolean? = null
     ): Task {
+        val newDueDate = when (dueDate) {
+            is OptionalString.NotProvided -> this.dueDate
+            is OptionalString.Provided -> dueDate.value
+        }
+        val newReminderTime = when (reminderTime) {
+            is OptionalString.NotProvided -> this.reminderTime
+            is OptionalString.Provided -> reminderTime.value
+        }
+        
         return copy(
             text = text ?: this.text,
             done = done ?: this.done,
             priority = priority ?: this.priority,
-            dueDate = dueDate,
-            reminderTime = reminderTime,
+            dueDate = newDueDate,
+            reminderTime = newReminderTime,
             notified = notified ?: this.notified,
             updatedAt = Instant.now().toString()
         )

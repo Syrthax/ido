@@ -1,8 +1,10 @@
 package com.ido.app.data.repository
 
 import android.content.Context
+import android.util.Log
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.ido.app.data.local.LocalDataSource
+import com.ido.app.data.model.OptionalString
 import com.ido.app.data.model.Task
 import com.ido.app.data.model.activeTasks
 import com.ido.app.data.remote.DriveDataSource
@@ -20,7 +22,8 @@ enum class TaskSection {
     PRIORITY,
     TODAY,
     LATER,
-    UNSCHEDULED
+    UNSCHEDULED,
+    COMPLETED  // Added completed section to match web app
 }
 
 /**
@@ -42,6 +45,10 @@ class TaskRepository(context: Context) {
     
     private val _syncStatus = MutableStateFlow<SyncStatus>(SyncStatus.Idle)
     val syncStatus: Flow<SyncStatus> = _syncStatus.asStateFlow()
+    
+    companion object {
+        private const val TAG = "TaskRepository"
+    }
     
     /**
      * Initialize repository - load local data first
@@ -75,12 +82,14 @@ class TaskRepository(context: Context) {
      * - TODAY: Non-priority tasks due today
      * - LATER: Non-priority tasks due after today
      * - UNSCHEDULED: Non-priority tasks with no due date
+     * - COMPLETED: Tasks marked as done (new section to match web app)
      * 
      * Matches web app behavior from app.js getSectionForTask()
      */
     fun getTasksBySection(): Map<TaskSection, List<Task>> {
         val today = LocalDate.now()
         val activeTasks = _tasks.value.filter { !it.deleted && !it.done }
+        val completedTasks = _tasks.value.filter { !it.deleted && it.done }
         
         val priority = mutableListOf<Task>()
         val todayTasks = mutableListOf<Task>()
@@ -117,7 +126,8 @@ class TaskRepository(context: Context) {
             TaskSection.PRIORITY to priority.sortedByDescending { it.updatedAt },
             TaskSection.TODAY to todayTasks.sortedBy { it.dueDate },
             TaskSection.LATER to later.sortedBy { it.dueDate },
-            TaskSection.UNSCHEDULED to unscheduled.sortedByDescending { it.updatedAt }
+            TaskSection.UNSCHEDULED to unscheduled.sortedByDescending { it.updatedAt },
+            TaskSection.COMPLETED to completedTasks.sortedByDescending { it.updatedAt }
         )
     }
 
@@ -148,17 +158,26 @@ class TaskRepository(context: Context) {
     
     /**
      * Update existing task
+     * 
+     * CRITICAL FIX: This method now properly handles nullable fields using OptionalString.
+     * - OptionalString.NotProvided = keep existing value
+     * - OptionalString.Provided(null) = clear the field
+     * - OptionalString.Provided(value) = update to new value
      */
     suspend fun updateTask(
         id: String,
         text: String? = null,
         done: Boolean? = null,
         priority: Boolean? = null,
-        dueDate: String? = null,
-        reminderTime: String? = null,
+        dueDate: OptionalString = OptionalString.NotProvided,
+        reminderTime: OptionalString = OptionalString.NotProvided,
         notified: Boolean? = null
     ): Task? {
         val task = getTaskById(id) ?: return null
+        
+        Log.d(TAG, "updateTask: id=$id")
+        Log.d(TAG, "updateTask: BEFORE - task.dueDate=${task.dueDate}, task.reminderTime=${task.reminderTime}")
+        Log.d(TAG, "updateTask: dueDate=$dueDate, reminderTime=$reminderTime")
         
         val updated = task.update(
             text = text,
@@ -168,6 +187,8 @@ class TaskRepository(context: Context) {
             reminderTime = reminderTime,
             notified = notified
         )
+        
+        Log.d(TAG, "updateTask: AFTER - updated.dueDate=${updated.dueDate}, updated.reminderTime=${updated.reminderTime}")
         
         val updatedTasks = _tasks.value.map { 
             if (it.id == id) updated else it 

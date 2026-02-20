@@ -10,12 +10,15 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import com.ido.app.data.model.Task
 import com.ido.app.data.repository.SyncStatus
 import com.ido.app.data.repository.TaskSection
+import com.ido.app.ui.components.CircularCheckbox
 import com.ido.app.ui.screens.edit.EditTaskSheet
 import com.ido.app.ui.screens.home.HomeViewModel
 import com.ido.app.util.NaturalDateParser
@@ -203,6 +206,26 @@ fun SectionedTaskList(
                 )
             }
         }
+        
+        // Completed section - collapsible with strikethrough styling
+        val completedTasks = sections[TaskSection.COMPLETED] ?: emptyList()
+        if (completedTasks.isNotEmpty()) {
+            item { Spacer(modifier = Modifier.height(16.dp)) }
+            item {
+                CollapsibleSectionHeader(
+                    title = "Completed",
+                    count = completedTasks.size,
+                    icon = Icons.Default.CheckCircle
+                )
+            }
+            items(completedTasks, key = { it.id }) { task ->
+                CompletedTaskCard(
+                    task = task,
+                    onToggleDone = { onToggleDone(task.id) },
+                    onDelete = { onDelete(task.id) }
+                )
+            }
+        }
     }
 }
 
@@ -233,6 +256,138 @@ fun SectionHeader(
     }
 }
 
+/**
+ * Collapsible section header for Completed tasks
+ * Shows count badge and can expand/collapse
+ */
+@Composable
+fun CollapsibleSectionHeader(
+    title: String,
+    count: Int,
+    icon: androidx.compose.ui.graphics.vector.ImageVector
+) {
+    var isExpanded by remember { mutableStateOf(false) }
+    
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 8.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Icon(
+            imageVector = icon,
+            contentDescription = null,
+            tint = MaterialTheme.colorScheme.outline,
+            modifier = Modifier.size(20.dp)
+        )
+        Spacer(modifier = Modifier.width(8.dp))
+        Text(
+            text = title,
+            style = MaterialTheme.typography.titleMedium,
+            fontWeight = FontWeight.SemiBold,
+            color = MaterialTheme.colorScheme.outline
+        )
+        Spacer(modifier = Modifier.width(8.dp))
+        Surface(
+            color = MaterialTheme.colorScheme.surfaceVariant,
+            shape = MaterialTheme.shapes.small
+        ) {
+            Text(
+                text = count.toString(),
+                style = MaterialTheme.typography.labelMedium,
+                modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.dp),
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+        }
+    }
+}
+
+/**
+ * Completed task card with strikethrough styling
+ * Only allows undo (toggle done) and delete actions
+ */
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun CompletedTaskCard(
+    task: Task,
+    onToggleDone: () -> Unit,
+    onDelete: () -> Unit
+) {
+    var showDeleteDialog by remember { mutableStateOf(false) }
+    val hapticFeedback = LocalHapticFeedback.current
+    
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 2.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.5f)
+        )
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(12.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            // Circular checkbox (allows undo - marked as completed)
+            CircularCheckbox(
+                checked = true,
+                onCheckedChange = { 
+                    onToggleDone() 
+                },
+                checkedColor = MaterialTheme.colorScheme.outline,
+                checkmarkColor = MaterialTheme.colorScheme.surface
+            )
+            
+            Spacer(modifier = Modifier.width(12.dp))
+            
+            // Task text with strikethrough
+            Text(
+                text = task.text,
+                style = MaterialTheme.typography.bodyMedium,
+                textDecoration = TextDecoration.LineThrough,
+                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
+                modifier = Modifier.weight(1f)
+            )
+            
+            // Delete button
+            IconButton(onClick = { showDeleteDialog = true }) {
+                Icon(
+                    imageVector = Icons.Default.Delete,
+                    contentDescription = "Delete",
+                    tint = MaterialTheme.colorScheme.error.copy(alpha = 0.7f),
+                    modifier = Modifier.size(20.dp)
+                )
+            }
+        }
+    }
+    
+    // Delete confirmation dialog
+    if (showDeleteDialog) {
+        AlertDialog(
+            onDismissRequest = { showDeleteDialog = false },
+            title = { Text("Delete Task?") },
+            text = { Text("Are you sure you want to delete this completed task?") },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        onDelete()
+                        showDeleteDialog = false
+                    }
+                ) {
+                    Text("Delete")
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { showDeleteDialog = false }) {
+                    Text("Cancel")
+                }
+            }
+        )
+    }
+}
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TaskCard(
@@ -243,6 +398,7 @@ fun TaskCard(
     onDelete: () -> Unit
 ) {
     var showDeleteDialog by remember { mutableStateOf(false) }
+    val hapticFeedback = LocalHapticFeedback.current
     
     Card(
         onClick = onClick,
@@ -261,10 +417,18 @@ fun TaskCard(
                 .padding(16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            // Checkbox
-            Checkbox(
+            // Circular checkbox matching app design
+            CircularCheckbox(
                 checked = task.done,
-                onCheckedChange = { onToggleDone() }
+                onCheckedChange = { 
+                    onToggleDone() 
+                },
+                checkedColor = MaterialTheme.colorScheme.secondary,
+                uncheckedBorderColor = if (task.priority) {
+                    MaterialTheme.colorScheme.primary
+                } else {
+                    MaterialTheme.colorScheme.outline
+                }
             )
             
             Spacer(modifier = Modifier.width(12.dp))

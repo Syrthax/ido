@@ -1,14 +1,16 @@
 package com.ido.app.ui.screens.home
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.ido.app.data.model.OptionalString
 import com.ido.app.data.model.Task
 import com.ido.app.data.model.sortedByPriority
 import com.ido.app.data.repository.SyncStatus
 import com.ido.app.data.repository.TaskRepository
 import com.ido.app.data.repository.TaskSection
-import com.ido.app.notifications.TaskNotificationManager
+import com.ido.app.notifications.ReminderScheduler
 import com.ido.app.sync.SyncManager
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -20,8 +22,12 @@ import java.time.Instant
 class HomeViewModel(
     private val repository: TaskRepository,
     private val syncManager: SyncManager,
-    private val notificationManager: TaskNotificationManager
+    private val reminderScheduler: ReminderScheduler
 ) : ViewModel() {
+    
+    companion object {
+        private const val TAG = "HomeViewModel"
+    }
     
     private val _uiState = MutableStateFlow(HomeUiState())
     val uiState: StateFlow<HomeUiState> = _uiState.asStateFlow()
@@ -105,8 +111,8 @@ class HomeViewModel(
         viewModelScope.launch {
             val task = repository.getTaskById(taskId)
             if (task != null) {
-                // Cancel notification if scheduled
-                notificationManager.cancelNotification(taskId)
+                // Cancel reminder if scheduled
+                reminderScheduler.cancelReminder(taskId)
             }
             repository.deleteTask(taskId)
             syncManager.requestDebouncedSync()
@@ -159,21 +165,25 @@ class HomeViewModel(
      */
     fun saveTask(task: Task) {
         viewModelScope.launch {
+            Log.d(TAG, "saveTask(Task): id=${task.id}, dueDate=${task.dueDate}, reminderTime=${task.reminderTime}")
+            
             repository.updateTask(
                 id = task.id,
                 text = task.text,
                 done = task.done,
                 priority = task.priority,
-                dueDate = task.dueDate,
-                reminderTime = task.reminderTime
+                dueDate = OptionalString.Provided(task.dueDate),
+                reminderTime = OptionalString.Provided(task.reminderTime)
             )
             
-            // Update notification
-            if (task.reminderTime != null) {
+            // Update reminder scheduling
+            if (task.reminderTime != null && !task.done) {
                 val instant = Instant.parse(task.reminderTime)
-                notificationManager.scheduleNotification(task.id, task.text, instant)
+                if (instant.isAfter(Instant.now())) {
+                    reminderScheduler.scheduleReminder(task.id, task.text, instant)
+                }
             } else {
-                notificationManager.cancelNotification(task.id)
+                reminderScheduler.cancelReminder(task.id)
             }
             
             syncManager.requestDebouncedSync()
@@ -192,9 +202,9 @@ class HomeViewModel(
                 reminderTime = reminderTime?.toString()
             )
             
-            // Schedule notification if reminder is set
-            if (reminderTime != null) {
-                notificationManager.scheduleNotification(task.id, task.text, reminderTime)
+            // Schedule reminder if set
+            if (reminderTime != null && reminderTime.isAfter(Instant.now())) {
+                reminderScheduler.scheduleReminder(task.id, task.text, reminderTime)
             }
             
             syncManager.requestDebouncedSync()
@@ -203,10 +213,15 @@ class HomeViewModel(
     
     /**
      * Save task (create or update)
+     * 
+     * CRITICAL FIX: Now uses OptionalString.Provided to explicitly pass dueDate/reminderTime
+     * This ensures edited values are persisted correctly (fixes 7am->7pm bug)
      */
     fun saveTask(text: String, priority: Boolean, dueDate: String?, reminderTime: String?) {
         viewModelScope.launch {
             val currentTask = _uiState.value.editingTask
+            
+            Log.d(TAG, "saveTask: currentTask=${currentTask?.id}, dueDate=$dueDate, reminderTime=$reminderTime")
             
             if (currentTask == null) {
                 // Create new task
@@ -217,27 +232,37 @@ class HomeViewModel(
                     reminderTime = reminderTime
                 )
                 
-                // Schedule notification if reminder is set
+                Log.d(TAG, "saveTask: CREATED task id=${task.id}, dueDate=${task.dueDate}, reminderTime=${task.reminderTime}")
+                
+                // Schedule reminder if set
                 if (reminderTime != null) {
                     val instant = Instant.parse(reminderTime)
-                    notificationManager.scheduleNotification(task.id, task.text, instant)
+                    if (instant.isAfter(Instant.now())) {
+                        reminderScheduler.scheduleReminder(task.id, task.text, instant)
+                    }
                 }
             } else {
-                // Update existing task
+                // Update existing task - MUST use OptionalString.Provided for explicit values
+                Log.d(TAG, "saveTask: UPDATING task id=${currentTask.id}")
+                Log.d(TAG, "saveTask: BEFORE - currentTask.dueDate=${currentTask.dueDate}, currentTask.reminderTime=${currentTask.reminderTime}")
+                Log.d(TAG, "saveTask: NEW VALUES - dueDate=$dueDate, reminderTime=$reminderTime")
+                
                 repository.updateTask(
                     id = currentTask.id,
                     text = text,
                     priority = priority,
-                    dueDate = dueDate,
-                    reminderTime = reminderTime
+                    dueDate = OptionalString.Provided(dueDate),
+                    reminderTime = OptionalString.Provided(reminderTime)
                 )
                 
-                // Update notification
+                // Update reminder scheduling
                 if (reminderTime != null) {
                     val instant = Instant.parse(reminderTime)
-                    notificationManager.scheduleNotification(currentTask.id, text, instant)
+                    if (instant.isAfter(Instant.now())) {
+                        reminderScheduler.scheduleReminder(currentTask.id, text, instant)
+                    }
                 } else {
-                    notificationManager.cancelNotification(currentTask.id)
+                    reminderScheduler.cancelReminder(currentTask.id)
                 }
             }
             
@@ -266,10 +291,19 @@ class HomeViewModel(
      * Sign out
      */
     fun signOut() {
+        // Cancel all reminders before signing out
+        syncManager.cancelAllReminders()
         repository.signOut()
         syncManager.cancelSync()
         _isSignedIn.value = false
         _signedInAccount.value = null
+    }
+    
+    /**
+     * Update sync interval
+     */
+    fun updateSyncInterval(interval: com.ido.app.notifications.SyncInterval) {
+        syncManager.updateSyncInterval(interval)
     }
     
     /**
