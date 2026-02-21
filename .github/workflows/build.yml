@@ -73,26 +73,10 @@ jobs:
         with:
           projectPath: Tauri/ido-desktop
           args: ${{ matrix.args }}
-          tagName: v__VERSION__
-          releaseName: 'iDo v__VERSION__'
-          releaseBody: |
-            ## iDo Desktop v__VERSION__
-
-            A cross-platform, privacy-first task manager synced to Google Drive.
-
-            ### Download
-            | Platform | File | Notes |
-            |----------|------|-------|
-            | macOS (Apple Silicon) | `iDo_*_aarch64.dmg` | Recommended for M1/M2/M3 Macs |
-            | macOS (Intel) | `iDo_*_x64.dmg` | For older Intel Macs |
-            | Windows | `iDo_*_x64-setup.exe` / `.msi` | 64-bit Windows 10+ |
-            | Linux | `iDo_*_amd64.AppImage` / `.deb` | Ubuntu/Debian and compatible |
-
-            ### What's New
-            See [CHANGELOG.md](https://github.com/Syrthax/ido/blob/main/CHANGELOG.md) for full details.
+          tagName: ${{ startsWith(github.ref, 'refs/tags/') && github.ref_name || '' }}
+          releaseName: ${{ startsWith(github.ref, 'refs/tags/') && format('iDo {0}', github.ref_name) || '' }}
           releaseDraft: true
           prerelease: false
-          includeRelease: ${{ startsWith(github.ref, 'refs/tags/') }}
 
       # ──────────────────────────────────────────────────────────────
       # Debug: list bundle contents so we can see exactly what was built
