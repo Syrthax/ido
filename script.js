@@ -550,12 +550,29 @@ async function findDriveFile() {
 
         const os = detectOS();
 
+        // Detect Apple Silicon vs Intel Mac
+        function isMacAppleSilicon() {
+            try {
+                const canvas = document.createElement('canvas');
+                const gl = canvas.getContext('webgl');
+                if (gl) {
+                    const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
+                    if (debugInfo) {
+                        const renderer = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
+                        return /apple/i.test(renderer);
+                    }
+                }
+            } catch (e) {}
+            return true; // Default to Apple Silicon for macOS
+        }
+
         // Map OS → badge + recommended item
+        const macKey = (os === 'macos' && !isMacAppleSilicon()) ? 'macos-intel' : 'macos-arm';
         const osMap = {
-            macos:   { badge: 'badge-macos',   item: 'dl-macos',   label: 'Download for Mac' },
-            windows: { badge: 'badge-windows', item: 'dl-windows', label: 'Download for Windows' },
-            linux:   { badge: 'badge-linux',   item: 'dl-linux',   label: 'Download for Linux' },
-            android: { badge: 'badge-android', item: 'dl-android', label: 'Download for Android' },
+            macos:   { badge: 'badge-' + macKey, item: 'dl-' + macKey, label: 'Download for Mac' },
+            windows: { badge: 'badge-windows',      item: 'dl-windows',      label: 'Download for Windows' },
+            linux:   { badge: 'badge-linux',         item: 'dl-linux',         label: 'Download for Linux' },
+            android: { badge: 'badge-android',       item: 'dl-android',       label: 'Download for Android' },
         };
 
         const match = osMap[os];
