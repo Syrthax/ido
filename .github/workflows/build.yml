@@ -1,4 +1,4 @@
-name: Build iDo Desktop
+name: Build iDo
 
 on:
   push:
@@ -6,65 +6,49 @@ on:
       - main
     tags:
       - 'v*'
-  pull_request:
-    branches:
-      - main
+
+permissions:
+  contents: write
 
 jobs:
-  build-tauri:
-    permissions:
-      contents: write
+  build:
     strategy:
       fail-fast: false
       matrix:
         include:
           - platform: macos-latest
             args: '--target aarch64-apple-darwin'
-            arch: aarch64
           - platform: macos-latest
             args: '--target x86_64-apple-darwin'
-            arch: x86_64
-          - platform: windows-latest
-            args: ''
-            arch: x86_64
           - platform: ubuntu-22.04
             args: ''
-            arch: x86_64
+          - platform: windows-latest
+            args: ''
 
     runs-on: ${{ matrix.platform }}
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
 
-      - name: Install Node.js
-        uses: actions/setup-node@v4
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
-          cache-dependency-path: Tauri/ido-desktop/package-lock.json
 
-      - name: Install Rust stable
-        uses: dtolnay/rust-toolchain@stable
+      - uses: dtolnay/rust-toolchain@stable
         with:
-          targets: ${{ matrix.platform == 'macos-latest' && matrix.args != '' && (contains(matrix.args, 'aarch64') && 'aarch64-apple-darwin' || 'x86_64-apple-darwin') || '' }}
+          targets: ${{ contains(matrix.args, 'aarch64') && 'aarch64-apple-darwin' || contains(matrix.args, 'x86_64') && 'x86_64-apple-darwin' || '' }}
 
-      - name: Install Linux system dependencies
+      - name: Install Linux dependencies
         if: matrix.platform == 'ubuntu-22.04'
         run: |
           sudo apt-get update
-          sudo apt-get install -y \
-            libwebkit2gtk-4.1-dev \
-            libappindicator3-dev \
-            librsvg2-dev \
-            patchelf \
-            libssl-dev \
-            pkg-config
+          sudo apt-get install -y libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf libssl-dev pkg-config
 
-      - name: Install frontend dependencies
+      - name: Install dependencies
         working-directory: Tauri/ido-desktop
         run: npm ci
 
-      - name: Build Tauri app
+      - name: Build Tauri
         uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -73,42 +57,25 @@ jobs:
         with:
           projectPath: Tauri/ido-desktop
           args: ${{ matrix.args }}
-          tagName: ${{ startsWith(github.ref, 'refs/tags/') && github.ref_name || '' }}
-          releaseName: ${{ startsWith(github.ref, 'refs/tags/') && format('iDo {0}', github.ref_name) || '' }}
-          releaseDraft: true
+          tagName: ${{ github.ref_name }}
+          releaseName: 'iDo ${{ github.ref_name }}'
+          releaseBody: 'Official release'
+          releaseDraft: false
           prerelease: false
 
-      # ──────────────────────────────────────────────────────────────
-      # Debug: list bundle contents so we can see exactly what was built
-      # ──────────────────────────────────────────────────────────────
-      - name: Debug — list bundle directory (Linux/macOS)
-        if: always() && matrix.platform != 'windows-latest'
+      - name: Debug — list bundle output
+        if: always()
+        shell: bash
         run: |
-          echo "=== Bundle directory tree ==="
-          BUNDLE_ROOT="Tauri/ido-desktop/src-tauri/target"
-          find "$BUNDLE_ROOT" -path '*/bundle/*' -type f 2>/dev/null | head -60 || echo "No bundle files found"
+          echo "=== Bundle files ==="
+          find Tauri/ido-desktop/src-tauri/target -path '*/bundle/*' -type f 2>/dev/null | head -60 || echo "No bundle files"
 
-      - name: Debug — list bundle directory (Windows)
-        if: always() && matrix.platform == 'windows-latest'
-        shell: pwsh
-        run: |
-          Write-Host "=== Bundle directory tree ==="
-          $root = "Tauri/ido-desktop/src-tauri/target"
-          Get-ChildItem -Path $root -Recurse -File -ErrorAction SilentlyContinue |
-            Where-Object { $_.FullName -match 'bundle' } |
-            Select-Object -First 60 -ExpandProperty FullName
-
-      # ──────────────────────────────────────────────────────────────
-      # Upload per-platform artifacts (available even without a tag)
-      # ──────────────────────────────────────────────────────────────
       - name: Upload macOS DMG (aarch64)
         if: always() && matrix.platform == 'macos-latest' && contains(matrix.args, 'aarch64')
         uses: actions/upload-artifact@v4
         with:
           name: iDo-macOS-aarch64
-          path: |
-            Tauri/ido-desktop/src-tauri/target/aarch64-apple-darwin/release/bundle/dmg/*.dmg
-            Tauri/ido-desktop/src-tauri/target/aarch64-apple-darwin/release/bundle/macos/*.app
+          path: Tauri/ido-desktop/src-tauri/target/aarch64-apple-darwin/release/bundle/dmg/*.dmg
           if-no-files-found: warn
 
       - name: Upload macOS DMG (x86_64)
@@ -116,9 +83,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: iDo-macOS-x86_64
-          path: |
-            Tauri/ido-desktop/src-tauri/target/x86_64-apple-darwin/release/bundle/dmg/*.dmg
-            Tauri/ido-desktop/src-tauri/target/x86_64-apple-darwin/release/bundle/macos/*.app
+          path: Tauri/ido-desktop/src-tauri/target/x86_64-apple-darwin/release/bundle/dmg/*.dmg
           if-no-files-found: warn
 
       - name: Upload Windows installers
@@ -139,5 +104,4 @@ jobs:
           path: |
             Tauri/ido-desktop/src-tauri/target/release/bundle/appimage/*.AppImage
             Tauri/ido-desktop/src-tauri/target/release/bundle/deb/*.deb
-            Tauri/ido-desktop/src-tauri/target/release/bundle/rpm/*.rpm
           if-no-files-found: warn
