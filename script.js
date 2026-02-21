@@ -550,48 +550,53 @@ async function findDriveFile() {
 
         const os = detectOS();
 
-        // Detect Apple Silicon vs Intel Mac
+        // Detect Apple Silicon vs Intel Mac via WebGL renderer
         function isMacAppleSilicon() {
             try {
-                const canvas = document.createElement('canvas');
-                const gl = canvas.getContext('webgl');
+                var canvas = document.createElement('canvas');
+                var gl = canvas.getContext('webgl');
                 if (gl) {
-                    const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
+                    var debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
                     if (debugInfo) {
-                        const renderer = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
+                        var renderer = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
                         return /apple/i.test(renderer);
                     }
                 }
-            } catch (e) {}
-            return true; // Default to Apple Silicon for macOS
+            } catch (e) { /* ignore */ }
+            return true; // Default to Apple Silicon for modern Macs
         }
 
-        // Map OS → badge + recommended item
-        const macKey = (os === 'macos' && !isMacAppleSilicon()) ? 'macos-intel' : 'macos-arm';
-        const osMap = {
-            macos:   { badge: 'badge-' + macKey, item: 'dl-' + macKey, label: 'Download for Mac' },
-            windows: { badge: 'badge-windows',      item: 'dl-windows',      label: 'Download for Windows' },
-            linux:   { badge: 'badge-linux',         item: 'dl-linux',         label: 'Download for Linux' },
-            android: { badge: 'badge-android',       item: 'dl-android',       label: 'Download for Android' },
+        // Set macOS link dynamically based on chip
+        if (os === 'macos') {
+            var macLink = document.getElementById('dl-macos');
+            if (macLink) {
+                macLink.href = isMacAppleSilicon()
+                    ? 'https://github.com/Syrthax/ido/releases/tag/v2.4.0m'
+                    : 'https://github.com/Syrthax/ido/releases/tag/v2.4.0mx86';
+            }
+        }
+
+        // OS → element id + button label
+        var osIdMap = {
+            macos:   { id: 'dl-macos',    label: 'Download for Mac' },
+            windows: { id: 'dl-windows',  label: 'Download for Windows' },
+            linux:   { id: 'dl-linux',    label: 'Download for Linux' },
+            android: { id: 'dl-android',  label: 'Download for Android' }
         };
 
-        const match = osMap[os];
+        var match = osIdMap[os];
         if (match) {
-            // Show badge and highlight row
-            const badge = document.getElementById(match.badge);
-            const item  = document.getElementById(match.item);
-            if (badge) badge.style.display = 'inline-block';
-            if (item)  item.classList.add('recommended');
+            var detectedEl = document.getElementById(match.id);
+            if (detectedEl) detectedEl.classList.add('detected');
 
-            // Update main button label
-            const labelEl = document.getElementById('download-label');
+            var labelEl = document.getElementById('download-label');
             if (labelEl) labelEl.textContent = match.label;
         }
 
-        // Toggle dropdown
+        // Toggle dropdown open/close
         btn.addEventListener('click', function (e) {
             e.stopPropagation();
-            const isOpen = dropdown.classList.toggle('open');
+            var isOpen = dropdown.classList.toggle('open');
             btn.setAttribute('aria-expanded', String(isOpen));
         });
 
@@ -603,7 +608,7 @@ async function findDriveFile() {
             }
         });
 
-        // Close on Escape
+        // Close on Escape key
         document.addEventListener('keydown', function (e) {
             if (e.key === 'Escape') {
                 dropdown.classList.remove('open');
