@@ -14,13 +14,13 @@ const GOOGLE_TOKEN_URL: &str = "https://oauth2.googleapis.com/token";
 const GOOGLE_USERINFO_URL: &str = "https://www.googleapis.com/oauth2/v3/userinfo";
 
 // Credentials injected at compile time from environment variables.
-// Set GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET in your environment or .env file.
+// Set GOOGLE_DESKTOP_CLIENT_ID and GOOGLE_DESKTOP_CLIENT_SECRET in your environment or .env file.
 // In GitHub Actions, add them as repository secrets.
-const CLIENT_ID: &str = match option_env!("GOOGLE_CLIENT_ID") {
+const CLIENT_ID: &str = match option_env!("GOOGLE_DESKTOP_CLIENT_ID") {
     Some(v) => v,
     None => "",
 };
-const CLIENT_SECRET: &str = match option_env!("GOOGLE_CLIENT_SECRET") {
+const CLIENT_SECRET: &str = match option_env!("GOOGLE_DESKTOP_CLIENT_SECRET") {
     Some(v) => v,
     None => "",
 };
