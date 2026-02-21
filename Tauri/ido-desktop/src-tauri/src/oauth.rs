@@ -16,8 +16,14 @@ const GOOGLE_USERINFO_URL: &str = "https://www.googleapis.com/oauth2/v3/userinfo
 // Credentials injected at compile time from environment variables.
 // Set GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET in your environment or .env file.
 // In GitHub Actions, add them as repository secrets.
-const CLIENT_ID: &str = env!("GOOGLE_CLIENT_ID", "Set GOOGLE_CLIENT_ID env var before building");
-const CLIENT_SECRET: &str = env!("GOOGLE_CLIENT_SECRET", "Set GOOGLE_CLIENT_SECRET env var before building");
+const CLIENT_ID: &str = match option_env!("GOOGLE_CLIENT_ID") {
+    Some(v) => v,
+    None => "",
+};
+const CLIENT_SECRET: &str = match option_env!("GOOGLE_CLIENT_SECRET") {
+    Some(v) => v,
+    None => "",
+};
 
 // Required scopes
 const GOOGLE_SCOPE: &str = "openid email profile https://www.googleapis.com/auth/drive.file";

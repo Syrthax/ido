@@ -1,4 +1,5 @@
 
+#[allow(unused_imports)]
 use tauri::Manager;
 
 mod oauth;
@@ -26,10 +27,10 @@ pub fn run() {
             send_test_notification,
             schedule_task_notification,
         ])
-        .setup(|app| {
+        .setup(|_app| {
             #[cfg(debug_assertions)]
             {
-                let window = app.get_webview_window("main").unwrap();
+                let window = _app.get_webview_window("main").unwrap();
                 window.open_devtools();
             }
             Ok(())
