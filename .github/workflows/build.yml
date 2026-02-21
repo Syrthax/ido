@@ -70,10 +70,10 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GOOGLE_DESKTOP_CLIENT_ID: ${{ secrets.GOOGLE_DESKTOP_CLIENT_ID }}
           GOOGLE_DESKTOP_CLIENT_SECRET: ${{ secrets.GOOGLE_DESKTOP_CLIENT_SECRET }}
-          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
-          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
         with:
-          tagName: ${{ github.ref_name }}
+          projectPath: Tauri/ido-desktop
+          args: ${{ matrix.args }}
+          tagName: v__VERSION__
           releaseName: 'iDo v__VERSION__'
           releaseBody: |
             ## iDo Desktop v__VERSION__
@@ -90,32 +90,55 @@ jobs:
 
             ### What's New
             See [CHANGELOG.md](https://github.com/Syrthax/ido/blob/main/CHANGELOG.md) for full details.
-          releaseDraft: false
-          prerelease: ${{ !startsWith(github.ref, 'refs/tags/') }}
-          projectPath: Tauri/ido-desktop
-          args: ${{ matrix.args }}
+          releaseDraft: true
+          prerelease: false
+          includeRelease: ${{ startsWith(github.ref, 'refs/tags/') }}
+
+      # ──────────────────────────────────────────────────────────────
+      # Debug: list bundle contents so we can see exactly what was built
+      # ──────────────────────────────────────────────────────────────
+      - name: Debug — list bundle directory (Linux/macOS)
+        if: always() && matrix.platform != 'windows-latest'
+        run: |
+          echo "=== Bundle directory tree ==="
+          BUNDLE_ROOT="Tauri/ido-desktop/src-tauri/target"
+          find "$BUNDLE_ROOT" -path '*/bundle/*' -type f 2>/dev/null | head -60 || echo "No bundle files found"
+
+      - name: Debug — list bundle directory (Windows)
+        if: always() && matrix.platform == 'windows-latest'
+        shell: pwsh
+        run: |
+          Write-Host "=== Bundle directory tree ==="
+          $root = "Tauri/ido-desktop/src-tauri/target"
+          Get-ChildItem -Path $root -Recurse -File -ErrorAction SilentlyContinue |
+            Where-Object { $_.FullName -match 'bundle' } |
+            Select-Object -First 60 -ExpandProperty FullName
 
       # ──────────────────────────────────────────────────────────────
       # Upload per-platform artifacts (available even without a tag)
       # ──────────────────────────────────────────────────────────────
       - name: Upload macOS DMG (aarch64)
-        if: matrix.platform == 'macos-latest' && contains(matrix.args, 'aarch64')
+        if: always() && matrix.platform == 'macos-latest' && contains(matrix.args, 'aarch64')
         uses: actions/upload-artifact@v4
         with:
-          name: iDo-macOS-aarch64-dmg
-          path: Tauri/ido-desktop/src-tauri/target/aarch64-apple-darwin/release/bundle/dmg/*.dmg
+          name: iDo-macOS-aarch64
+          path: |
+            Tauri/ido-desktop/src-tauri/target/aarch64-apple-darwin/release/bundle/dmg/*.dmg
+            Tauri/ido-desktop/src-tauri/target/aarch64-apple-darwin/release/bundle/macos/*.app
           if-no-files-found: warn
 
       - name: Upload macOS DMG (x86_64)
-        if: matrix.platform == 'macos-latest' && contains(matrix.args, 'x86_64')
+        if: always() && matrix.platform == 'macos-latest' && contains(matrix.args, 'x86_64')
         uses: actions/upload-artifact@v4
         with:
-          name: iDo-macOS-x86_64-dmg
-          path: Tauri/ido-desktop/src-tauri/target/x86_64-apple-darwin/release/bundle/dmg/*.dmg
+          name: iDo-macOS-x86_64
+          path: |
+            Tauri/ido-desktop/src-tauri/target/x86_64-apple-darwin/release/bundle/dmg/*.dmg
+            Tauri/ido-desktop/src-tauri/target/x86_64-apple-darwin/release/bundle/macos/*.app
           if-no-files-found: warn
 
-      - name: Upload Windows MSI + NSIS
-        if: matrix.platform == 'windows-latest'
+      - name: Upload Windows installers
+        if: always() && matrix.platform == 'windows-latest'
         uses: actions/upload-artifact@v4
         with:
           name: iDo-Windows-installers
@@ -124,12 +147,13 @@ jobs:
             Tauri/ido-desktop/src-tauri/target/release/bundle/nsis/*.exe
           if-no-files-found: warn
 
-      - name: Upload Linux AppImage + deb
-        if: matrix.platform == 'ubuntu-22.04'
+      - name: Upload Linux packages
+        if: always() && matrix.platform == 'ubuntu-22.04'
         uses: actions/upload-artifact@v4
         with:
           name: iDo-Linux-packages
           path: |
             Tauri/ido-desktop/src-tauri/target/release/bundle/appimage/*.AppImage
             Tauri/ido-desktop/src-tauri/target/release/bundle/deb/*.deb
+            Tauri/ido-desktop/src-tauri/target/release/bundle/rpm/*.rpm
           if-no-files-found: warn
