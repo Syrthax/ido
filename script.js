@@ -522,3 +522,117 @@ async function findDriveFile() {
     const result = await response.json();
     return result.files && result.files.length > 0 ? result.files[0].id : null;
 }
+
+/* ===================================================
+   LANDING PAGE — Download Dropdown & OS Detection
+   =================================================== */
+
+(function () {
+    'use strict';
+
+    // ── OS detection ──────────────────────────────────────────────
+    function detectOS() {
+        const ua = navigator.userAgent;
+        if (/android/i.test(ua))                    return 'android';
+        if (/ipad|iphone|ipod/i.test(ua))           return 'ios';
+        if (/macintosh|mac os x/i.test(ua))         return 'macos';
+        if (/windows nt/i.test(ua))                 return 'windows';
+        if (/linux/i.test(ua))                      return 'linux';
+        return 'unknown';
+    }
+
+    // ── Download dropdown toggle ───────────────────────────────────
+    function initDownloadDropdown() {
+        const wrapper  = document.getElementById('download-wrapper');
+        const btn      = document.getElementById('download-main-btn');
+        const dropdown = document.getElementById('download-dropdown');
+        if (!wrapper || !btn || !dropdown) return;
+
+        const os = detectOS();
+
+        // Map OS → badge + recommended item
+        const osMap = {
+            macos:   { badge: 'badge-macos',   item: 'dl-macos',   label: 'Download for Mac' },
+            windows: { badge: 'badge-windows', item: 'dl-windows', label: 'Download for Windows' },
+            linux:   { badge: 'badge-linux',   item: 'dl-linux',   label: 'Download for Linux' },
+            android: { badge: 'badge-android', item: 'dl-android', label: 'Download for Android' },
+        };
+
+        const match = osMap[os];
+        if (match) {
+            // Show badge and highlight row
+            const badge = document.getElementById(match.badge);
+            const item  = document.getElementById(match.item);
+            if (badge) badge.style.display = 'inline-block';
+            if (item)  item.classList.add('recommended');
+
+            // Update main button label
+            const labelEl = document.getElementById('download-label');
+            if (labelEl) labelEl.textContent = match.label;
+        }
+
+        // Toggle dropdown
+        btn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            const isOpen = dropdown.classList.toggle('open');
+            btn.setAttribute('aria-expanded', String(isOpen));
+        });
+
+        // Close on outside click
+        document.addEventListener('click', function (e) {
+            if (!wrapper.contains(e.target)) {
+                dropdown.classList.remove('open');
+                btn.setAttribute('aria-expanded', 'false');
+            }
+        });
+
+        // Close on Escape
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                dropdown.classList.remove('open');
+                btn.setAttribute('aria-expanded', 'false');
+            }
+        });
+    }
+
+    // ── Learn More smooth scroll ───────────────────────────────────
+    function initLearnMore() {
+        const learnBtn = document.getElementById('learn-more');
+        if (!learnBtn) return;
+        learnBtn.addEventListener('click', function () {
+            const features = document.getElementById('features');
+            if (features) features.scrollIntoView({ behavior: 'smooth' });
+        });
+    }
+
+    // ── Scroll reveal ──────────────────────────────────────────────
+    function initScrollReveal() {
+        const els = document.querySelectorAll('.feature-card, .glass-card');
+        if (!els.length || !window.IntersectionObserver) return;
+        const observer = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        els.forEach(function (el) {
+            el.classList.add('scroll-reveal');
+            observer.observe(el);
+        });
+    }
+
+    // ── Boot ────────────────────────────────────────────────────────
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function () {
+            initDownloadDropdown();
+            initLearnMore();
+            initScrollReveal();
+        });
+    } else {
+        initDownloadDropdown();
+        initLearnMore();
+        initScrollReveal();
+    }
+}());

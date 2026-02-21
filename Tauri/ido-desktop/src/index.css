@@ -1,0 +1,53 @@
+@import "tailwindcss";
+
+:root {
+  --ido-bg: #0d1117;
+  --ido-surface: #161b22;
+  --ido-surface-2: #1e2530;
+  --ido-border: #30363d;
+  --ido-text: #e6edf3;
+  --ido-text-muted: #8b949e;
+  --ido-accent: #2563eb;
+  --ido-accent-hover: #1d4ed8;
+  --ido-priority-high: #ef4444;
+  --ido-priority-medium: #f97316;
+  --ido-priority-low: #22c55e;
+}
+
+[data-theme="light"] {
+  --ido-bg: #f4f6f8;
+  --ido-surface: #ffffff;
+  --ido-surface-2: #f0f2f5;
+  --ido-border: #d0d7de;
+  --ido-text: #1f2328;
+  --ido-text-muted: #656d76;
+  --ido-accent: #2563eb;
+  --ido-accent-hover: #1d4ed8;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif;
+  background: var(--ido-bg);
+  color: var(--ido-text);
+  -webkit-font-smoothing: antialiased;
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--ido-border); border-radius: 3px; }
+::selection { background: var(--ido-accent); color: white; }
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}

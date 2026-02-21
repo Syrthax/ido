@@ -37,7 +37,7 @@
                         <div class="notice-icon">⚠️</div>
                         <div class="notice-content">
                             <h4>Testing Phase</h4>
-                            <p>This app is currently in testing. Due to Google OAuth restrictions, you need to provide your Gmail address before accessing. Please DM me on <a href="https://instagram.com/i._._.sarthak" target="_blank" rel="noopener" class="notice-link">Instagram (@i._._.sarthak)</a> to get whitelisted.</p>
+                            <p>This app is currently in testing. Due to Google OAuth restrictions, you need to provide your Gmail address before accessing. Please Reach me on <a href="https://contact.sarthakg.tech" target="_blank" rel="noopener" class="notice-link">Mail</a> to get whitelisted.</p>
                         </div>
                     </div>
 
@@ -46,10 +46,54 @@
                             <span class="btn-text">Launch App</span>
                             <span class="btn-icon">→</span>
                         </a>
-                        <a href="https://github.com/Syrthax/ido/releases/tag/v0.0.1-alpha" target="_blank" rel="noopener" class="btn btn-secondary">
-                            <span class="btn-text">Download App</span>
-                            <span class="btn-icon">📱</span>
-                        </a>
+
+                        <!-- Download button with OS-detecting dropdown -->
+                        <div class="download-wrapper" id="download-wrapper">
+                            <button class="btn btn-secondary btn-download" id="download-main-btn" aria-haspopup="true" aria-expanded="false">
+                                <span class="btn-text" id="download-label">Download</span>
+                                <span class="btn-icon" id="download-icon">↓</span>
+                                <span class="dropdown-arrow">▾</span>
+                            </button>
+                            <div class="download-dropdown" id="download-dropdown" role="menu">
+                                <div class="dropdown-header">Download iDo</div>
+                                <a class="dropdown-item" id="dl-macos" href="https://github.com/Syrthax/ido/releases/latest/download/iDo_aarch64.dmg" target="_blank" rel="noopener" role="menuitem">
+                                    <span class="dl-icon">🍎</span>
+                                    <span class="dl-info">
+                                        <span class="dl-name">macOS</span>
+                                        <span class="dl-desc">.dmg — Apple Silicon &amp; Intel</span>
+                                    </span>
+                                    <span class="dl-badge" id="badge-macos" style="display:none">Recommended</span>
+                                </a>
+                                <a class="dropdown-item" id="dl-windows" href="https://github.com/Syrthax/ido/releases/latest/download/iDo_x64-setup.exe" target="_blank" rel="noopener" role="menuitem">
+                                    <span class="dl-icon">🪟</span>
+                                    <span class="dl-info">
+                                        <span class="dl-name">Windows</span>
+                                        <span class="dl-desc">.exe / .msi — Windows 10+</span>
+                                    </span>
+                                    <span class="dl-badge" id="badge-windows" style="display:none">Recommended</span>
+                                </a>
+                                <a class="dropdown-item" id="dl-linux" href="https://github.com/Syrthax/ido/releases/latest/download/iDo_amd64.AppImage" target="_blank" rel="noopener" role="menuitem">
+                                    <span class="dl-icon">🐧</span>
+                                    <span class="dl-info">
+                                        <span class="dl-name">Linux</span>
+                                        <span class="dl-desc">.AppImage / .deb</span>
+                                    </span>
+                                    <span class="dl-badge" id="badge-linux" style="display:none">Recommended</span>
+                                </a>
+                                <a class="dropdown-item" id="dl-android" href="https://github.com/Syrthax/ido/releases/latest/download/iDo.apk" target="_blank" rel="noopener" role="menuitem">
+                                    <span class="dl-icon">🤖</span>
+                                    <span class="dl-info">
+                                        <span class="dl-name">Android</span>
+                                        <span class="dl-desc">.apk — Android 8.0+</span>
+                                    </span>
+                                    <span class="dl-badge" id="badge-android" style="display:none">Recommended</span>
+                                </a>
+                                <div class="dropdown-footer">
+                                    <a href="https://github.com/Syrthax/ido/releases" target="_blank" rel="noopener">All releases →</a>
+                                </div>
+                            </div>
+                        </div>
+
                         <button class="btn btn-secondary" id="learn-more">
                             <span class="btn-text">Learn More</span>
                             <span class="btn-icon">↓</span>

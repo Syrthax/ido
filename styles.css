@@ -863,3 +863,134 @@ body {
     width: 200px;
     height: 200px;
 }
+
+/* ===================================================
+   DOWNLOAD DROPDOWN
+   =================================================== */
+
+.download-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.btn-download {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.dropdown-arrow {
+    font-size: 0.75rem;
+    margin-left: 0.1rem;
+    transition: transform 0.2s ease;
+}
+
+.btn-download[aria-expanded="true"] .dropdown-arrow {
+    transform: rotate(180deg);
+}
+
+.download-dropdown {
+    display: none;
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%);
+    min-width: 280px;
+    background: rgba(20, 20, 40, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 16px;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    overflow: hidden;
+    animation: dropdownFadeIn 0.18s ease;
+}
+
+.download-dropdown.open {
+    display: block;
+}
+
+@keyframes dropdownFadeIn {
+    from { opacity: 0; transform: translateX(-50%) translateY(-6px); }
+    to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+.dropdown-header {
+    padding: 0.75rem 1.1rem 0.5rem;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.7rem 1.1rem;
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.85);
+    transition: background 0.15s ease;
+    position: relative;
+}
+
+.dropdown-item:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.dropdown-item.recommended {
+    background: rgba(139, 92, 246, 0.12);
+}
+
+.dl-icon {
+    font-size: 1.3rem;
+    flex-shrink: 0;
+}
+
+.dl-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+    flex: 1;
+}
+
+.dl-name {
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.dl-desc {
+    font-size: 0.72rem;
+    color: rgba(255, 255, 255, 0.45);
+}
+
+.dl-badge {
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    padding: 0.15rem 0.5rem;
+    background: linear-gradient(135deg, #8b5cf6, #6366f1);
+    border-radius: 20px;
+    color: #fff;
+    text-transform: uppercase;
+    flex-shrink: 0;
+}
+
+.dropdown-footer {
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 0.6rem 1.1rem;
+    text-align: center;
+}
+
+.dropdown-footer a {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.4);
+    text-decoration: none;
+    transition: color 0.15s ease;
+}
+
+.dropdown-footer a:hover {
+    color: rgba(255, 255, 255, 0.75);
+}

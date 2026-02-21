@@ -1,0 +1,34 @@
+[package]
+name = "ido-desktop"
+version = "2.4.0"
+description = "iDo – Cross-platform task manager with Google Drive sync"
+authors = ["Sarthak Ghosh"]
+edition = "2021"
+
+[lib]
+name = "ido_desktop_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+tauri-plugin-opener = "2"
+tauri-plugin-notification = "2"
+tauri-plugin-store = "2"
+tauri-plugin-shell = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+tokio = { version = "1", features = ["full"] }
+reqwest = { version = "0.12", features = ["json", "rustls-tls"], default-features = false }
+url = "2"
+urlencoding = "2"
+uuid = { version = "1", features = ["v4"] }
+chrono = { version = "0.4", features = ["serde"] }
+keyring = "3"
+base64 = "0.22"
+rand = "0.8"
+sha2 = "0.10"
+hex = "0.4"
+

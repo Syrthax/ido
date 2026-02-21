@@ -1,165 +1,199 @@
+# iDo — Cross-Platform Task Manager
 
+> Minimalist, privacy-first task management synced to your Google Drive. No servers. No tracking. Your data stays yours.
 
-# 🚀 iDo — A Minimal, Privacy-First To-Do App (Synced with Google Drive)
-
-iDo is a lightweight task manager that keeps your data fully in your control.
-No servers, no databases, no tracking — all your tasks are stored securely in your own Google Drive using OAuth 2.0.
-
-✨ Perfect for students, builders, and anyone who wants a frictionless, cross-device to-do list.
-
----
-
-## ✨ New in This Update
-
-- **Full Calendar integration** — Week View (Mon–Sat) + Day View
-- **Create / edit / delete tasks** directly from Calendar
-- **Create / edit / delete Google Calendar events** from Calendar view
-- **Unified sync** — tap the cloud icon to force sync
-- **Task & Event info/edit sheets** — tap any item for full CRUD
-- **Serverless architecture** — OAuth + Google Drive JSON only
-- **Web ↔ Android feature parity** — same functionality on both platforms
+[![Build Status](https://github.com/Syrthax/ido/actions/workflows/build.yml/badge.svg)](https://github.com/Syrthax/ido/actions/workflows/build.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Platform](https://img.shields.io/badge/platform-macOS%20%7C%20Windows%20%7C%20Linux%20%7C%20Android%20%7C%20Web-lightgrey)](https://github.com/Syrthax/ido/releases)
 
 ---
 
-## 🧠 Architecture
+## Overview
+
+iDo is a lightweight, cross-platform task manager that uses **Google Drive** as its backend — no custom servers, no databases, no analytics. Authenticate once with Google, and your tasks are stored as a JSON file inside your own Drive. Everything syncs automatically across every platform you use.
+
+---
+
+## Features
+
+| Feature | Details |
+|---------|---------|
+| **Google Drive Sync** | Tasks stored in `iDo/ido-data.json` inside your own Drive |
+| **Google Calendar Integration** | Create, edit, and delete calendar events directly from iDo |
+| **Calendar Views** | Week view (Mon–Sat) and Day view |
+| **Task Management** | Priority, Today, Later, and Unscheduled task sections |
+| **Zero Backend** | OAuth 2.0 only — no intermediate server, no data collection |
+| **Privacy First** | No analytics, no cookies, no server logs |
+| **Cross-Platform** | macOS, Windows, Linux (Tauri), Android (Kotlin), Web |
+| **Minimal UI** | Clean, distraction-free design focused on productivity |
+
+---
+
+## Download
+
+| Platform | Download |
+|----------|----------|
+| **macOS** | [iDo.dmg](https://github.com/Syrthax/ido/releases/latest) |
+| **Windows** | [iDo Setup.exe](https://github.com/Syrthax/ido/releases/latest) |
+| **Linux** | [iDo.AppImage](https://github.com/Syrthax/ido/releases/latest) |
+| **Android** | [iDo.apk](https://github.com/Syrthax/ido/releases/latest) |
+| **Web** | [Launch App](https://syrthax.github.io/ido/web/) |
+
+---
+
+## Architecture
 
 iDo uses a **serverless-first** design:
 
 | Component | Implementation |
 |-----------|----------------|
-| Identity | Google OAuth 2.0 |
+| Identity | Google OAuth 2.0 (PKCE) |
 | Task Storage | Google Drive JSON (`iDo/ido-data.json`) |
 | Event Storage | Google Calendar API |
 | Conflict Resolution | Last-write-wins (`updatedAt` timestamp) |
-| Backend | None — all client-side |
-
-No intermediate servers. Your data stays in your Google account.
-
----
-
-## 📱 Screens (Android)
-
-| Screen | Features |
-|--------|----------|
-| **Tasks** | Priority / Today / Later / Unscheduled sections |
-| **Calendar** | Week View + Day View, task & event display, CRUD |
-| **Settings** | Profile info, sync status, sign out |
+| Desktop Shell | Tauri 2 (Rust + WebView) |
+| Mobile | Kotlin, Jetpack Compose, Material 3 |
+| Backend | **None** |
 
 ---
 
-# 🌟 Features
-
-🔐 **Login with Google (OAuth 2.0)**
-- Secure authentication flow
-- Uses Google Drive API to store your tasks
-- No backend server needed — everything happens on your device
-
-☁️ **Real-Time Sync via Google Drive**
-- Tasks are saved inside a dedicated folder in your Drive
-- Automatically synced across browser sessions and Android
-
-🧹 **Minimal, Distraction-Free UI**
-- Clean layout focused on productivity
-- Add, delete, and toggle tasks instantly
-- Mobile-responsive design
-
-🔒 **Your Data. Your Drive.**
-- iDo stores zero data outside Google Drive
-- No analytics, no cookies, no logging
-- Perfect for privacy-conscious users
-
----
-
-# 🖼️ Live Demo
-
-👉 **Web app:** https://syrthax.github.io/ido/web/
-
----
-
-# 🧰 Tech Stack
-
-| Component | Technology |
-|-----------|------------|
-| Web Frontend | HTML, CSS, JavaScript |
-| Android | Kotlin, Jetpack Compose, Material 3 |
-| Auth | Google OAuth 2.0 |
-| Storage | Google Drive API, Google Calendar API |
-| Hosting | GitHub Pages (web) |
-
----
-
-# 🛠️ How It Works
-1. User signs in with Google
-2. OAuth returns a token authorized for Drive + Calendar access
-3. iDo checks for a folder named "iDo" in Google Drive
-   - If not found, it creates one
-4. Tasks are stored in a JSON file: `iDo/ido-data.json`
-5. Events are read/written via Google Calendar API
-6. Adding/deleting tasks immediately updates the Drive file
-
-This architecture means iDo requires no backend server, making it extremely fast, safe, and free to operate.
-
-<img width="1710" height="982" alt="image" src="https://github.com/user-attachments/assets/5c21034e-16aa-4564-a948-4744eaa59503" />
-
----
-
-# 🧑‍💻 Run Locally
-
-### Web
-1. Clone the repo:
-   ```bash
-   git clone https://github.com/Syrthax/ido
-   cd ido
-   ```
-2. Create your own Google OAuth credentials and configure `web/config.js`
-3. Use Live Server or open `/web/index.html` directly
-
-### Android
-1. Open `/android` folder in Android Studio
-2. Add your OAuth client ID in the appropriate config
-3. Build and run on device/emulator
-
----
-
-# 📁 Project Structure
+## Project Structure
 
 ```
-/ (Landing page)
-├── index.html
-├── styles.css
-├── script.js
-
-/web (Web app)
-├── index.html
-├── app.js
-├── calendar.js
-├── drive.js
-├── config.js
-
-/android (Android app)
-├── app/src/main/java/com/ido/app/
-│   ├── data/          # Models, repositories, data sources
-│   ├── ui/            # Compose screens and components
-│   ├── sync/          # Sync management
-│   └── notifications/ # Task reminders
+/
+├── index.html          # Landing page
+├── styles.css          # Landing page styles
+├── script.js           # Landing page JS + download OS detection
+├── web/                # Web app (SPA)
+│   ├── app.js
+│   ├── calendar.js
+│   ├── drive.js
+│   └── config.js
+├── Tauri/ido-desktop/  # Desktop app (Tauri 2)
+│   ├── src/            # React/TypeScript frontend
+│   └── src-tauri/      # Rust backend + tauri.conf.json
+├── android/            # Android app (Kotlin / Jetpack Compose)
+├── macosapp/           # Prebuilt macOS distribution
+│   ├── iDo.app
+│   └── iDo.dmg
+└── .github/
+    └── workflows/
+        └── build.yml   # CI — builds all platforms on push/tag
 ```
 
 ---
 
-# 📜 License
+## Build Instructions
 
-This project is open-source under the MIT License.
-You are free to modify, distribute, and use it in your own projects.
+### Prerequisites
 
+- Node.js 18+  https://nodejs.org/
+- Rust stable   https://rustup.rs/
+- Tauri CLI: `cargo install tauri-cli`
 
-# 🤝 Contributing
+### Web App
 
-Pull requests are welcome!
-If you have ideas for improvements—like reminders, labels, widgets—drop an issue or submit PRs.
+```bash
+cd web
+cp config.example.js config.js
+# Add your Google OAuth Client ID to config.js
+npx serve .
+```
 
+### Desktop App (Tauri 2)
 
-# ✨ Author
+```bash
+cd Tauri/ido-desktop
+npm install
 
-Sarthak
-Portfolio: [Portfolio](https://sarthakg.tech/)
-GitHub: https://github.com/Syrthax
+# Development with hot-reload
+npm run tauri dev
+
+# Production build
+npm run tauri build
+```
+
+Build output locations:
+
+| Platform | Path |
+|----------|------|
+| macOS .app | `src-tauri/target/release/bundle/macos/iDo.app` |
+| macOS .dmg | `src-tauri/target/release/bundle/dmg/iDo_*.dmg` |
+| Windows .msi | `src-tauri/target/release/bundle/msi/iDo_*.msi` |
+| Windows .exe | `src-tauri/target/release/bundle/nsis/iDo_*-setup.exe` |
+| Linux .AppImage | `src-tauri/target/release/bundle/appimage/iDo_*.AppImage` |
+| Linux .deb | `src-tauri/target/release/bundle/deb/iDo_*.deb` |
+
+### Android App
+
+1. Open `android/` in Android Studio (Hedgehog or later)
+2. Add your OAuth Client ID to the config
+3. Build and run on a device or emulator (API 26+)
+
+---
+
+## Configuration — Google OAuth
+
+1. Open [Google Cloud Console](https://console.cloud.google.com/)
+2. Create a project and enable **Google Drive API** and **Google Calendar API**
+3. Create OAuth 2.0 credentials (Web Application)
+4. Add your redirect URI
+5. Set Client ID in `web/config.js`:
+
+```js
+export const CLIENT_ID = 'YOUR_CLIENT_ID.apps.googleusercontent.com';
+```
+
+> **Note:** The app is in OAuth testing mode. Contact via [Instagram](https://instagram.com/i._._.sarthak) or [email](https://contact.sarthakg.tech) to be added to the allowlist.
+
+---
+
+## CI/CD
+
+Automated builds run via [GitHub Actions](.github/workflows/build.yml) on every push to `main` and on `v*` version tags.
+
+| Platform | Artifacts |
+|----------|-----------|
+| macOS (Apple Silicon + Intel) | `.dmg` |
+| Windows | `.msi`, `.exe` |
+| Linux | `.AppImage`, `.deb` |
+
+Artifacts are uploaded to GitHub Releases automatically when a `v*` tag is pushed.
+
+---
+
+## Supported Platforms
+
+| Platform | Min. Version | Status |
+|----------|-------------|--------|
+| macOS | 11.0 Big Sur | Supported |
+| Windows | 10 (64-bit) | Supported |
+| Linux | Ubuntu 20.04+ | Supported |
+| Android | 8.0 API 26 | Supported |
+| Web | Modern browser | Supported |
+| iOS | — | Planned |
+
+---
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/my-feature`
+3. Commit: `git commit -am 'Add my feature'`
+4. Push: `git push origin feature/my-feature`
+5. Open a Pull Request
+
+---
+
+## License
+
+MIT — see [LICENSE](LICENSE) for details.
+
+---
+
+## Author
+
+**Sarthak Ghosh**
+- Portfolio: [sarthakg.tech](https://sarthakg.tech/)
+- GitHub: [@Syrthax](https://github.com/Syrthax)
+- Contact: [contact.sarthakg.tech](https://contact.sarthakg.tech)
